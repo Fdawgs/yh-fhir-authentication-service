@@ -73,8 +73,6 @@ describe("configuration", () => {
 		});
 
 		expect(config.redirectUrl).toEqual(SERVICE_REDIRECT_URL);
-
-		expect(config.keycloak.enabled).toEqual(false);
 	});
 
 	test("Should return values according to environment variables - PFX enabled and CORS enabled", async () => {

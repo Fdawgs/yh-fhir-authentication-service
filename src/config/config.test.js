@@ -28,6 +28,16 @@ describe("configuration", () => {
 			"warn",
 			"silent",
 		]);
+		const AUTH_BEARER_TOKEN_ARRAY =
+			'[{"service": "test", "value": "testtoken"}]';
+
+		const JWKS_ENDPOINT =
+			"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs";
+		const JWT_ALLOWED_AUDIENCE = "who-knows";
+		const JWT_ALLOWED_ALGO_ARRAY = '["RS256"]';
+		const JWT_ALLOWED_ISSUERS =
+			"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER";
+		const JWT_MAX_AGE = "15m";
 
 		Object.assign(process.env, {
 			NODE_ENV,
@@ -38,6 +48,12 @@ describe("configuration", () => {
 			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
 			LOG_LEVEL,
+			AUTH_BEARER_TOKEN_ARRAY,
+			JWKS_ENDPOINT,
+			JWT_ALLOWED_AUDIENCE,
+			JWT_ALLOWED_ALGO_ARRAY,
+			JWT_ALLOWED_ISSUERS,
+			JWT_MAX_AGE,
 		});
 
 		const config = await getConfig();
@@ -73,6 +89,16 @@ describe("configuration", () => {
 		});
 
 		expect(config.redirectUrl).toEqual(SERVICE_REDIRECT_URL);
+
+		expect(config.authKeys).toContain("testtoken");
+
+		expect(config.jwt).toEqual({
+			jwksEndpoint: JWKS_ENDPOINT,
+			allowedAudiences: JWT_ALLOWED_AUDIENCE,
+			allowedAlgorithms: expect.arrayContaining(["RS256"]),
+			allowedIssuers: JWT_ALLOWED_ISSUERS,
+			maxAge: JWT_MAX_AGE,
+		});
 	});
 
 	test("Should return values according to environment variables - PFX enabled and CORS enabled", async () => {

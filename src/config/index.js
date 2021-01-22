@@ -64,7 +64,16 @@ async function getConfig() {
 				S.string().enum(["custom", "daily", "test"]).default("daily")
 			)
 			.prop("LOG_ROTATION_MAX_LOGS", S.anyOf([S.string(), S.null()]))
-			.prop("LOG_ROTATION_MAX_SIZE", S.anyOf([S.string(), S.null()])),
+			.prop("LOG_ROTATION_MAX_SIZE", S.anyOf([S.string(), S.null()]))
+			.prop("AUTH_BEARER_TOKEN_ARRAY", S.anyOf([S.string(), S.null()]))
+			.prop(
+				"JWKS_ENDPOINT",
+				S.anyOf([S.string().format("uri"), S.null()])
+			)
+			.prop("JWT_ALLOWED_AUDIENCE", S.anyOf([S.string(), S.null()]))
+			.prop("JWT_ALLOWED_ALGO_ARRAY", S.anyOf([S.string(), S.null()]))
+			.prop("JWT_ALLOWED_ISSUERS", S.anyOf([S.string(), S.null()]))
+			.prop("JWT_MAX_AGE", S.anyOf([S.string(), S.null()])),
 	});
 
 	const isProduction = env.NODE_ENV === "production";
@@ -144,8 +153,23 @@ async function getConfig() {
 				],
 			},
 		},
+		jwt: {
+			jwksEndpoint: env.JWKS_ENDPOINT,
+			allowedAudiences: env.JWT_ALLOWED_AUDIENCE,
+			allowedAlgorithms: JSON.parse(env.JWT_ALLOWED_ALGO_ARRAY),
+			allowedIssuers: env.JWT_ALLOWED_ISSUERS,
+			maxAge: env.JWT_MAX_AGE,
+		},
 		redirectUrl: env.SERVICE_REDIRECT_URL,
 	};
+
+	if (env.AUTH_BEARER_TOKEN_ARRAY) {
+		const keys = new Set();
+		JSON.parse(env.AUTH_BEARER_TOKEN_ARRAY).forEach((element) => {
+			keys.add(element.value);
+		});
+		config.authKeys = keys;
+	}
 
 	// Enable HTTPS using cert/key or passphrase/pfx combinations
 	if (env.HTTPS_SSL_CERT_PATH && env.HTTPS_SSL_KEY_PATH) {

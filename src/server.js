@@ -8,6 +8,7 @@ const cors = require("fastify-cors");
 const helmet = require("fastify-helmet");
 const helmConfig = require("helmet");
 const disableCache = require("fastify-disablecache");
+const jwtJwks = require("./plugins/jwt-jwks-auth");
 
 /**
  * @author Frazer Smith
@@ -18,6 +19,7 @@ const disableCache = require("fastify-disablecache");
 async function plugin(server, config) {
 	// Enable plugins
 	server
+		.register(jwtJwks, config.jwt)
 		.register(auth)
 		// Use CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 		.register(cors, config.cors)

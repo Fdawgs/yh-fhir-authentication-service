@@ -3,7 +3,6 @@ const fp = require("fastify-plugin");
 // Import plugins
 const replyFrom = require("fastify-reply-from");
 const bearer = require("fastify-bearer-auth").internals.factory;
-// const jwtJwks = require("../../utils/jwt-jwks-auth");
 
 const { redirectGetSchema } = require("./schema");
 
@@ -28,7 +27,7 @@ async function route(server, options) {
 		url: "/STU3/*",
 		schema: redirectGetSchema,
 		preHandler: server.auth([
-			// jwtJwks(options.jwt),
+			server.verifyJWT,
 			bearer({ keys: options.authKeys }),
 		]),
 		handler(req, rep) {

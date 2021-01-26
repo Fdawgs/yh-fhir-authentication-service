@@ -8,7 +8,7 @@ const tags = ["Redirect"];
  *
  * This validation protects against XSS and HPP attacks.
  */
-const wildcardGetSchema = {
+const redirectGetSchema = {
 	tags,
 	summary: "Wildcard route",
 	// Querystring search parameters from https://www.hl7.org/fhir/STU3/search.html
@@ -30,4 +30,4 @@ const wildcardGetSchema = {
 		.additionalProperties(false),
 };
 
-module.exports = { wildcardGetSchema };
+module.exports = { redirectGetSchema };

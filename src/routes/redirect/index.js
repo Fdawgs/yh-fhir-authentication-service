@@ -21,10 +21,8 @@ async function route(server, options) {
 		},
 	});
 
-	server.route({
+	const opts = {
 		method: "GET",
-		// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
-		url: "/STU3/*",
 		schema: redirectGetSchema,
 		preHandler: server.auth([
 			server.verifyJWT,
@@ -61,7 +59,11 @@ async function route(server, options) {
 				},
 			});
 		},
-	});
+	};
+
+	// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
+	server.get("/STU3/:resource", opts);
+	server.get("/STU3/:resource/:id", opts);
 }
 
 module.exports = fp(route);

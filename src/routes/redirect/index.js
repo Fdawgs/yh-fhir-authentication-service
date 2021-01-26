@@ -33,6 +33,17 @@ async function route(server, options) {
 		handler(req, res) {
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
+					// Set CORS origin
+					if (options.cors.origin) {
+						let origin = options.cors.origin;
+
+						if (origin === true) {
+							origin = req.headers.origin || "*";
+						}
+
+						reply.header("access-control-allow-origin", origin);
+					}
+
 					/**
 					 * Remove headers set by Mirth Connect that are either inaccurate
 					 * or pose security risks
@@ -41,6 +52,10 @@ async function route(server, options) {
 					reply.removeHeader("server");
 					reply.removeHeader("location");
 					reply.removeHeader("last-modified");
+
+					reply.removeHeader("access-control-allow-headers");
+					reply.removeHeader("access-control-allow-methods");
+					reply.removeHeader("access-control-expose-headers");
 
 					reply.send(targetResponse);
 				},

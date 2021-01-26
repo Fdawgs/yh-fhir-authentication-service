@@ -51,6 +51,9 @@ describe("Server deployment", () => {
 
 			expect(response.headers).toEqual(
 				expect.not.objectContaining({
+					"access-control-allow-headers": expect.any(String),
+					"access-control-allow-methods": expect.any(String),
+					"access-control-expose-headers": expect.any(String),
 					etag: expect.any(String),
 					server: expect.any(String),
 					location: expect.any(String),

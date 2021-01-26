@@ -30,8 +30,8 @@ async function route(server, options) {
 			server.verifyJWT,
 			bearer({ keys: options.authKeys }),
 		]),
-		handler(req, rep) {
-			rep.from(req.url, {
+		handler(req, res) {
+			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
 					/**
 					 * Remove headers set by Mirth Connect that are either inaccurate

@@ -21,18 +21,27 @@ async function route(server, options) {
 		},
 	});
 
-	server.route({
+	const opts = {
 		method: "GET",
-		// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
-		url: "/STU3/*",
 		schema: redirectGetSchema,
 		preHandler: server.auth([
 			server.verifyJWT,
 			bearer({ keys: options.authKeys }),
 		]),
-		handler(req, rep) {
-			rep.from(req.url, {
+		handler(req, res) {
+			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
+					// Set CORS origin
+					if (options.cors.origin) {
+						let origin = options.cors.origin;
+
+						if (origin === true) {
+							origin = req.headers.origin || "*";
+						}
+
+						reply.header("access-control-allow-origin", origin);
+					}
+
 					/**
 					 * Remove headers set by Mirth Connect that are either inaccurate
 					 * or pose security risks
@@ -42,11 +51,19 @@ async function route(server, options) {
 					reply.removeHeader("location");
 					reply.removeHeader("last-modified");
 
+					reply.removeHeader("access-control-allow-headers");
+					reply.removeHeader("access-control-allow-methods");
+					reply.removeHeader("access-control-expose-headers");
+
 					reply.send(targetResponse);
 				},
 			});
 		},
-	});
+	};
+
+	// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
+	server.get("/STU3/:resource", opts);
+	server.get("/STU3/:resource/:id", opts);
 }
 
 module.exports = fp(route);

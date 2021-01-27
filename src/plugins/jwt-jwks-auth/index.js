@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 const jwksClient = require("jwks-rsa");
 
 /**
- * @author Mark Hunt
  * @author Frazer Smith
+ * @author Mark Hunt
  * @description Retrieve signing key.
  * @param {string} token - JSON web token.
  * @param {string} jwksUri - Endpoint containing JSON Web Key Set (JWKS).
@@ -36,7 +36,12 @@ async function getSigningKey(token, jwksUri) {
  * @description Decorator plugin that adds `verifyJWT` function
  * to authenticate JWTs using JWKS endpoint.
  * @param {Function} server - Fastify instance.
- * @param {object} options - Fastify config values.
+ * @param {object} options - JWT JWKS config values.
+ * @param {string} options.jwksEndpoint - URL of endpoint containing JWKS public keys.
+ * @param {string|Array} options.allowedAudiences - Accepted recipient(s) that JWT is intended for.
+ * @param {Array} options.allowedAlgorithms - Accepted signing algorithm(s).
+ * @param {string|Array} options.allowedIssuers - Accepted principal(s) that issued JWT.
+ * @param {string} options.maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
 	server.decorate("verifyJWT", async (req) => {

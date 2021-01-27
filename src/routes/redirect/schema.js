@@ -10,7 +10,14 @@ const tags = ["Redirect"];
  */
 const redirectGetSchema = {
 	tags,
-	summary: "Wildcard route",
+	summary: "Redirect route",
+
+	params: S.object()
+		// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
+		.prop("resource", S.string().pattern("^\\w{1,26}$"))
+		.prop("id", S.string().pattern("^[\\d-]+$"))
+		.required(["resource"]),
+
 	// Querystring search parameters from https://www.hl7.org/fhir/STU3/search.html
 	query: S.object()
 		.patternProperties({
@@ -23,7 +30,7 @@ const redirectGetSchema = {
 					.pattern(
 						"^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}\\:\\d{2}\\:\\d{2}|)$"
 					),
-				S.string().description("string").pattern('^[^<>"]+$'),
+				S.string().description("string").pattern("^[^<>\"']+$"),
 				S.string().description("uri").format("uri"),
 			]),
 		})

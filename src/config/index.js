@@ -42,7 +42,7 @@ async function getConfig() {
 			.prop("HTTPS_PFX_FILE_PATH", S.anyOf([S.string(), S.null()]))
 			.prop("HTTPS_SSL_CERT_PATH", S.anyOf([S.string(), S.null()]))
 			.prop("HTTPS_SSL_KEY_PATH", S.anyOf([S.string(), S.null()]))
-			.prop("CORS_ORIGIN", S.string().default("false"))
+			.prop("CORS_ORIGIN", S.anyOf([S.string(), S.null()]))
 			.prop("CORS_METHODS", S.anyOf([S.string(), S.null()]))
 			.prop("CORS_ALLOWED_HEADERS", S.anyOf([S.string(), S.null()]))
 			.prop("CORS_EXPOSED_HEADERS", S.anyOf([S.string(), S.null()]))
@@ -76,7 +76,8 @@ async function getConfig() {
 			.prop("JWT_ALLOWED_AUDIENCE", S.anyOf([S.string(), S.null()]))
 			.prop("JWT_ALLOWED_ALGO_ARRAY", S.anyOf([S.string(), S.null()]))
 			.prop("JWT_ALLOWED_ISSUERS", S.anyOf([S.string(), S.null()]))
-			.prop("JWT_MAX_AGE", S.anyOf([S.string(), S.null()])),
+			.prop("JWT_MAX_AGE", S.anyOf([S.string(), S.null()]))
+			.required(["NODE_ENV", "SERVICE_HOST", "SERVICE_PORT"]),
 	});
 
 	const isProduction = env.NODE_ENV === "production";

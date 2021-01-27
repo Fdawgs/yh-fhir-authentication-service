@@ -145,8 +145,6 @@ describe("Server deployment", () => {
 			const config = await getConfig();
 			config.cors.origin = "https://notreal.ydh.nhs.uk";
 
-			console.log(config.cors);
-
 			server.register(startServer, config);
 			await server.ready();
 
@@ -173,8 +171,6 @@ describe("Server deployment", () => {
 			const server = Fastify();
 			const config = await getConfig();
 			delete config.cors.origin;
-
-			console.log(config.cors);
 
 			server.register(startServer, config);
 			await server.ready();

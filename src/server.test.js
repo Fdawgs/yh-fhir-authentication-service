@@ -88,6 +88,7 @@ describe("Server deployment", () => {
 		test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
 			const server = Fastify();
 			const config = await getConfig();
+			config.redirectUrl = "http://127.0.0.1:3001";
 			config.cors.origin = true;
 
 			server.register(startServer, config);
@@ -116,6 +117,7 @@ describe("Server deployment", () => {
 		test("Should set 'access-control-allow-origin' to '*' if 'origin' not in request header", async () => {
 			const server = Fastify();
 			const config = await getConfig();
+			config.redirectUrl = "http://127.0.0.1:3001";
 			config.cors.origin = true;
 
 			server.register(startServer, config);
@@ -143,6 +145,7 @@ describe("Server deployment", () => {
 		test("Should set 'access-control-allow-origin' to string in config", async () => {
 			const server = Fastify();
 			const config = await getConfig();
+			config.redirectUrl = "http://127.0.0.1:3001";
 			config.cors.origin = "https://notreal.ydh.nhs.uk";
 
 			server.register(startServer, config);
@@ -170,6 +173,7 @@ describe("Server deployment", () => {
 		test("Should not set 'access-control-allow-origin' if cors not enabled in config", async () => {
 			const server = Fastify();
 			const config = await getConfig();
+			config.redirectUrl = "http://127.0.0.1:3001";
 			delete config.cors.origin;
 
 			server.register(startServer, config);

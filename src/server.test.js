@@ -5,15 +5,9 @@ const startServer = require("./server");
 const getConfig = require("./config");
 
 describe("Server deployment", () => {
-	let config;
-
 	beforeAll(async () => {
-		config = await getConfig();
-
 		try {
 			await mockServer.listen(3001);
-			config.redirectUrl = "http://127.0.0.1:3001";
-			config.authKeys = ["testtoken"];
 			console.log(
 				"Mock Mirth Connect server listening on http://127.0.0.1:3001"
 			);
@@ -29,6 +23,13 @@ describe("Server deployment", () => {
 
 	describe("Server", () => {
 		let server;
+		let config;
+
+		beforeAll(async () => {
+			config = await getConfig();
+			config.redirectUrl = "http://127.0.0.1:3001";
+			config.authKeys = ["testtoken"];
+		});
 
 		beforeEach(async () => {
 			server = Fastify();
@@ -80,6 +81,121 @@ describe("Server deployment", () => {
 					error: "invalid authorization header",
 				})
 			);
+		});
+	});
+
+	describe("CORS", () => {
+		test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
+			const server = Fastify();
+			const config = await getConfig();
+			config.cors.origin = true;
+
+			server.register(startServer, config);
+			await server.ready();
+
+			const response = await server.inject({
+				method: "GET",
+				url: "/STU3/Patient/5484125",
+				headers: {
+					Authorization: "Bearer testtoken",
+					Origin: "https://notreal.ydh.nhs.uk",
+				},
+			});
+
+			expect(response.headers).toEqual(
+				expect.objectContaining({
+					"access-control-allow-origin": "https://notreal.ydh.nhs.uk",
+				})
+			);
+
+			expect(response.statusCode).toBe(200);
+
+			server.close();
+		});
+
+		test("Should set 'access-control-allow-origin' to '*' if 'origin' not in request header", async () => {
+			const server = Fastify();
+			const config = await getConfig();
+			config.cors.origin = true;
+
+			server.register(startServer, config);
+			await server.ready();
+
+			const response = await server.inject({
+				method: "GET",
+				url: "/STU3/Patient/5484125",
+				headers: {
+					Authorization: "Bearer testtoken",
+				},
+			});
+
+			expect(response.headers).toEqual(
+				expect.objectContaining({
+					"access-control-allow-origin": "*",
+				})
+			);
+
+			expect(response.statusCode).toBe(200);
+
+			server.close();
+		});
+
+		test("Should set 'access-control-allow-origin' to string in config", async () => {
+			const server = Fastify();
+			const config = await getConfig();
+			config.cors.origin = "https://notreal.ydh.nhs.uk";
+
+			console.log(config.cors);
+
+			server.register(startServer, config);
+			await server.ready();
+
+			const response = await server.inject({
+				method: "GET",
+				url: "/STU3/Patient/5484125",
+				headers: {
+					Authorization: "Bearer testtoken",
+				},
+			});
+
+			expect(response.headers).toEqual(
+				expect.objectContaining({
+					"access-control-allow-origin": "https://notreal.ydh.nhs.uk",
+				})
+			);
+
+			expect(response.statusCode).toBe(200);
+
+			server.close();
+		});
+
+		test("Should not set 'access-control-allow-origin' if cors not enabled in config", async () => {
+			const server = Fastify();
+			const config = await getConfig();
+			delete config.cors.origin;
+
+			console.log(config.cors);
+
+			server.register(startServer, config);
+			await server.ready();
+
+			const response = await server.inject({
+				method: "GET",
+				url: "/STU3/Patient/5484125",
+				headers: {
+					Authorization: "Bearer testtoken",
+				},
+			});
+
+			expect(response.headers).toEqual(
+				expect.objectContaining({
+					"access-control-allow-origin": "*",
+				})
+			);
+
+			expect(response.statusCode).toBe(200);
+
+			server.close();
 		});
 	});
 });

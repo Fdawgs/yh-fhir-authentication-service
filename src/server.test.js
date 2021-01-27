@@ -82,6 +82,19 @@ describe("Server deployment", () => {
 				})
 			);
 		});
+
+		test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
+			const response = await server.inject({
+				method: "GET",
+				url: "/STU3/Patient/5484125",
+				headers: {
+					Accept: "application/javascript",
+					Authorization: "Bearer testtoken",
+				},
+			});
+
+			expect(response.statusCode).toEqual(406);
+		});
 	});
 
 	describe("CORS", () => {

@@ -35,7 +35,8 @@
 		"clearMocks": true,
 		"collectCoverageFrom": [
 			"src/**/*.js",
-			"!src/app.js"
+			"!src/app.js",
+			"!src/plugins/jwt-jwks-auth/*.js"
 		],
 		"resetMocks": true,
 		"testEnvironment": "node",

@@ -1,4 +1,5 @@
 const fp = require("fastify-plugin");
+const { NotAcceptable } = require("http-errors");
 
 // Import plugins
 const replyFrom = require("fastify-reply-from");
@@ -13,6 +14,12 @@ const { redirectGetSchema } = require("./schema");
  * @param {object} options - Object containing route config objects.
  */
 async function route(server, options) {
+	server.addHook("preHandler", async (req, res) => {
+		if (!["json", "xml"].includes(req.accepts().type(["json", "xml"]))) {
+			res.send(NotAcceptable());
+		}
+	});
+
 	server.register(replyFrom, {
 		base: options.redirectUrl,
 		undici: {

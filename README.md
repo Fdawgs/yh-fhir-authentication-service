@@ -4,11 +4,18 @@
 
 [![GitHub Release](https://img.shields.io/github/release/Fdawgs/ydh-fhir-authentication-service.svg)](https://github.com/Fdawgs/ydh-fhir-authentication-service/releases/latest/) ![Build Status](https://github.com/Fdawgs/ydh-fhir-authentication-service/workflows/CI/badge.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/github/Fdawgs/ydh-fhir-authentication-service/badge.svg?branch=master)](https://coveralls.io/github/Fdawgs/ydh-fhir-authentication-service?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/Fdawgs/ydh-fhir-authentication-service/badge.svg)](https://snyk.io/test/github/Fdawgs/ydh-fhir-authentication-service) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+> Yeovil District Hospital NHSFT's FHIR API Authentication Service
+
 ## Intro
 
 This is [Yeovil District Hospital NHSFT](https://yeovilhospital.co.uk/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://www.fastify.io/) web framework.
 
-Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines, however it does not provide SSL/TLS support out of the box or easily configurable authentication on HTTP/FHIR listeners.
+Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines and, whilst a versatile system, does not provide the following:
+
+-   SSL/TLS support out of the box
+-   Easily configurable authentication on HTTP/FHIR listeners
+-   Easily configurable CORS
+
 This service was created to provide that functionality, acting as middleware between the firewall and the targeted FHIR/HTTP listener channel.
 
 ## Prerequisites
@@ -37,6 +44,8 @@ The service should now be up and running on the port set in the config. You shou
 	"msg": "Server listening at http://0.0.0.0:8204"
 }
 ```
+
+To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
 
 ### Deploying using Docker
 
@@ -67,6 +76,11 @@ Yeovil District Hospital NHSFT is heavily entrenched in Microsoft's ecosystem; u
 ## Contributing
 
 Please see [CONTRIBUTING.md](https://github.com/Fdawgs/ydh-fhir-authentication-service/blob/master/CONTRIBUTING.md) for more details regarding contributing to this project.
+
+## Acknowledgements
+
+-   [**Mark Hunt**](https://github.com/nhsbandit) - JWT and JWKS integration and testing
+-   [**Will Jehring**](https://github.com/wjehring) - Redirect testing, and JWT testing
 
 ## License
 

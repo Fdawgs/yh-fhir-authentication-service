@@ -25,7 +25,7 @@ This service was created to provide that functionality, acting as middleware bet
 
 ## Deployment
 
-### Standard deployment
+### Standard Deployment
 
 1. Navigate to the repo
 2. Run `npm install --production` to install dependencies
@@ -47,7 +47,7 @@ The service should now be up and running on the port set in the config. You shou
 
 To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
 
-### Deploying using Docker
+### Deploying Using Docker
 
 This requires [Docker](https://www.docker.com/products) installed.
 
@@ -55,7 +55,7 @@ This requires [Docker](https://www.docker.com/products) installed.
 2. Configure the application using the global variables in `.env`
 3. Run `docker-compose up`
 
-### Deploying using PM2
+### Deploying Using PM2
 
 If you are unable to deploy this into production using Docker, it is recommended that you use a process manager such as [PM2](https://pm2.keymetrics.io/).
 
@@ -67,7 +67,7 @@ If you are unable to deploy this into production using Docker, it is recommended
 6. Launch application with `pm2 start .pm2.config.js`
 7. Check the application has been deployed using `pm2 list` or `pm2 monit`
 
-#### To install as a Windows service:
+#### To Install as a Windows Service:
 
 Yeovil District Hospital NHSFT is heavily entrenched in Microsoft's ecosystem; utilise [pm2-installer](https://github.com/jessety/pm2-installer) to easily install PM2 as a Windows service.
 

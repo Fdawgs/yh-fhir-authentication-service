@@ -32,7 +32,7 @@
 			"parentId": "wrk_d95b17f57ae040c58358dd4b96719d5d",
 			"modified": 1611746265833,
 			"created": 1611746229454,
-			"name": "Example FHIR Server requests",
+			"name": "Example FHIR Server Requests",
 			"description": "",
 			"environment": {},
 			"environmentPropertyOrder": null,

@@ -100,7 +100,6 @@
 		"fastify-reply-from": "^4.0.0",
 		"file-stream-rotator": "^0.5.7",
 		"fluent-json-schema": "^2.0.3",
-		"helmet": "^4.4.1",
 		"http-errors": "^1.8.0",
 		"jsonwebtoken": "^8.5.1",
 		"jwks-rsa": "^1.12.2",

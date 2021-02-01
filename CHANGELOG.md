@@ -1,3 +1,23 @@
+## <small>1.0.1 (2021-02-01)</small>
+
+-   fix(docker): use node command over npm ([f69649a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f69649a))
+-   fix(routes/redirect): id regex ([6452018](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6452018))
+-   build(deps-dev): bump eslint from 7.18.0 to 7.19.0 (#17) ([20d0d67](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/20d0d67)), closes [#17](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/17)
+-   build(deps-dev): bump eslint-plugin-jsdoc from 31.4.0 to 31.6.0 (#16) ([8da82ee](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8da82ee)), closes [#16](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/16)
+-   build(deps-dev): bump pino-pretty from 4.3.0 to 4.4.0 (#18) ([714381b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/714381b)), closes [#18](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/18)
+-   build(deps): bump fastify-disablecache from 1.0.3 to 1.0.4 (#21) ([228a509](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/228a509)), closes [#21](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/21)
+-   build(deps): bump fastify-helmet from 5.1.0 to 5.2.0 (#15) ([09d6028](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/09d6028)), closes [#15](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/15)
+-   chore: check that direct dependencies use permissible licenses ([a5d53d9](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a5d53d9))
+-   chore(routes): specify operationid and produces openapi spec values ([81d24da](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/81d24da))
+-   refactor(server): use new exposed CSP dir from `fastify-helmet` ([8a27d8a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8a27d8a))
+-   docs(readme): remove superfluous text in pm2 install instructions ([7719463](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7719463))
+-   style: capitalise headings correctly ([afc65ed](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/afc65ed))
+-   style(ci): capitalise jobs and job step names ([0df68fd](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0df68fd))
+-   style(readme): capitalise headings correctly ([a4c84a4](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a4c84a4))
+-   style(readme): prettier badge shape ([b913667](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b913667))
+-   style(test_resources): capitalise request names ([6d4e290](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6d4e290))
+-   style(test_resources): fix name of some requests ([02659ec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/02659ec))
+
 ## 1.0.0 (2021-01-27)
 
 -   style: fix spacing ([e0bc579](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e0bc579))

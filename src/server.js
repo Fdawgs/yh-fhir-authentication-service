@@ -7,7 +7,6 @@ const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
 const cors = require("fastify-cors");
 const helmet = require("fastify-helmet");
-const helmConfig = require("helmet");
 const disableCache = require("fastify-disablecache");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 
@@ -30,7 +29,7 @@ async function plugin(server, config) {
 		.register(helmet, {
 			contentSecurityPolicy: {
 				directives: {
-					...helmConfig.contentSecurityPolicy.getDefaultDirectives(),
+					...helmet.contentSecurityPolicy.getDefaultDirectives(),
 					"form-action": ["'self'"],
 				},
 			},

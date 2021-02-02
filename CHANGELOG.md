@@ -1,3 +1,9 @@
+## <small>1.0.2 (2021-02-02)</small>
+
+-   build(deps-dev): bump pino-pretty from 4.4.0 to 4.5.0 ([7feda97](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7feda97))
+-   refactor(config): update openapi docs from v2.\*.\* to v3.\*.\* ([b08fd73](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b08fd73))
+-   fix(config): stop rotatinglogstream flooding stdout ([c2bbbb2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c2bbbb2))
+
 ## <small>1.0.1 (2021-02-01)</small>
 
 -   fix(docker): use node command over npm ([f69649a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f69649a))

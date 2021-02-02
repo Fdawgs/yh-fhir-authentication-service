@@ -1,4 +1,6 @@
 const faker = require("faker/locale/en_GB");
+const fs = require("fs");
+const glob = require("glob");
 const getConfig = require(".");
 
 describe("configuration", () => {
@@ -6,6 +8,13 @@ describe("configuration", () => {
 
 	beforeAll(() => {
 		jest.resetModules();
+	});
+
+	afterAll(() => {
+		const files = glob.GlobSync(`./test_resources/test_log*`).found;
+		files.forEach((foundFile) => {
+			fs.unlinkSync(foundFile);
+		});
 	});
 
 	afterEach(() => {
@@ -28,6 +37,7 @@ describe("configuration", () => {
 			"warn",
 			"silent",
 		]);
+		const LOG_ROTATION_FILENAME = "./test_resources/test_log";
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
 
@@ -48,6 +58,7 @@ describe("configuration", () => {
 			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
 			LOG_LEVEL,
+			LOG_ROTATION_FILENAME,
 			AUTH_BEARER_TOKEN_ARRAY,
 			JWKS_ENDPOINT,
 			JWT_ALLOWED_AUDIENCE,
@@ -74,6 +85,7 @@ describe("configuration", () => {
 					res: expect.any(Function),
 				},
 				timestamp: expect.any(Function),
+				stream: expect.any(Object),
 			})
 		);
 

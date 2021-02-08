@@ -17,7 +17,7 @@
 		"benchmark": "autocannon \"http://0.0.0.0:8204/\"",
 		"changelog": "conventional-changelog -p @commitlint/config-conventional -s -i CHANGELOG.md && prettier CHANGELOG.md --write",
 		"jest": "jest --detectOpenHandles --runInBand",
-		"jest-coverage": "jest --coverage --runInBand",
+		"jest:coverage": "jest --coverage --runInBand",
 		"lint": "eslint . --cache --ext js,jsx,ts,tsx --ignore-path .gitignore",
 		"lint:licenses": "license-checker --direct --onlyAllow=\"MIT;ISC;BSD-3-Clause;BSD-2-Clause\" --production --summary --exclude=\"Apache-2.0\"",
 		"lint:prettier": "prettier . --write --ignore-path .gitignore",

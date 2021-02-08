@@ -4,7 +4,7 @@ const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
 
-describe("Server deployment", () => {
+describe("Server Deployment", () => {
 	beforeAll(async () => {
 		try {
 			await mockServer.listen(3001);

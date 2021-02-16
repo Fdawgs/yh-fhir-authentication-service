@@ -1,3 +1,33 @@
+## <small>1.0.3 (2021-02-16)</small>
+
+-   build(deps-dev): bump eslint from 7.19.0 to 7.20.0 (#35) ([41a0a02](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/41a0a02)), closes [#35](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/35)
+-   build(deps-dev): bump eslint-plugin-jsdoc from 31.6.0 to 32.0.1 (#36) ([ba32bba](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ba32bba)), closes [#36](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/36)
+-   build(deps-dev): bump eslint-plugin-promise from 4.2.1 to 4.3.1 (#34) ([2cc028e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2cc028e)), closes [#34](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/34)
+-   build(deps-dev): bump faker from 5.2.0 to 5.4.0 (#33) ([621164f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/621164f)), closes [#33](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/33)
+-   build(deps-dev): pin husky major version ([e3331ba](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e3331ba))
+-   build(deps): bump actions/cache from v2 to v2.1.4 (#29) ([dbbfb89](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/dbbfb89)), closes [#29](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/29)
+-   build(deps): bump env-schema from 2.0.1 to 2.1.0 (#38) ([44be350](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/44be350)), closes [#38](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/38)
+-   build(deps): bump fastify from 3.11.0 to 3.12.0 (#31) ([ae9d9e3](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ae9d9e3)), closes [#31](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/31)
+-   build(deps): bump fastify-bearer-auth from 5.0.2 to 5.1.0 (#32) ([a848b15](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a848b15)), closes [#32](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/32)
+-   build(deps): bump pino from 6.11.0 to 6.11.1 (#37) ([b213c6a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b213c6a)), closes [#37](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/37)
+-   build(deps): bump wagoid/commitlint-github-action from v2.0.3 to v2.2.3 (#30) ([ff0e918](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ff0e918)), closes [#30](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/30)
+-   ci: add commit-lint job ([a67a263](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a67a263))
+-   ci: replace typo ci app with action ([2ee435a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2ee435a))
+-   ci(dependabot): ignore husky updates ([cda323f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/cda323f))
+-   style: shorten husky pre-push script ([2159b2a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2159b2a))
+-   style(readme): add linebreaks between badges ([bc4fffe](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/bc4fffe))
+-   style(scripts): rename `jest-coverage` to `jest:coverage` ([aa92e38](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/aa92e38))
+-   style(tests): use apa header style for describe name params ([54ba1f8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/54ba1f8))
+-   chore: add 0bsd and unlicense to list of allowed licenses ([9560a3e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9560a3e))
+-   chore: add apache-2.0 to list of allowed licenses ([dd2bf28](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/dd2bf28))
+-   chore: add commitlint husky `commit-msg` hook ([1cc0fee](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1cc0fee))
+-   chore: add documentation style link to pr template ([2d510c2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2d510c2))
+-   chore(vscode): add `redhat.vscode-yaml` as recommended extension ([fa56f02](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/fa56f02))
+-   chore(vscode): add `updateImportsOnFileMove` setting ([afcb796](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/afcb796))
+-   chore(vscode): add workspace settings and extensions ([d94c92c](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d94c92c))
+-   docs(contributing): add documentation style ([d224628](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d224628))
+-   docs(readme): add ignore scripts arg ([9885444](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9885444))
+
 ## <small>1.0.2 (2021-02-02)</small>
 
 -   build(deps-dev): bump pino-pretty from 4.4.0 to 4.5.0 ([7feda97](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7feda97))

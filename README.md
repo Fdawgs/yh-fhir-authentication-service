@@ -79,7 +79,7 @@ If using a Microsoft Windows OS utilise [pm2-installer](https://github.com/jesse
 
 ## Contributing
 
-Please see [CONTRIBUTING.md](https://github.com/Fdawgs/ydh-fhir-authentication-service/blob/master/CONTRIBUTING.md) for more details regarding contributing to this project.
+Please see [CONTRIBUTING.md](./CONTRIBUTING) for more details regarding contributing to this project.
 
 ## Acknowledgements
 
@@ -88,4 +88,4 @@ Please see [CONTRIBUTING.md](https://github.com/Fdawgs/ydh-fhir-authentication-s
 
 ## License
 
-`ydh-fhir-authentication-service` is licensed under the [MIT](https://github.com/Fdawgs/ydh-fhir-authentication-service/blob/master/LICENSE) license.
+`ydh-fhir-authentication-service` is licensed under the [MIT](./LICENSE) license.

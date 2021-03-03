@@ -1,4 +1,8 @@
-## <small>1.0.3 (2021-02-16)</small>
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+### [1.0.3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.0.2...v1.0.3) (2021-02-16)
 
 -   build(deps-dev): bump eslint from 7.19.0 to 7.20.0 (#35) ([41a0a02](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/41a0a02)), closes [#35](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/35)
 -   build(deps-dev): bump eslint-plugin-jsdoc from 31.6.0 to 32.0.1 (#36) ([ba32bba](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ba32bba)), closes [#36](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/36)
@@ -28,13 +32,13 @@
 -   docs(contributing): add documentation style ([d224628](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d224628))
 -   docs(readme): add ignore scripts arg ([9885444](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9885444))
 
-## <small>1.0.2 (2021-02-02)</small>
+### [1.0.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.0.1...v1.0.2) (2021-02-02)
 
 -   build(deps-dev): bump pino-pretty from 4.4.0 to 4.5.0 ([7feda97](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7feda97))
 -   refactor(config): update openapi docs from v2.\*.\* to v3.\*.\* ([b08fd73](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b08fd73))
 -   fix(config): stop rotatinglogstream flooding stdout ([c2bbbb2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c2bbbb2))
 
-## <small>1.0.1 (2021-02-01)</small>
+### [1.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.0.0...v1.0.1) (2021-02-01)
 
 -   fix(docker): use node command over npm ([f69649a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f69649a))
 -   fix(routes/redirect): id regex ([6452018](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6452018))
@@ -54,7 +58,7 @@
 -   style(test_resources): capitalise request names ([6d4e290](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6d4e290))
 -   style(test_resources): fix name of some requests ([02659ec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/02659ec))
 
-## 1.0.0 (2021-01-27)
+## [1.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v0.0.1...v1.0.0) (2021-01-27)
 
 -   style: fix spacing ([e0bc579](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e0bc579))
 -   chore: add insomnia example requests ([b381e0f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b381e0f))
@@ -88,7 +92,7 @@
 -   ci(github-actions): set `flag-name` for parallel coverage tests ([48c5f78](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/48c5f78))
 -   ci(github-actions): set semver for coverallsapp ([9536bf0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9536bf0))
 
-## <small>0.0.1 (2021-01-22)</small>
+### 0.0.1 (2021-01-22)
 
 -   feat(config): add jwt and bearer token env variable validation ([447aa69](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/447aa69))
 -   feat(routes): add basic wildcard route ([0e004db](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0e004db))

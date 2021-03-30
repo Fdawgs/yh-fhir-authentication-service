@@ -98,6 +98,6 @@
 		"http-errors": "^1.8.0",
 		"jsonwebtoken": "^8.5.1",
 		"jwks-rsa": "^1.12.3",
-		"pino": "^6.11.1"
+		"pino": "^6.11.2"
 	}
 }

@@ -25,7 +25,7 @@ describe("configuration", () => {
 	test("Should return values according to environment variables - SSL enabled and CORS disabled", async () => {
 		const NODE_ENV = "development";
 		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.random.number();
+		const SERVICE_PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL =
 			"https://pyrusapps.blackpear.com/esp/#!/launch?";
 		const HTTPS_SSL_CERT_PATH =
@@ -117,7 +117,7 @@ describe("configuration", () => {
 
 	test("Should return values according to environment variables - PFX enabled and CORS enabled", async () => {
 		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.random.number();
+		const SERVICE_PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL =
 			"https://pyrusapps.blackpear.com/esp/#!/launch?";
 		const HTTPS_PFX_FILE_PATH =
@@ -163,7 +163,7 @@ describe("configuration", () => {
 
 	test("Should return values according to environment variables - HTTPS disabled and CORS set to value", async () => {
 		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.random.number();
+		const SERVICE_PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL =
 			"https://pyrusapps.blackpear.com/esp/#!/launch?";
 		const CORS_ORIGIN = "https://ydh.nhs.uk";
@@ -205,7 +205,7 @@ describe("configuration", () => {
 
 	test("Should throw error if invalid PFX file path", async () => {
 		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.random.number();
+		const SERVICE_PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL =
 			"https://pyrusapps.blackpear.com/esp/#!/launch?";
 		const HTTPS_PFX_FILE_PATH = "./test_resources/test_ssl_cert/error.pfx";
@@ -236,7 +236,7 @@ describe("configuration", () => {
 
 	test("Should throw error if invalid SSL cert file path", async () => {
 		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.random.number();
+		const SERVICE_PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL =
 			"https://pyrusapps.blackpear.com/esp/#!/launch?";
 		const HTTPS_SSL_CERT_PATH = "./test_resources/test_ssl_cert/error.cert";

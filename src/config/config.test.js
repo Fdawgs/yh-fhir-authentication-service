@@ -32,6 +32,8 @@ describe("configuration", () => {
 			"./test_resources/test_ssl_cert/server.cert";
 		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
 		const CORS_ORIGIN = false;
+		const CORS_METHODS = "";
+		const CORS_ALLOWED_HEADERS = "";
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -57,6 +59,8 @@ describe("configuration", () => {
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
+			CORS_METHODS,
+			CORS_ALLOWED_HEADERS,
 			LOG_LEVEL,
 			LOG_ROTATION_FILENAME,
 			AUTH_BEARER_TOKEN_ARRAY,
@@ -120,6 +124,8 @@ describe("configuration", () => {
 			"./test_resources/test_ssl_cert/server.cert"; // I know it's not an actual PFX file
 		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
 		const CORS_ORIGIN = true;
+		const CORS_METHODS = "";
+		const CORS_ALLOWED_HEADERS = "";
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -133,6 +139,8 @@ describe("configuration", () => {
 			HTTPS_PFX_FILE_PATH,
 			HTTPS_PFX_PASSPHRASE,
 			CORS_ORIGIN,
+			CORS_METHODS,
+			CORS_ALLOWED_HEADERS,
 			LOG_LEVEL,
 		});
 
@@ -203,6 +211,8 @@ describe("configuration", () => {
 		const HTTPS_PFX_FILE_PATH = "./test_resources/test_ssl_cert/error.pfx";
 		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
 		const CORS_ORIGIN = true;
+		const CORS_METHODS = "";
+		const CORS_ALLOWED_HEADERS = "";
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -216,6 +226,8 @@ describe("configuration", () => {
 			HTTPS_PFX_FILE_PATH,
 			HTTPS_PFX_PASSPHRASE,
 			CORS_ORIGIN,
+			CORS_METHODS,
+			CORS_ALLOWED_HEADERS,
 			LOG_LEVEL,
 		});
 
@@ -230,6 +242,8 @@ describe("configuration", () => {
 		const HTTPS_SSL_CERT_PATH = "./test_resources/test_ssl_cert/error.cert";
 		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/error.key";
 		const CORS_ORIGIN = true;
+		const CORS_METHODS = "";
+		const CORS_ALLOWED_HEADERS = "";
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -243,6 +257,8 @@ describe("configuration", () => {
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
+			CORS_METHODS,
+			CORS_ALLOWED_HEADERS,
 			LOG_LEVEL,
 		});
 

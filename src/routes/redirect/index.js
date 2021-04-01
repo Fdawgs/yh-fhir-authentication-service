@@ -4,6 +4,7 @@ const { NotAcceptable } = require("http-errors");
 // Import plugins
 const replyFrom = require("fastify-reply-from");
 const bearer = require("fastify-bearer-auth").internals.factory;
+const cors = require("fastify-cors");
 
 const { redirectGetSchema } = require("./schema");
 
@@ -19,6 +20,9 @@ async function route(server, options) {
 			res.send(NotAcceptable());
 		}
 	});
+
+	// Use CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+	server.register(cors, { ...options.cors, methods: ["GET"] });
 
 	server.register(replyFrom, {
 		base: options.redirectUrl,

@@ -14,7 +14,7 @@
 
 This is [Yeovil District Hospital NHSFT](https://yeovilhospital.co.uk/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://www.fastify.io/) web framework.
 
-Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines and, whilst a versatile system, does not provide the following:
+Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines that, whilst a versatile system, does not provide the following:
 
 -   SSL/TLS support out of the box
 -   Easily configurable authentication on HTTP/FHIR listeners

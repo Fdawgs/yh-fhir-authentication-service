@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.1.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.1.0...v1.1.1) (2021-04-01)
+
+
+### Bug Fixes
+
+* **config:** comma-delimited string support for cors origin value ([d65b6e3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d65b6e395db6f22eedd2aedafbbf22b91b1765f9))
+
+
+### Miscellaneous
+
+* **env.template:** add note discouraging reflecting cors origin ([fe5f70b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fe5f70bf2ee0d74fa4fde1465018d1e443d76a68))
+* **env.template:** remove bad example ([9073804](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/907380429e9e622d45770ea7afde0935103d7ac8))
+* **tests:** standardise test file names ([60d9810](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/60d98105656a7be868183e010fb39f092f35b124))
+
+
+### Dependencies
+
+* **deps-dev:** bump faker from 5.5.1 to 5.5.2 ([1a05d75](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1a05d75171c271f735dab729147bffd6874e33c7))
+* **deps:** bump actions/github-script from v3.1.0 to v3.1.1 ([5e89427](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5e89427c123e72fc5a4895a614a234c20a2489d5))
+
 ## [1.1.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.0.4...v1.1.0) (2021-03-30)
 
 

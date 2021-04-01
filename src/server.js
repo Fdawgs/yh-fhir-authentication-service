@@ -5,7 +5,6 @@ const path = require("path");
 // Import plugins
 const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
-const cors = require("fastify-cors");
 const helmet = require("fastify-helmet");
 const disableCache = require("fastify-disablecache");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
@@ -21,8 +20,6 @@ async function plugin(server, config) {
 	server
 		.register(accepts)
 		.register(auth)
-		// Use CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-		.register(cors, config.cors)
 		.register(disableCache)
 		.register(jwtJwks, config.jwt)
 		// Use Helmet to set response security headers: https://helmetjs.github.io/

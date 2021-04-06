@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.1.0...v2.0.0) (2021-04-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* `CORS_METHODS` env variable removed
+
+### Features
+
+* add support for cors preflight requests ([413be7d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/413be7d880dfed91745046cbc1adee69515c36b1))
+* **config:** support `access-control-allow-credentials` cors header ([7ce463c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/7ce463c4d650be20482effacaf12b11f05ba29de))
+
+
+### Bug Fixes
+
+* **config:** comma-delimited string support for cors origin value ([d65b6e3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d65b6e395db6f22eedd2aedafbbf22b91b1765f9))
+
+
+### Miscellaneous
+
+* **env.template:** add note discouraging reflecting cors origin ([fe5f70b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fe5f70bf2ee0d74fa4fde1465018d1e443d76a68))
+* **env.template:** remove bad example ([9073804](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/907380429e9e622d45770ea7afde0935103d7ac8))
+* **tests:** standardise test file names ([60d9810](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/60d98105656a7be868183e010fb39f092f35b124))
+
+
+### Documentation
+
+* **readme:** grammar fix ([1d2a59e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1d2a59ea8b9708ce8c4f55991eabdb2050241d4b))
+
+
+### Continuous Integration
+
+* add cleanup-run job ([6f33a77](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6f33a774fdc98709e78e9099758b592f7595caca))
+
+
+### Dependencies
+
+* **deps-dev:** bump @commitlint/cli from 12.0.1 to 12.1.1 ([cc6c618](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/cc6c6183b6b0a3a2518b0af06b59b0b66b384ff3))
+* **deps-dev:** bump @commitlint/config-conventional ([d58a95f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d58a95fef0486a36cc06331d3557fc0e2a4004b3))
+* **deps-dev:** bump eslint-plugin-jest from 24.3.2 to 24.3.4 ([5f226fc](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5f226fc731ac938bdffeede9565682f3a0f976fb))
+* **deps-dev:** bump faker from 5.5.1 to 5.5.2 ([1a05d75](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1a05d75171c271f735dab729147bffd6874e33c7))
+* **deps:** bump actions/github-script from v3.1.0 to v3.1.1 ([5e89427](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5e89427c123e72fc5a4895a614a234c20a2489d5))
+* **deps:** bump fastify-reply-from from 5.1.0 to 5.2.0 ([52542f6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/52542f6eee6c8b6f70233f36ce9389400f7fa35a))
+* **deps:** bump wagoid/commitlint-github-action from v3.0.6 to v3.1.0 ([45a915f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/45a915f8d434778fb076a134bb57368c927acc04))
+
 ## [1.1.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.0.4...v1.1.0) (2021-03-30)
 
 

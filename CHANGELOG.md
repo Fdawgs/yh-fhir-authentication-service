@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+### [2.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v2.0.0...v2.0.1) (2021-04-14)
+
+
+### Continuous Integration
+
+* do not run coveralls steps/jobs on forks ([f20cb68](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f20cb681d6a387b844cdce51c398f1b0492163f2))
+* **link-check:** fix skip regex ([698b82a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/698b82af028c5f4f88649c6a5aef36f06a19de9e))
+
 ## [2.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.1.0...v2.0.0) (2021-04-06)
 
 

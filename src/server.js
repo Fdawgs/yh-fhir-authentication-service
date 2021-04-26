@@ -7,6 +7,7 @@ const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
 const helmet = require("fastify-helmet");
 const disableCache = require("fastify-disablecache");
+const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 
 /**
@@ -19,9 +20,21 @@ async function plugin(server, config) {
 	// Enable plugins
 	server
 		.register(accepts)
+
 		.register(auth)
+
 		.register(disableCache)
+
+		// Process load and 503 response handling
+		.register(underPressure, {
+			maxEventLoopDelay: 1000,
+			maxHeapUsedBytes: 100000000,
+			maxRssBytes: 100000000,
+			maxEventLoopUtilization: 0.98,
+		})
+
 		.register(jwtJwks, config.jwt)
+
 		// Use Helmet to set response security headers: https://helmetjs.github.io/
 		.register(helmet, {
 			contentSecurityPolicy: {

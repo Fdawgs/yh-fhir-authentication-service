@@ -7,6 +7,7 @@ const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
 const helmet = require("fastify-helmet");
 const disableCache = require("fastify-disablecache");
+const flocOff = require("fastify-floc-off");
 const rateLimit = require("fastify-rate-limit");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
@@ -25,6 +26,8 @@ async function plugin(server, config) {
 		.register(auth)
 
 		.register(disableCache)
+
+		.register(flocOff)
 
 		// Process load and 503 response handling
 		.register(underPressure, config.processLoad)

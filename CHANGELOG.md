@@ -2,6 +2,71 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v2.0.0...v3.0.0) (2021-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove support for nodejs v10, as it is EOL as of 2021-04-30
+
+### Features
+
+* **config:** allow for rate and process limits to be user configured ([733842f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/733842f03ff35341b7e6798188a41315b5008555))
+* **server:** add process-load/503 handling ([580f551](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/580f55117ae39b4dbcb093065d04d55cbd82591d))
+* **server:** add rate limiter ([8561b05](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/8561b05b617a5c9b2207231e0027e26f12bc1b9c))
+* **server:** disable google floc support ([abb06c2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/abb06c26c4b219de61ded1dc8b13554981349b1e))
+
+
+### Bug Fixes
+
+* **config:** plugin defaults ([0e07cfc](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0e07cfc22c8f59be525e800d781edb02e62ccf2e))
+* **config:** re-add removed defaults ([916362d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/916362d7972ee27d6bfca811a9415137f6bb7d7f))
+* **routes:** hide options routes from swagger docs ([373c1e5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/373c1e56e6402f39f803d9221b646525530acc64))
+
+
+### Continuous Integration
+
+* do not run coveralls steps/jobs on forks ([f20cb68](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f20cb681d6a387b844cdce51c398f1b0492163f2))
+* **link-check:** fix skip regex ([698b82a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/698b82af028c5f4f88649c6a5aef36f06a19de9e))
+* **typoci:** add "pino" to excluded words ([6d0070c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6d0070c05f23da67bb7677519d340c3984f6c2ed))
+
+
+### Documentation
+
+* grammar and readability fixes ([be22b12](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/be22b1256e2d21078b1d4a87ad899854c5242558))
+
+
+### Dependencies
+
+* **deps-dev:** bump autocannon from 7.0.5 to 7.2.0 ([f41d0d8](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f41d0d816412bb4acf21b164462209310ed1ce6f))
+* **deps-dev:** bump eslint from 7.23.0 to 7.25.0 ([ddd9023](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ddd9023af525cca582845ddbbf5e90b22cedd0ad))
+* **deps-dev:** bump eslint-config-prettier from 8.1.0 to 8.3.0 ([96491fd](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/96491fd0d6c8091963e986f3b3ed2fb3b74136d2))
+* **deps-dev:** bump eslint-plugin-jest from 24.3.4 to 24.3.6 ([7764a9c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/7764a9c94726a33acba54e77e7194d6e5e60d06e))
+* **deps-dev:** bump eslint-plugin-jsdoc from 32.3.0 to 33.0.0 ([37c3464](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/37c34640033dd9f4a491476737fb942a2b59aa98))
+* **deps-dev:** bump eslint-plugin-promise from 4.3.1 to 5.1.0 ([2398403](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/2398403cde32230494ea00ac5ebb785e66a03b53))
+* **deps-dev:** bump faker from 5.5.2 to 5.5.3 ([fad0359](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fad0359ac1d0d2409c9208ecc3a681c11ef9e3d0))
+* **deps:** bump actions/cache from v2.1.4 to v2.1.5 ([776ef72](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/776ef728b5816d6e8c4f1b31894d44cc7afd8684))
+* **deps:** bump actions/github-script from v3.1.1 to v4.0.2 ([c6cb4a9](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c6cb4a93f85bef08414dc28437d735ef52219091))
+* **deps:** bump actions/upload-artifact from v2.2.2 to v2.2.3 ([be78b3e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/be78b3ed91fbe25bf140bef07f3b5b42ba768349))
+* **deps:** bump brpaz/hadolint-action from v1.3.1 to v1.4.0 ([a506acc](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a506accef9b039b45c6024c143ed6f6fadefae26))
+* **deps:** bump fastify from 3.14.1 to 3.15.0 ([b0d544e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/b0d544e7127bdbd495c3b6d8c418293b332d4779))
+* **deps:** bump fastify-auth from 1.0.1 to 1.1.0 ([4acac11](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/4acac11b6a40629bcb6e705851cba12a0abc2132))
+* **deps:** bump fastify-autoload from 3.6.0 to 3.7.1 ([f67c09c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f67c09c44d78f54c664bbc419c684e86182d7607))
+* **deps:** bump fastify-cors from 5.2.0 to 6.0.0 ([1dea750](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1dea750b33af217df806ebee1db48d15059d7ad5))
+* **deps:** bump fastify-disablecache from 1.0.6 to 2.0.0 ([01e71bf](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/01e71bfb2c855c309abae5027e39409c3de0ad8f))
+* **deps:** bump GoogleCloudPlatform/release-please-action ([daaeadb](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/daaeadb30c303ba59556c65a800a2a944fc25010))
+* **deps:** bump jose from 2.0.4 to 2.0.5 ([dd6a30a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/dd6a30ace21e0860b3f7457d6f67f6af1b549a43))
+* **deps:** bump jwks-rsa from 2.0.2 to 2.0.3 ([6453cd2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6453cd2ce37290629cec5aef9d2c604d77c974e5))
+* **deps:** bump pino from 6.11.2 to 6.11.3 ([382f089](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/382f08935ab9ee2e6f1e6e73fcd6b86358e3420e))
+* **deps:** bump typoci/spellcheck-action from v0.4.0 to v1.1.0 ([561ff42](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/561ff4227c63275dc8510daa708ca7c1399a6dc7))
+
+
+### Miscellaneous
+
+* **config:** remove redundant conditionals ([a6df6ee](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a6df6ee748be0381b7d0fd475717fb415f8d6cb1))
+* **env:** add whitespace ([1faa835](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1faa835e21832f58419c067c88709a538215a70e))
+* remove support for nodejs v10 ([e312626](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e312626e8e068ae75ee55151728963ee85a912e9))
+
 ## [2.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v1.1.0...v2.0.0) (2021-04-06)
 
 

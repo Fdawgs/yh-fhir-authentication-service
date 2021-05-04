@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.0...v3.0.1) (2021-05-04)
+
+
+### Dependencies
+
+* **deps:** bump fastify from 3.15.0 to 3.15.1 ([bbbe23b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/bbbe23b0aa319f7057a259b0c78a86ade6a48c09))
+* **deps:** bump fastify-reply-from from 5.2.0 to 5.3.0 ([d9ccbfe](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d9ccbfe06b707c101bd0593c343d52a259bbb5ce))
+* **deps:** bump GoogleCloudPlatform/release-please-action ([fa9ebf3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fa9ebf3505a3d7af240b3d32da4f1d151269e3eb))
+
+
+### Documentation
+
+* **readme:** compress duplicate setup steps into a single section ([#133](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/133)) ([e1a1df5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e1a1df59e9b93091f28d17a4ae346d7b637a76c9))
+
 ## [3.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v2.0.0...v3.0.0) (2021-04-30)
 
 

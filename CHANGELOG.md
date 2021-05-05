@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.0.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.1...v3.0.2) (2021-05-05)
+
+
+### Bug Fixes
+
+* **routes/redirect:** schema support for duplicate query string params ([895adec](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/895adec4b8c269200e80bbb032bef3b1062d400d))
+
+
+### Continuous Integration
+
+* add nodejs v16 to test matrix ([6188e28](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6188e284997308d86ed07d8b4b02faac1a13f108))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint-plugin-jsdoc from 33.0.0 to 33.1.0 ([50ab49d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/50ab49dc0f8f843681113803ef87951d02aff531))
+* **deps:** bump dotenv from 8.2.0 to 8.5.1 ([87b83a5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/87b83a5d1f11a8cc742af58d01af77756cff7819))
+* **deps:** bump wagoid/commitlint-github-action from v3.1.0 to v3.1.1 ([d7d8fc3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d7d8fc3e6f4e010047f7b5dc49085d06117e6d2a))
+
 ### [3.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.0...v3.0.1) (2021-05-04)
 
 

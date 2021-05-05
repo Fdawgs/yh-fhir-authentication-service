@@ -28,10 +28,31 @@ const redirectGetSchema = {
 				S.string()
 					.description("date")
 					.pattern(
-						"^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}\\:\\d{2}\\:\\d{2}|)$"
+						"^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}|)$"
 					),
 				S.string().description("string").pattern("^[^<>\"']+$"),
 				S.string().description("uri").format("uri"),
+				S.array()
+					.items(
+						S.anyOf([
+							(S.string()
+								.description("number")
+								.pattern(
+									"^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)[\\d\\.]+$"
+								),
+							S.string()
+								.description("date")
+								.pattern(
+									"^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}|)$"
+								)),
+							S.string()
+								.description("string")
+								.pattern("^[^<>\"']+$"),
+						])
+					)
+					.minItems(2)
+					.maxItems(2)
+					.uniqueItems(true),
 			]),
 		})
 		.additionalProperties(false),

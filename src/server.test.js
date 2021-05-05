@@ -65,6 +65,34 @@ describe("Server Deployment", () => {
 			expect(response.statusCode).toBe(200);
 		});
 
+		test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
+			const response = await server.inject({
+				method: "GET",
+				url: "/STU3/Patient",
+				headers: {
+					Authorization: "Bearer testtoken",
+				},
+				query: {
+					identifier: "5484126",
+					birthdate: ["ge2021-01-01", "le2021-05-01"],
+				},
+			});
+
+			expect(response.headers).toEqual(
+				expect.not.objectContaining({
+					"access-control-allow-headers": expect.any(String),
+					"access-control-allow-methods": expect.any(String),
+					"access-control-expose-headers": expect.any(String),
+					etag: expect.any(String),
+					server: expect.any(String),
+					location: expect.any(String),
+					"last-modified": expect.any(String),
+				})
+			);
+
+			expect(response.statusCode).toBe(200);
+		});
+
 		test("Should return HTTP 401 error when invalid bearer token provided in header", async () => {
 			const response = await server.inject({
 				method: "GET",

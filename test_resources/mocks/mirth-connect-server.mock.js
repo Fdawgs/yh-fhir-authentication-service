@@ -2,6 +2,8 @@ const Fastify = require("fastify");
 
 const mockServer = Fastify();
 
+const redirectGetSchema = require("../../src/routes/redirect/schema");
+
 // Mock FHIR listener channel
 mockServer.route({
 	method: "GET",
@@ -182,6 +184,42 @@ mockServer.route({
 					display: "0 GMP Unknown",
 				},
 			],
+		});
+	},
+});
+
+mockServer.route({
+	method: "GET",
+	schema: redirectGetSchema,
+	url: "/STU3/Patient",
+	handler: (req, res) => {
+		res.headers({
+			"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Expose-Headers": "Content-Location, Location",
+			"Content-Type": "application/fhir+json; charset=UTF-8",
+			ETag: 'W/"1"',
+			Server: "Mirth Connect FHIR Server (3.10.0.b1356)",
+			Location: `http://localhost:444/STU3/Patient/${req.identifier}/_history/1`,
+		});
+
+		// Test patient
+		res.send({
+			resourceType: "Patient",
+			id: req.identifier,
+			meta: {
+				versionId: "1",
+				lastUpdated: "2020-11-16T14:47:07+00:00",
+				profile: [
+					"https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1",
+				],
+			},
+			language: "English (Great Britain)",
+			text: {
+				status: "generated",
+				div:
+					'<div xmlns="http://www.w3.org/1999/xhtml"><div class="hapiHeaderText">Miss Charlotte <b>ZZZTEST </b></div><table class="hapiPropertyTable"><tbody><tr><td>Identifier</td><td>5484126</td></tr><tr><td>Address</td><td><span>The Venue, Unit 3 </span><br/><span>4 Artillery Road &quot; </span><br/><span>Yeovil </span></td></tr><tr><td>Date of birth</td><td><span>29 September 1954</span></td></tr></tbody></table></div>',
+			},
 		});
 	},
 });

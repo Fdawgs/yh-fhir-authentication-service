@@ -34,8 +34,7 @@ mockServer.route({
 			language: "English (Great Britain)",
 			text: {
 				status: "generated",
-				div:
-					'<div xmlns="http://www.w3.org/1999/xhtml"><div class="hapiHeaderText">Miss Charlotte <b>ZZZTEST </b></div><table class="hapiPropertyTable"><tbody><tr><td>Identifier</td><td>5484125</td></tr><tr><td>Address</td><td><span>The Venue, Unit 3 </span><br/><span>4 Artillery Road &quot; </span><br/><span>Yeovil </span></td></tr><tr><td>Date of birth</td><td><span>29 September 1954</span></td></tr></tbody></table></div>',
+				div: '<div xmlns="http://www.w3.org/1999/xhtml"><div class="hapiHeaderText">Miss Charlotte <b>ZZZTEST </b></div><table class="hapiPropertyTable"><tbody><tr><td>Identifier</td><td>5484125</td></tr><tr><td>Address</td><td><span>The Venue, Unit 3 </span><br/><span>4 Artillery Road &quot; </span><br/><span>Yeovil </span></td></tr><tr><td>Date of birth</td><td><span>29 September 1954</span></td></tr></tbody></table></div>',
 			},
 			contained: [
 				{
@@ -58,13 +57,11 @@ mockServer.route({
 			],
 			extension: [
 				{
-					url:
-						"https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-EthnicCategory-1",
+					url: "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-EthnicCategory-1",
 					valueCodeableConcept: {
 						coding: [
 							{
-								system:
-									"https://fhir.hl7.org.uk/STU3/CodeSystem/CareConnect-EthnicCategory-1",
+								system: "https://fhir.hl7.org.uk/STU3/CodeSystem/CareConnect-EthnicCategory-1",
 								code: "Z",
 								display: "Not stated",
 							},
@@ -77,8 +74,7 @@ mockServer.route({
 					},
 				},
 				{
-					url:
-						"https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-ReligiousAffiliation-1",
+					url: "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-ReligiousAffiliation-1",
 					valueCodeableConcept: {
 						coding: [
 							{
@@ -93,8 +89,7 @@ mockServer.route({
 			identifier: [
 				{
 					use: "usual",
-					system:
-						"https://fhir.ydh.nhs.uk/Id/local-patient-identifier",
+					system: "https://fhir.ydh.nhs.uk/Id/local-patient-identifier",
 					value: "5484125",
 				},
 			],
@@ -217,8 +212,7 @@ mockServer.route({
 			language: "English (Great Britain)",
 			text: {
 				status: "generated",
-				div:
-					'<div xmlns="http://www.w3.org/1999/xhtml"><div class="hapiHeaderText">Miss Charlotte <b>ZZZTEST </b></div><table class="hapiPropertyTable"><tbody><tr><td>Identifier</td><td>5484126</td></tr><tr><td>Address</td><td><span>The Venue, Unit 3 </span><br/><span>4 Artillery Road &quot; </span><br/><span>Yeovil </span></td></tr><tr><td>Date of birth</td><td><span>29 September 1954</span></td></tr></tbody></table></div>',
+				div: '<div xmlns="http://www.w3.org/1999/xhtml"><div class="hapiHeaderText">Miss Charlotte <b>ZZZTEST </b></div><table class="hapiPropertyTable"><tbody><tr><td>Identifier</td><td>5484126</td></tr><tr><td>Address</td><td><span>The Venue, Unit 3 </span><br/><span>4 Artillery Road &quot; </span><br/><span>Yeovil </span></td></tr><tr><td>Date of birth</td><td><span>29 September 1954</span></td></tr></tbody></table></div>',
 			},
 		});
 	},

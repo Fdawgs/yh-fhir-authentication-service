@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.0.3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.2...v3.0.3) (2021-05-12)
+
+
+### Bug Fixes
+
+* **config:** `LOG_LEVEL` env variable validation ([1d129b5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1d129b5a6e0ae9a63a8764ac850090b0cb3a29f8))
+
+
+### Continuous Integration
+
+* **link-check:** run once a week on monday ([30df7bc](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/30df7bc0e450e340d3a1ba92de12377ab264767a))
+
+
+### Dependencies
+
+* **deps-dev:** bump autocannon from 7.2.0 to 7.3.0 ([49ee450](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/49ee450baaff005ae7caf570b9e314d8807d482c))
+* **deps-dev:** bump eslint from 7.25.0 to 7.26.0 ([47b8034](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/47b80349413576c16e5a69debdd98f411a7ce6c0))
+* **deps-dev:** bump eslint-plugin-jsdoc from 33.1.0 to 34.0.1 ([ad881cb](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ad881cbc0954c20308c4efcfe30b18e4c403ee8b))
+* **deps-dev:** bump glob from 7.1.6 to 7.1.7 ([8dd74df](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/8dd74df8ace2a92c1d924867e3be4c4da1480d95))
+* **deps-dev:** bump pino-pretty from 4.7.1 to 4.8.0 ([3565997](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/3565997ce81b0a8f8f305c1dcaa92fba657188a2))
+* **deps-dev:** bump prettier from 2.2.1 to 2.3.0 ([#153](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/153)) ([4b0e08e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/4b0e08e5b5145ade5766ea0639f9ad9ac23593b0))
+* **deps:** bump brpaz/hadolint-action from 1.4.0 to 1.5.0 ([deafc5a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/deafc5a576502b1981d6f7e593e80ee0c308b469))
+* **deps:** bump dotenv from 8.5.1 to 9.0.2 ([9833661](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/9833661a48f68a1fa36469e2f78c002e76918988))
+* **deps:** bump fastify-cors from 6.0.0 to 6.0.1 ([601b2e9](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/601b2e9172b25276485f20ca007ce380516fbed7))
+* **deps:** bump fastify-floc-off from 1.0.0 to 1.0.1 ([0cb5da7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0cb5da768d38c18007740eb9033e8905cb2f50bc))
+* **deps:** bump fluent-json-schema from 2.0.4 to 3.0.0 ([a442d82](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a442d82473902f4dd12c4722a13c21c0a3429115))
+* **deps:** bump GoogleCloudPlatform/release-please-action ([3522d93](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/3522d93f288bf421ee370b086094b22e170aef38))
+* **deps:** bump wagoid/commitlint-github-action from 3.1.1 to 3.1.3 ([dc8fd31](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/dc8fd31f6919b159cf5277ab93c39944025737d0))
+
 ### [3.0.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.1...v3.0.2) (2021-05-05)
 
 

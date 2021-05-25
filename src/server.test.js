@@ -37,8 +37,8 @@ describe("Server Deployment", () => {
 			await server.ready();
 		});
 
-		afterEach(() => {
-			server.close();
+		afterEach(async () => {
+			await server.close();
 		});
 
 		test("Should redirect request to 'redirectUrl' with valid bearer token in header", async () => {
@@ -152,7 +152,7 @@ describe("Server Deployment", () => {
 
 			expect(response.statusCode).toBe(200);
 
-			server.close();
+			await server.close();
 		});
 
 		test("Should set 'access-control-allow-origin' to '*' if 'origin' not in request header", async () => {
@@ -180,7 +180,7 @@ describe("Server Deployment", () => {
 
 			expect(response.statusCode).toBe(200);
 
-			server.close();
+			await server.close();
 		});
 
 		test("Should set 'access-control-allow-origin' to string in config", async () => {
@@ -208,7 +208,7 @@ describe("Server Deployment", () => {
 
 			expect(response.statusCode).toBe(200);
 
-			server.close();
+			await server.close();
 		});
 
 		test("Should not set 'access-control-allow-origin' if cors not enabled in config", async () => {
@@ -236,7 +236,7 @@ describe("Server Deployment", () => {
 
 			expect(response.statusCode).toBe(200);
 
-			server.close();
+			await server.close();
 		});
 	});
 });

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.0.5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.4...v3.0.5) (2021-06-17)
+
+
+### Dependencies
+
+* **deps:** bump actions/upload-artifact from 2.2.3 to 2.2.4 ([609de13](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/609de13488e68c1cb58997c3f4a3667b935bd6fe))
+* **deps:** bump fastify from 3.17.0 to 3.18.0 ([56a6c51](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/56a6c5195f98a55d6681e46a7ff5d4d25c334995))
+* **deps:** bump fastify-disablecache from 2.0.1 to 2.0.2 ([895b01c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/895b01c6e60333d9d7a00521cf01b9ff89c0241f))
+
 ### [3.0.4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.3...v3.0.4) (2021-06-16)
 
 

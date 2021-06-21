@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.0.6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.5...v3.0.6) (2021-06-21)
+
+
+### Continuous Integration
+
+* **link-check:** reduce frequency from weekly to monthly ([#185](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/185)) ([81959d0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/81959d0d92340f7ea9ad6384c24fb23c73257d08))
+
 ### [3.0.5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.4...v3.0.5) (2021-06-17)
 
 

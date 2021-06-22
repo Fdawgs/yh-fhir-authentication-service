@@ -21,12 +21,16 @@ const jwtJwks = require("./plugins/jwt-jwks-auth");
 async function plugin(server, config) {
 	// Enable plugins
 	server
+		// Accept header handler
 		.register(accepts)
 
+		// Multi-Auth handler (bearer token and JWT)
 		.register(auth)
 
+		// Set response headers to disable client-side caching
 		.register(disableCache)
 
+		// Opt-out of Google's FLoC advertising-surveillance network
 		.register(flocOff)
 
 		// Process load and 503 response handling
@@ -41,16 +45,19 @@ async function plugin(server, config) {
 		.register(helmet, {
 			contentSecurityPolicy: {
 				directives: {
-					...helmet.contentSecurityPolicy.getDefaultDirectives(),
+					"default-src": ["'self'"],
+					"base-uri": ["'self'"],
+					"img-src": ["'self'", "data:"],
+					"object-src": ["'none'"],
+					"child-src": ["'self'"],
+					"frame-ancestors": ["'none'"],
 					"form-action": ["'self'"],
+					"upgrade-insecure-requests": [],
+					"block-all-mixed-content": [],
 				},
 			},
-			referrerPolicy: {
-				/**
-				 * "no-referrer" will only be used as a fallback if "strict-origin-when-cross-origin"
-				 * is not supported by the browser
-				 */
-				policy: ["no-referrer", "strict-origin-when-cross-origin"],
+			hsts: {
+				maxAge: 31536000,
 			},
 		})
 

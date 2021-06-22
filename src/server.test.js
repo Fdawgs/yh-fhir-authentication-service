@@ -4,7 +4,7 @@ const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
 
-describe("Server Deployment", () => {
+describe("End-To-End", () => {
 	beforeAll(async () => {
 		try {
 			await mockServer.listen(3001);
@@ -21,7 +21,7 @@ describe("Server Deployment", () => {
 		await mockServer.close();
 	});
 
-	describe("Server", () => {
+	describe("/redirect Route with CORS disabled", () => {
 		let server;
 		let config;
 
@@ -159,7 +159,7 @@ describe("Server Deployment", () => {
 		});
 	});
 
-	describe("CORS", () => {
+	describe("/redirect Route with CORS enabled", () => {
 		test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
 			const server = Fastify();
 			const config = await getConfig();

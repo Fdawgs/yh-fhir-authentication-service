@@ -56,6 +56,9 @@ async function plugin(server, config) {
 					"block-all-mixed-content": [],
 				},
 			},
+			hsts: {
+				maxAge: 31536000,
+			},
 		})
 
 		.register(autoLoad, {

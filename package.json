@@ -101,6 +101,6 @@
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.3",
     "pino": "^6.11.3",
-    "under-pressure": "^5.6.0"
+    "under-pressure": "^5.7.0"
   }
 }

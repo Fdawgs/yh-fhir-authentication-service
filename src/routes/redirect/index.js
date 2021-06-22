@@ -52,11 +52,25 @@ async function route(server, options) {
 					if (options.cors.origin) {
 						let origin = options.cors.origin;
 
-						if (origin === true) {
-							origin = req.headers.origin || "*";
+						if (
+							origin === true &&
+							req.headers.origin !== undefined
+						) {
+							origin = req.headers.origin;
 						}
 
 						reply.header("access-control-allow-origin", origin);
+
+						/**
+						 * Remove header if CORS is set to reflect request origin
+						 * but request origin header missing
+						 */
+						if (
+							origin === true &&
+							req.headers.origin === undefined
+						) {
+							reply.removeHeader("access-control-allow-origin");
+						}
 					}
 
 					/**

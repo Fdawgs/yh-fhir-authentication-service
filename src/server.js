@@ -21,12 +21,16 @@ const jwtJwks = require("./plugins/jwt-jwks-auth");
 async function plugin(server, config) {
 	// Enable plugins
 	server
+		// Accept header handler
 		.register(accepts)
 
+		// Multi-Auth handler (bearer token and JWT)
 		.register(auth)
 
+		// Set response headers to disable client-side caching
 		.register(disableCache)
 
+		// Opt-out of Google's FLoC advertising-surveillance network
 		.register(flocOff)
 
 		// Process load and 503 response handling

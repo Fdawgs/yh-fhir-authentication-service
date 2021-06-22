@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.5...v4.0.0) (2021-06-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **routes/redirect:** Service no longer falls back to "*" wildcard for `access-control-allow-origin` if `CORS_ORIGIN` env variable is set to true to reflect request "Origin" but the request "Origin" header is missing. Now it will not set the header at all.
+* **routes/redirect:** Service no longer falls back to Mirth Connect's `access-control-allow-origin` if `CORS_ORIGIN` env variable is not set.
+
+### Bug Fixes
+
+* **routes/redirect:** do not use "*" if req origin header missing ([c16624b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c16624b3fa9d961ad6b24dca3f5700afa05bcc9d))
+* **routes/redirect:** do not use mirth's `access-control-allow-origin` ([49bce7f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/49bce7fb61c23fe2309a17c3d377c892f2e5aeb4))
+* **server:** increase `Strict-Transport-Security` max age to 365 days ([d2db435](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d2db4359c3a0aa34d7e3172f939ff20d00463e6d))
+* **server:** revert `Referrer-Policy` directives to "no-referrer" only ([c20312f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c20312f421a484e4b15ccc07065c36ce32aff418))
+* **server:** use stricter `Content-Security-Policy` values ([93dd790](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/93dd790372889f201928b6985797c18ae27e2ca2))
+
+
+### Continuous Integration
+
+* **link-check:** reduce frequency from weekly to monthly ([#185](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/185)) ([81959d0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/81959d0d92340f7ea9ad6384c24fb23c73257d08))
+
+
+### Miscellaneous
+
+* **server:** clarify on what each registered plugin does ([54f950e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/54f950eb4035b277dd08917594c1b4cd63573216))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint from 7.28.0 to 7.29.0 ([d453e40](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d453e402f16d23ced0f60ecd7cceabc469520686))
+* **deps-dev:** bump eslint-plugin-jsdoc from 35.3.0 to 35.4.0 ([d2ab988](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d2ab9881304870846799c6eaf920512da0c6c5b4))
+* **deps-dev:** bump jest from 27.0.4 to 27.0.5 ([0e62a01](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0e62a01c225360302fc52b0a6cb5f9cf8ec31ace))
+* **deps:** bump fastify-autoload from 3.7.1 to 3.8.0 ([8db9786](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/8db9786ae54006f9c51f7afb3419232be1308643))
+* **deps:** bump fastify-bearer-auth from 5.1.0 to 6.0.0 ([a5f8b05](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a5f8b0527f2aafa914b206c29a7622b918bae93d))
+* **deps:** bump under-pressure from 5.6.0 to 5.7.0 ([f6c7c86](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f6c7c86edefed23e86f93b502d77e161c733ab7c))
+
 ### [3.0.5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.4...v3.0.5) (2021-06-17)
 
 

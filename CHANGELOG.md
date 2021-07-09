@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.0...v4.0.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **routes/healthcheck:** add `Accept` request header handling ([abe17d5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/abe17d5d0c80103a777893179111498909dd3d5a))
+
+
+### Miscellaneous
+
+* **vscode:** disable redhat telemetry ([200c890](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/200c890a0609eb66cf28f60563db2629d219ca1a))
+
+
+### Dependencies
+
+* **deps-dev:** bump autocannon from 7.3.0 to 7.4.0 ([5166b77](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5166b77f2692d5e4b7283ee42fe673b2f17bf9d0))
+* **deps-dev:** bump coveralls from 3.1.0 to 3.1.1 ([21e5933](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/21e593387100a7f1b84dddfb4c77b6eb46f846b2))
+* **deps-dev:** bump eslint from 7.29.0 to 7.30.0 ([c717314](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c71731465961cd605ab9bb172c9b51f9e92a38a2))
+* **deps-dev:** bump eslint-plugin-jsdoc from 35.4.0 to 35.4.1 ([49cb77b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/49cb77bb2810a4ac946ed62a3468024f910d3b75))
+* **deps-dev:** bump eslint-plugin-jsdoc from 35.4.1 to 35.4.2 ([975f8be](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/975f8be231593e1131e485c83c31aaad3058a8a2))
+* **deps-dev:** bump husky from 6.0.0 to 7.0.0 ([0e76d7f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0e76d7ffab0b76bb91555a5f2cb4c07a8dbbfb5b))
+* **deps-dev:** bump husky from 7.0.0 to 7.0.1 ([9603f47](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/9603f475a28bd40b8c001f82161bf923840da176))
+* **deps-dev:** bump jest from 27.0.5 to 27.0.6 ([74c1327](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/74c1327f37e68aacc5f90de7cb977fa26c942fdd))
+* **deps-dev:** bump nodemon from 2.0.7 to 2.0.9 ([69f076d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/69f076dc2590eb14f152efbe7bfc95ff0d4f9888))
+* **deps-dev:** bump nodemon from 2.0.9 to 2.0.10 ([234b68e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/234b68edcd3a389fc263ff9ac9f1434fcaabbffa))
+* **deps-dev:** bump pino-pretty from 5.0.2 to 5.1.0 ([49ce719](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/49ce71974c89ccddbfc7a224a0fec327e956b41e))
+* **deps-dev:** bump pino-pretty from 5.1.0 to 5.1.1 ([f4f7f17](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f4f7f17057b8f3f22c193adfd941a343f37e19ac))
+* **deps-dev:** bump prettier from 2.3.1 to 2.3.2 ([846b0f7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/846b0f7b5db473dc74a6f40053706f7b2a9592cb))
+* **deps:** bump actions/setup-node from 2.1.5 to 2.2.0 ([eb5ae9a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/eb5ae9ab6e36efe577436109449da38edfb4a98d))
+* **deps:** bump coverallsapp/github-action from 1.1.2 to 1.1.3 ([14afe16](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/14afe16b30dc431b0dcbec0ac7548c22208ed1f3))
+* **deps:** bump fastify from 3.18.0 to 3.18.1 ([119f704](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/119f704020bd40364f3d81321050a9fd1a84444e))
+* **deps:** bump fastify from 3.18.1 to 3.19.0 ([afadc74](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/afadc740c835e6cc4114685a71bcb2e90955f49e))
+* **deps:** bump fastify-helmet from 5.3.1 to 5.3.2 ([3ae6470](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/3ae6470f9910c454777eeb3f60df51d269b0074a))
+* **deps:** bump fastify-reply-from from 5.3.0 to 6.0.1 ([13f6881](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/13f6881647ca9f8fc625c5ad59520e91f9f81140))
+
 ## [4.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.5...v4.0.0) (2021-06-22)
 
 

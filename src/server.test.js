@@ -153,8 +153,7 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
-					accept: "application/fhir+json",
-					Accept: "application/javascript",
+					accept: "application/javascript",
 					authorization: "Bearer testtoken",
 				},
 			});

@@ -15,12 +15,6 @@ const { redirectGetSchema } = require("./schema");
  * @param {object} options - Object containing route config objects.
  */
 async function route(server, options) {
-	server.addHook("preHandler", async (req, res) => {
-		if (!["json", "xml"].includes(req.accepts().type(["json", "xml"]))) {
-			res.send(NotAcceptable());
-		}
-	});
-
 	// Use CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 	server.register(cors, {
 		...options.cors,
@@ -44,6 +38,15 @@ async function route(server, options) {
 			bearer({ keys: options.authKeys }),
 		]),
 		handler(req, res) {
+			if (
+				// Catch unsupported Accept header MIME types
+				!redirectGetSchema.produces.includes(
+					req.accepts().type(redirectGetSchema.produces)
+				)
+			) {
+				res.send(NotAcceptable());
+			}
+
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
 					// Remove CORS origin set by Mirth Connect

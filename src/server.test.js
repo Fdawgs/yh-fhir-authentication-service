@@ -46,7 +46,8 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
-					Authorization: "Bearer testtoken",
+					accept: "application/fhir+json",
+					authorization: "Bearer testtoken",
 				},
 			});
 
@@ -87,7 +88,8 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient",
 				headers: {
-					Authorization: "Bearer testtoken",
+					accept: "application/fhir+json",
+					authorization: "Bearer testtoken",
 				},
 				query: {
 					identifier: "5484126",
@@ -132,7 +134,8 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
-					Authorization: "Bearer invalid",
+					accept: "application/fhir+json",
+					authorization: "Bearer invalid",
 				},
 			});
 
@@ -150,8 +153,9 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
+					accept: "application/fhir+json",
 					Accept: "application/javascript",
-					Authorization: "Bearer testtoken",
+					authorization: "Bearer testtoken",
 				},
 			});
 
@@ -173,7 +177,8 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
-					Authorization: "Bearer testtoken",
+					accept: "application/fhir+json",
+					authorization: "Bearer testtoken",
 					Origin: "https://notreal.ydh.nhs.uk",
 				},
 			});
@@ -226,7 +231,8 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
-					Authorization: "Bearer testtoken",
+					accept: "application/fhir+json",
+					authorization: "Bearer testtoken",
 				},
 			});
 
@@ -277,7 +283,8 @@ describe("End-To-End", () => {
 				method: "GET",
 				url: "/STU3/Patient/5484125",
 				headers: {
-					Authorization: "Bearer testtoken",
+					accept: "application/fhir+json",
+					authorization: "Bearer testtoken",
 				},
 			});
 

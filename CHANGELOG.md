@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.1...v4.0.2) (2021-07-12)
+
+
+### Bug Fixes
+
+* **routes:** `Accept` header handling encapsulation ([#217](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/217)) ([e0234d3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e0234d3abf44beab3df4040b08940b53b41dc2bf))
+
+
+### Miscellaneous
+
+* **vscode:** remove user space config setting ([b4c398c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/b4c398c835ead58ae157f6dacd7e5b95886b6991))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint-plugin-jsdoc from 35.4.2 to 35.4.3 ([34d24f1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/34d24f13ec86e5e6927bf07cf2faf4e54acf9486))
+* **deps-dev:** bump nodemon from 2.0.10 to 2.0.12 ([fe8a2b7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fe8a2b73925c1402699f760f3ac609dc8a0b7a17))
+* **deps:** bump fluent-json-schema from 3.0.0 to 3.0.1 ([bb86510](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/bb8651074890a5183465e9576563c266b8e19850))
+* **deps:** bump pino from 6.11.3 to 6.12.0 ([7a39729](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/7a397298187187a9a9ab7186a80a82f754c9b80d))
+
 ### [4.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.0...v4.0.1) (2021-07-09)
 
 

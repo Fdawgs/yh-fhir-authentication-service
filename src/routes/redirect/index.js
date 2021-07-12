@@ -39,7 +39,7 @@ async function route(server, options) {
 		]),
 		handler(req, res) {
 			if (
-				// Catch unsupported Accept header MIME types
+				// Catch unsupported Accept header media types
 				!redirectGetSchema.produces.includes(
 					req.accepts().type(redirectGetSchema.produces)
 				)

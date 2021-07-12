@@ -56,6 +56,13 @@ const redirectGetSchema = {
 			]),
 		})
 		.additionalProperties(false),
+	response: {
+		200: S.string().const("ok"),
+		406: S.object()
+			.prop("statusCode", S.number().const(406))
+			.prop("error", S.string().const("Not Acceptable"))
+			.prop("message", S.string().const("Not Acceptable")),
+	},
 };
 
 module.exports = { redirectGetSchema };

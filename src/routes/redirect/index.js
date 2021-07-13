@@ -30,6 +30,17 @@ async function route(server, options) {
 		},
 	});
 
+	server.addHook("onRequest", async (req, res) => {
+		if (
+			// Catch unsupported Accept header media types
+			!redirectGetSchema.produces.includes(
+				req.accepts().type(redirectGetSchema.produces)
+			)
+		) {
+			res.send(NotAcceptable());
+		}
+	});
+
 	const opts = {
 		method: "GET",
 		schema: redirectGetSchema,
@@ -38,15 +49,6 @@ async function route(server, options) {
 			bearer({ keys: options.authKeys }),
 		]),
 		handler(req, res) {
-			if (
-				// Catch unsupported Accept header media types
-				!redirectGetSchema.produces.includes(
-					req.accepts().type(redirectGetSchema.produces)
-				)
-			) {
-				res.send(NotAcceptable());
-			}
-
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
 					// Remove CORS origin set by Mirth Connect

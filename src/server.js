@@ -12,6 +12,9 @@ const rateLimit = require("fastify-rate-limit");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 
+// Import healthcheck route
+const healthCheck = require("./routes/healthcheck");
+
 /**
  * @author Frazer Smith
  * @description Build Fastify instance
@@ -24,9 +27,6 @@ async function plugin(server, config) {
 		// Accept header handler
 		.register(accepts)
 
-		// Multi-Auth handler (bearer token and JWT)
-		.register(auth)
-
 		// Set response headers to disable client-side caching
 		.register(disableCache)
 
@@ -38,8 +38,6 @@ async function plugin(server, config) {
 
 		// Rate limiting and 429 response handling
 		.register(rateLimit, config.rateLimit)
-
-		.register(jwtJwks, config.jwt)
 
 		// Use Helmet to set response security headers: https://helmetjs.github.io/
 		.register(helmet, {
@@ -61,10 +59,26 @@ async function plugin(server, config) {
 			},
 		})
 
-		.register(autoLoad, {
-			dir: path.join(__dirname, "routes"),
-			options: config,
+		// Basic healthcheck route to ping
+		.register(healthCheck)
+
+		/**
+		 * Encapsulate plugins and routes into secured child context, so that swagger and healthcheck
+		 * routes do not inherit auth and JWT plugins, or any other hooks or plugins in routes.
+		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
+		 */
+		.register(async (securedContext) => {
+			securedContext
+				// Multi-Auth handler (bearer token and JWT)
+				.register(auth)
+				.register(jwtJwks, config.jwt)
+				// Import and register service routes
+				.register(autoLoad, {
+					dir: path.join(__dirname, "routes"),
+					ignorePattern: /healthcheck/,
+					options: config,
+				});
 		});
 }
 
-module.exports = fp(plugin);
+module.exports = fp(plugin, { fastify: "3.x", name: "server" });

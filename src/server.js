@@ -75,6 +75,7 @@ async function plugin(server, config) {
 				// Import and register service routes
 				.register(autoLoad, {
 					dir: path.join(__dirname, "routes"),
+					dirNameRoutePrefix: false,
 					ignorePattern: /healthcheck/,
 					options: config,
 				});

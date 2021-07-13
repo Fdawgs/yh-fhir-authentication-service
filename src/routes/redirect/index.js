@@ -1,4 +1,3 @@
-const fp = require("fastify-plugin");
 const { NotAcceptable } = require("http-errors");
 
 // Import plugins
@@ -108,11 +107,4 @@ async function route(server, options) {
 	});
 }
 
-module.exports = fp(route, {
-	fastify: "3.x",
-	name: "route-redirect",
-	decorators: {
-		fastify: ["auth", "verifyJWT"],
-	},
-	dependencies: ["fastify-accepts", "jwt-jwks-auth"],
-});
+module.exports = route;

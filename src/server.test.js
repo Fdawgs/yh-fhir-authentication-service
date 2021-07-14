@@ -157,7 +157,7 @@ describe("Server Deployment", () => {
 				expect(response.statusCode).toBe(200);
 			});
 
-			test("Should return HTTP 401 error when invalid bearer token provided in header", async () => {
+			test("Should return HTTP status code 401 if invalid bearer token provided in header", async () => {
 				const response = await server.inject({
 					method: "GET",
 					url: "/STU3/Patient/5484125",

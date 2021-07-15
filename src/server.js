@@ -5,9 +5,9 @@ const path = require("path");
 // Import plugins
 const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
-const helmet = require("fastify-helmet");
 const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
+const helmet = require("fastify-helmet");
 const rateLimit = require("fastify-rate-limit");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
@@ -33,12 +33,6 @@ async function plugin(server, config) {
 		// Opt-out of Google's FLoC advertising-surveillance network
 		.register(flocOff)
 
-		// Process load and 503 response handling
-		.register(underPressure, config.processLoad)
-
-		// Rate limiting and 429 response handling
-		.register(rateLimit, config.rateLimit)
-
 		// Use Helmet to set response security headers: https://helmetjs.github.io/
 		.register(helmet, {
 			contentSecurityPolicy: {
@@ -58,6 +52,12 @@ async function plugin(server, config) {
 				maxAge: 31536000,
 			},
 		})
+
+		// Rate limiting and 429 response handling
+		.register(rateLimit, config.rateLimit)
+
+		// Process load and 503 response handling
+		.register(underPressure, config.processLoad)
 
 		// Basic healthcheck route to ping
 		.register(healthCheck)

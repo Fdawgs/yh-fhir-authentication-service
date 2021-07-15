@@ -113,3 +113,15 @@ dist
 
 # Test files
 test_resources/*
+
+# Development files
+.git/
+.github/
+.husky/
+.vscode/
+.env.template
+.eslintrc.js
+.gitignore
+.pm2.config.js
+.prettierignore
+.prettierrc

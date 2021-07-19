@@ -28,6 +28,6 @@ async function plugin(server, options) {
 
 module.exports = fp(plugin, {
 	fastify: "3.x",
-	name: "content-lang",
+	name: "content-language",
 	dependencies: ["fastify-accepts"],
 });

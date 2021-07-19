@@ -2,7 +2,7 @@ const Fastify = require("fastify");
 const accepts = require("fastify-accepts");
 const plugin = require(".");
 
-describe("Accept-Language Plugin", () => {
+describe("Content-Language Plugin", () => {
 	describe("Response Headers", () => {
 		let server;
 

@@ -10,7 +10,7 @@ const flocOff = require("fastify-floc-off");
 const helmet = require("fastify-helmet");
 const rateLimit = require("fastify-rate-limit");
 const underPressure = require("under-pressure");
-const contentLanguages = require("./plugins/content-lang");
+const contentLanguages = require("./plugins/content-language");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 
 // Import healthcheck route

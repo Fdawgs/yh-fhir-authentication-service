@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.2...v4.0.3) (2021-07-19)
+
+
+### Bug Fixes
+
+* **package:** move `pino-pretty` to production dependency list ([#230](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/230)) ([3fb4011](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/3fb4011ab1ae05c4fb1ae4f8a1d3ec0cddb4acde))
+
+
+### Improvements
+
+* **routes/healthcheck:** move `Accept` header handling back to hook ([1dcd355](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1dcd3554459915595cf275ee871c3fcb8600cc3a))
+* **routes/redirect:** move `Accept` header handling back into hook ([55eded1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/55eded19b5542ef9f6d0ca83c0f929c560a27815))
+* **routes:** do not treat routes as plugins ([b883b1f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/b883b1fd5e8866e88ad636cf0deafb445d98e14c))
+* **server:** move redirect route and auth plugins into new context ([7e5a07e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/7e5a07e123e23bf23637f396846e185264468d87))
+
+
+### Continuous Integration
+
+* **cd:** move perf optimizations and refactoring into same section ([97fe2ae](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/97fe2ae082816a5b346fb29d59092c7c4b266e45))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint from 7.30.0 to 7.31.0 ([59f0d3a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/59f0d3a4877d01d3d388ebd6b519d34a14beefd2))
+* **deps-dev:** bump eslint-plugin-jsdoc from 35.4.3 to 35.4.5 ([85463a1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/85463a1679bcd6a5f3443a2a932b19eede8d61d3))
+* **deps:** bump fastify from 3.19.0 to 3.19.1 ([92faeb6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/92faeb6cd6feca3208e87501730cb3270375baa1))
+* **deps:** bump fastify-cors from 6.0.1 to 6.0.2 ([ef16081](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ef1608102db54e365cf72d1803a42c5d61a6b89b))
+* **deps:** bump jwks-rsa from 2.0.3 to 2.0.4 ([cb2b03d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/cb2b03df24ad54b51709f81de95d91c5bfeaf0c7))
+* **deps:** bump wagoid/commitlint-github-action from 3.1.4 to 4.1.1 ([516aef2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/516aef233af2d1222a305e744a23c94100e8b025))
+* **dockerignore:** add dev files ([5203e92](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5203e924a0d933e6612cbc6ddbe4f728db1d5ebc))
+* **docker:** use native logging, healthcheck, restart and res handling ([ae00eb4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ae00eb4eddcaa36a0d48542a76f0d91c0d21f76e))
+
+
+### Miscellaneous
+
+* change mentions of "MIME type" to "media type" ([#225](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/225)) ([adda5e9](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/adda5e9c17dbb188861907f1cd61a1f4a4368d72))
+* **env.template:** use double quotes ([678dc45](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/678dc45e7195281947495f3487464d7dd2b7828d))
+* **server:** sort plugin registering alphabetically ascending ([0551c8e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0551c8e8a24f06a438a73cc349b6a4f93175e25d))
+* **server:** update encapsulation comment ([92ed426](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/92ed4263bd2d47df8abdf79b8992463b3cc69eb9))
+* **test_resources:** fix name of test requests file ([aa3fffe](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/aa3fffe8af83ba7b55435632a288908a7c2b97ca))
+* **test_resources:** update test requests with new headers ([873624a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/873624a949765600bc4aa0b09827ee58fa5060f9))
+* update jsdoc tag comments ([4e45184](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/4e451845c61c6acd237c93d56cd4207969bd15a9))
+* update plugin metadata for server dependency graph ([288728c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/288728c3f9bae19751994f6d32b4fd85e74db724))
+
 ### [4.0.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.1...v4.0.2) (2021-07-12)
 
 

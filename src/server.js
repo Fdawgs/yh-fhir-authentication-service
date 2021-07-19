@@ -10,6 +10,7 @@ const flocOff = require("fastify-floc-off");
 const helmet = require("fastify-helmet");
 const rateLimit = require("fastify-rate-limit");
 const underPressure = require("under-pressure");
+const contentLanguages = require("./plugins/content-lang");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 
 // Import healthcheck route
@@ -26,6 +27,9 @@ async function plugin(server, config) {
 	server
 		// Accept header handler
 		.register(accepts)
+
+		// Set Content-Language header and handle Accept-Language header
+		.register(contentLanguages, { contentLanguages: ["en"] })
 
 		// Set response headers to disable client-side caching
 		.register(disableCache)

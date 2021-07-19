@@ -36,7 +36,7 @@ async function getSigningKey(token, jwksUri) {
  * @description Decorator plugin that adds `verifyJWT` function
  * to authenticate JWTs using JWKS endpoint.
  * @param {Function} server - Fastify instance.
- * @param {object} options - JWT JWKS config values.
+ * @param {object} options - Plugin config values.
  * @param {string} options.jwksEndpoint - URL of endpoint containing JWKS public keys.
  * @param {string|Array} options.allowedAudiences - Accepted recipient(s) that JWT is intended for.
  * @param {Array} options.allowedAlgorithms - Accepted signing algorithm(s).

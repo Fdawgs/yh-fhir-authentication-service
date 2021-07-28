@@ -140,7 +140,7 @@ jobs:
             - name: Build and Start App
               run: |
                   cp .env.template .env
-                  NODE_ENV=test docker-compose up --detach
+                  docker-compose up --detach
 
     coverage:
         name: Aggregate Coverage Calculations

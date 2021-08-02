@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.3...v5.0.0) (2021-08-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* minimum required version of node increased from 12 to 14 to allow for new ECMAScript syntax to be used
+
+### Bug Fixes
+
+* **docker-compose:** wrap variables in quotes ([#242](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/242)) ([c83f3b9](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c83f3b9ffc09899a1232e02e9194b3d4e29f4b6b))
+
+
+### Improvements
+
+* **config:** provide custom ajv instance to `env-schema` ([#240](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/240)) ([c91c8cd](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c91c8cd30cc18a6533ca4677ffcb238fcc4ae95d))
+
+
+### Continuous Integration
+
+* **ci:** remove redundant env variable ([2e3ec3e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/2e3ec3e5a90df2e399c7988d0127f01e1a2d97e3))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint from 7.31.0 to 7.32.0 ([bfd632b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/bfd632ba30e006f643f1d3e842ec0c9d4943732c))
+* **deps-dev:** remove unused fastify-formbody dependency ([5686c2d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5686c2d746fbd98494d60162a80bfa90b573e013))
+* **deps:** bump actions/setup-node from 2.2.0 to 2.3.0 ([c0c89ac](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c0c89ac56eb12d2e717650ba4cf3519df3d2be32))
+* **deps:** bump dependencies ([a28a4a4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a28a4a499d800909fd5829863b6f2dc1813978d1))
+* **deps:** bump GoogleCloudPlatform/release-please-action ([ccd8935](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ccd89350792e281554d555e4161fba3792456fb3))
+* **docker:** bump curl from 7.67.0-r4 to 7.67.0-r5 ([34f0107](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/34f01078a9cb07af3179a9e99ec49ab89b6eb836))
+
+
+### Miscellaneous
+
+* grammar fixes for jsdoc tags ([#256](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/256)) ([f3fef78](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f3fef78854c027e3e3c9ece979c9fadf7cca9707))
+* increase minimum required version of node from 12 to 14 ([#258](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/258)) ([8a81193](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/8a81193fb816395c15665b04055cf236a5b46875))
+
 ### [4.0.3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.2...v4.0.3) (2021-07-19)
 
 

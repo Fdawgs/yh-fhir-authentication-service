@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [5.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v5.0.0...v5.0.1) (2021-08-09)
+
+
+### Bug Fixes
+
+* **app:** logging grammar fixes ([88b2f73](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/88b2f73a780072c544047bf6234d0a3849a6880a))
+
 ## [5.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.3...v5.0.0) (2021-08-02)
 
 

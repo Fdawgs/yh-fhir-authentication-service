@@ -146,7 +146,7 @@ describe("configuration", () => {
 		});
 	});
 
-	test("Should return values according to environment variables and use defaults if values missing", async () => {
+	test("Should use defaults if values missing and return values according to environment variables", async () => {
 		const NODE_ENV = "development";
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
@@ -155,7 +155,7 @@ describe("configuration", () => {
 		const HTTPS_SSL_CERT_PATH =
 			"./test_resources/test_ssl_cert/server.cert";
 		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
-		const CORS_ORIGIN = false;
+		const CORS_ORIGIN = "";
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
 		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = "";
@@ -237,7 +237,7 @@ describe("configuration", () => {
 		});
 
 		expect(config.cors).toEqual({
-			origin: CORS_ORIGIN,
+			origin: false,
 		});
 
 		expect(config.processLoad).toEqual({

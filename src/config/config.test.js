@@ -26,20 +26,13 @@ describe("configuration", () => {
 		const NODE_ENV = "development";
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
-		const HTTPS_SSL_CERT_PATH =
-			"./test_resources/test_ssl_cert/server.cert";
-		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN = false;
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
-		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = 1000;
-		const PROC_LOAD_MAX_HEAP_USED_BYTES = 100000000;
-		const PROC_LOAD_MAX_RSS_BYTES = 100000000;
-		const PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION = 0.98;
-		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = 2000;
-		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
+		const HTTPS_SSL_CERT_PATH =
+			"./test_resources/test_ssl_cert/server.cert";
+		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -48,9 +41,14 @@ describe("configuration", () => {
 		const LOG_ROTATION_DATE_FORMAT = "YYYY-MM";
 		const LOG_ROTATION_FILENAME = "./test_resources/test_log";
 		const LOG_ROTATION_FREQUENCY = "custom";
+		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = 1000;
+		const PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION = 0.98;
+		const PROC_LOAD_MAX_HEAP_USED_BYTES = 100000000;
+		const PROC_LOAD_MAX_RSS_BYTES = 100000000;
+		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = 2000;
+		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
-
 		const JWKS_ENDPOINT =
 			"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs";
 		const JWT_ALLOWED_AUDIENCE = "who-knows";
@@ -64,21 +62,21 @@ describe("configuration", () => {
 			SERVICE_HOST,
 			SERVICE_PORT,
 			SERVICE_REDIRECT_URL,
-			HTTPS_SSL_CERT_PATH,
-			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
-			PROC_LOAD_MAX_EVENT_LOOP_DELAY,
-			PROC_LOAD_MAX_HEAP_USED_BYTES,
-			PROC_LOAD_MAX_RSS_BYTES,
-			PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
-			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
-			RATE_LIMIT_EXCLUDED_ARRAY,
+			HTTPS_SSL_CERT_PATH,
+			HTTPS_SSL_KEY_PATH,
 			LOG_LEVEL,
 			LOG_ROTATION_DATE_FORMAT,
 			LOG_ROTATION_FILENAME,
 			LOG_ROTATION_FREQUENCY,
+			PROC_LOAD_MAX_EVENT_LOOP_DELAY,
+			PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
+			PROC_LOAD_MAX_HEAP_USED_BYTES,
+			PROC_LOAD_MAX_RSS_BYTES,
+			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
+			RATE_LIMIT_EXCLUDED_ARRAY,
 			AUTH_BEARER_TOKEN_ARRAY,
 			JWKS_ENDPOINT,
 			JWT_ALLOWED_AUDIENCE,
@@ -126,9 +124,9 @@ describe("configuration", () => {
 
 		expect(config.processLoad).toEqual({
 			maxEventLoopDelay: PROC_LOAD_MAX_EVENT_LOOP_DELAY,
+			maxEventLoopUtilization: PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
 			maxHeapUsedBytes: PROC_LOAD_MAX_HEAP_USED_BYTES,
 			maxRssBytes: PROC_LOAD_MAX_RSS_BYTES,
-			maxEventLoopUtilization: PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
 		});
 
 		expect(config.rateLimit).toEqual({
@@ -154,24 +152,23 @@ describe("configuration", () => {
 		const NODE_ENV = "development";
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
-		const HTTPS_SSL_CERT_PATH =
-			"./test_resources/test_ssl_cert/server.cert";
-		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN = "";
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
-		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = "";
-		const PROC_LOAD_MAX_HEAP_USED_BYTES = "";
-		const PROC_LOAD_MAX_RSS_BYTES = "";
-		const PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION = "";
-		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = "";
-		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
+		const HTTPS_SSL_CERT_PATH =
+			"./test_resources/test_ssl_cert/server.cert";
+		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
 		const LOG_LEVEL = "";
 		const LOG_ROTATION_DATE_FORMAT = "";
 		const LOG_ROTATION_FILENAME = "./test_resources/test_log";
 		const LOG_ROTATION_FREQUENCY = "";
+		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = "";
+		const PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION = "";
+		const PROC_LOAD_MAX_HEAP_USED_BYTES = "";
+		const PROC_LOAD_MAX_RSS_BYTES = "";
+		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = "";
+		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
 
@@ -188,21 +185,21 @@ describe("configuration", () => {
 			SERVICE_HOST,
 			SERVICE_PORT,
 			SERVICE_REDIRECT_URL,
-			HTTPS_SSL_CERT_PATH,
-			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
-			PROC_LOAD_MAX_EVENT_LOOP_DELAY,
-			PROC_LOAD_MAX_HEAP_USED_BYTES,
-			PROC_LOAD_MAX_RSS_BYTES,
-			PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
-			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
-			RATE_LIMIT_EXCLUDED_ARRAY,
+			HTTPS_SSL_CERT_PATH,
+			HTTPS_SSL_KEY_PATH,
 			LOG_LEVEL,
 			LOG_ROTATION_DATE_FORMAT,
 			LOG_ROTATION_FILENAME,
 			LOG_ROTATION_FREQUENCY,
+			PROC_LOAD_MAX_EVENT_LOOP_DELAY,
+			PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
+			PROC_LOAD_MAX_HEAP_USED_BYTES,
+			PROC_LOAD_MAX_RSS_BYTES,
+			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
+			RATE_LIMIT_EXCLUDED_ARRAY,
 			AUTH_BEARER_TOKEN_ARRAY,
 			JWKS_ENDPOINT,
 			JWT_ALLOWED_AUDIENCE,
@@ -250,9 +247,9 @@ describe("configuration", () => {
 
 		expect(config.processLoad).toEqual({
 			maxEventLoopDelay: 0,
+			maxEventLoopUtilization: 0,
 			maxHeapUsedBytes: 0,
 			maxRssBytes: 0,
-			maxEventLoopUtilization: 0,
 		});
 
 		expect(config.rateLimit).toEqual({
@@ -277,14 +274,13 @@ describe("configuration", () => {
 	test("Should return values according to environment variables - PFX enabled and CORS enabled", async () => {
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
-		const HTTPS_PFX_FILE_PATH =
-			"./test_resources/test_ssl_cert/server.cert"; // I know it's not an actual PFX file
-		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN = true;
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = true;
+		const HTTPS_PFX_FILE_PATH =
+			"./test_resources/test_ssl_cert/server.cert"; // I know it's not an actual PFX file
+		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -295,11 +291,11 @@ describe("configuration", () => {
 			SERVICE_HOST,
 			SERVICE_PORT,
 			SERVICE_REDIRECT_URL,
-			HTTPS_PFX_FILE_PATH,
-			HTTPS_PFX_PASSPHRASE,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
+			HTTPS_PFX_FILE_PATH,
+			HTTPS_PFX_PASSPHRASE,
 			LOG_LEVEL,
 		});
 
@@ -324,8 +320,7 @@ describe("configuration", () => {
 	test("Should return values according to environment variables - HTTPS disabled and CORS set to string value", async () => {
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN = "https://ydh.nhs.uk";
 		const CORS_ALLOWED_HEADERS =
 			"Accept, Authorization, Content-Type, Origin, X-Requested-With";
@@ -365,8 +360,7 @@ describe("configuration", () => {
 	test("Should return values according to environment variables - HTTPS disabled and CORS set to comma-delimited string value", async () => {
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN =
 			"https://test1.ydh.nhs.uk, https://test2.ydh.nhs.uk";
 		const CORS_ALLOWED_HEADERS =
@@ -410,13 +404,12 @@ describe("configuration", () => {
 	test("Should throw error if invalid PFX file path", async () => {
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
-		const HTTPS_PFX_FILE_PATH = "./test_resources/test_ssl_cert/error.pfx";
-		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN = true;
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
+		const HTTPS_PFX_FILE_PATH = "./test_resources/test_ssl_cert/error.pfx";
+		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -427,11 +420,11 @@ describe("configuration", () => {
 			SERVICE_HOST,
 			SERVICE_PORT,
 			SERVICE_REDIRECT_URL,
-			HTTPS_PFX_FILE_PATH,
-			HTTPS_PFX_PASSPHRASE,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
+			HTTPS_PFX_FILE_PATH,
+			HTTPS_PFX_PASSPHRASE,
 			LOG_LEVEL,
 		});
 
@@ -441,13 +434,12 @@ describe("configuration", () => {
 	test("Should throw error if invalid SSL cert file path", async () => {
 		const SERVICE_HOST = faker.internet.ip();
 		const SERVICE_PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL =
-			"https://pyrusapps.blackpear.com/esp/#!/launch?";
-		const HTTPS_SSL_CERT_PATH = "./test_resources/test_ssl_cert/error.cert";
-		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/error.key";
+		const SERVICE_REDIRECT_URL = "https://www.nhs.uk/?";
 		const CORS_ORIGIN = true;
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
+		const HTTPS_SSL_CERT_PATH = "./test_resources/test_ssl_cert/error.cert";
+		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/error.key";
 		const LOG_LEVEL = faker.random.arrayElement([
 			"debug",
 			"warn",
@@ -458,11 +450,11 @@ describe("configuration", () => {
 			SERVICE_HOST,
 			SERVICE_PORT,
 			SERVICE_REDIRECT_URL,
-			HTTPS_SSL_CERT_PATH,
-			HTTPS_SSL_KEY_PATH,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
+			HTTPS_SSL_CERT_PATH,
+			HTTPS_SSL_KEY_PATH,
 			LOG_LEVEL,
 		});
 

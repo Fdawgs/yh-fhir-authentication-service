@@ -45,7 +45,9 @@ describe("configuration", () => {
 			"warn",
 			"silent",
 		]);
+		const LOG_ROTATION_DATE_FORMAT = "YYYY-MM";
 		const LOG_ROTATION_FILENAME = "./test_resources/test_log";
+		const LOG_ROTATION_FREQUENCY = "custom";
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
 
@@ -74,7 +76,9 @@ describe("configuration", () => {
 			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
 			RATE_LIMIT_EXCLUDED_ARRAY,
 			LOG_LEVEL,
+			LOG_ROTATION_DATE_FORMAT,
 			LOG_ROTATION_FILENAME,
+			LOG_ROTATION_FREQUENCY,
 			AUTH_BEARER_TOKEN_ARRAY,
 			JWKS_ENDPOINT,
 			JWT_ALLOWED_AUDIENCE,
@@ -165,7 +169,9 @@ describe("configuration", () => {
 		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = "";
 		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
 		const LOG_LEVEL = "";
+		const LOG_ROTATION_DATE_FORMAT = "";
 		const LOG_ROTATION_FILENAME = "./test_resources/test_log";
+		const LOG_ROTATION_FREQUENCY = "";
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
 
@@ -194,7 +200,9 @@ describe("configuration", () => {
 			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
 			RATE_LIMIT_EXCLUDED_ARRAY,
 			LOG_LEVEL,
+			LOG_ROTATION_DATE_FORMAT,
 			LOG_ROTATION_FILENAME,
+			LOG_ROTATION_FREQUENCY,
 			AUTH_BEARER_TOKEN_ARRAY,
 			JWKS_ENDPOINT,
 			JWT_ALLOWED_AUDIENCE,

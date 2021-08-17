@@ -153,6 +153,15 @@ async function getConfig() {
 					},
 				},
 				level: env.LOG_LEVEL || "info",
+				/**
+				 * Pretty output to stdout out if not in production.
+				 * Replaces using `pino-pretty` in scripts, as it does not play
+				 * well with Nodemon
+				 */
+				prettyPrint:
+					env.NODE_ENV.toLowerCase() !== "production" &&
+					(!env.LOG_ROTATION_FILENAME ||
+						env.LOG_ROTATION_FILENAME === ""),
 				serializers: {
 					/* istanbul ignore next */
 					req(req) {
@@ -231,18 +240,6 @@ async function getConfig() {
 			size: env.LOG_ROTATION_MAX_SIZE,
 			verbose: false,
 		});
-	}
-
-	/**
-	 * Pretty output to stdout out if not in production.
-	 * Replaces using `pino-pretty` in scripts, as it does not play
-	 * well with Nodemon
-	 */
-	if (
-		isProduction === false &&
-		(!env.LOG_ROTATION_FILENAME || env.LOG_ROTATION_FILENAME === "")
-	) {
-		config.fastifyInit.logger.prettyPrint = true;
 	}
 
 	if (env.RATE_LIMIT_EXCLUDED_ARRAY) {

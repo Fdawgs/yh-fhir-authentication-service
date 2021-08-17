@@ -9,11 +9,9 @@ const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
 const helmet = require("fastify-helmet");
 const rateLimit = require("fastify-rate-limit");
+const sensible = require("fastify-sensible");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
-
-// Import healthcheck route
-const healthCheck = require("./routes/healthcheck");
 
 /**
  * @author Frazer Smith
@@ -56,11 +54,18 @@ async function plugin(server, config) {
 		// Rate limiting and 429 response handling
 		.register(rateLimit, config.rateLimit)
 
+		// Utility functions and error handlers
+		.register(sensible)
+
 		// Process load and 503 response handling
 		.register(underPressure, config.processLoad)
 
-		// Basic healthcheck route to ping
-		.register(healthCheck)
+		// Import and register admin routes
+		.register(autoLoad, {
+			dir: path.join(__dirname, "routes"),
+			ignorePattern: /redirect/,
+			options: config,
+		})
 
 		/**
 		 * Encapsulate plugins and routes into secured child context, so that swagger and healthcheck
@@ -76,7 +81,7 @@ async function plugin(server, config) {
 				.register(autoLoad, {
 					dir: path.join(__dirname, "routes"),
 					dirNameRoutePrefix: false,
-					ignorePattern: /healthcheck/,
+					ignorePattern: /admin/,
 					options: config,
 				});
 		});

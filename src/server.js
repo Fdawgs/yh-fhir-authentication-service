@@ -9,6 +9,7 @@ const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
 const helmet = require("fastify-helmet");
 const rateLimit = require("fastify-rate-limit");
+const sensible = require("fastify-sensible");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 
@@ -55,6 +56,9 @@ async function plugin(server, config) {
 
 		// Rate limiting and 429 response handling
 		.register(rateLimit, config.rateLimit)
+
+		// Utility functions and error handlers
+		.register(sensible)
 
 		// Process load and 503 response handling
 		.register(underPressure, config.processLoad)

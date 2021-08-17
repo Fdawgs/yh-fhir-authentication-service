@@ -1,5 +1,3 @@
-const { NotAcceptable } = require("http-errors");
-
 // Import plugins
 const replyFrom = require("fastify-reply-from");
 const bearer = require("fastify-bearer-auth").internals.factory;
@@ -39,7 +37,7 @@ async function route(server, options) {
 				req.accepts().type(redirectGetSchema.produces)
 			)
 		) {
-			res.send(NotAcceptable());
+			res.notAcceptable();
 		}
 	});
 

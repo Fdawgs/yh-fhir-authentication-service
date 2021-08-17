@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v5.0.0...v6.0.0) (2021-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **routes:** `/healthcheck` moved to `/admin/healthcheck`
+
+### Features
+
+* **routes/admin/healthcheck:** add cors header support ([c6ac6a5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c6ac6a57c8c841dd0789f0bb43e6411294ce0688))
+
+
+### Bug Fixes
+
+* **app:** logging grammar fixes ([88b2f73](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/88b2f73a780072c544047bf6234d0a3849a6880a))
+* **config:** allow for empty logger env variables ([2698cf7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/2698cf7fee2882a242b542ef54b1ce0348284770))
+* **config:** defaults for undeclared variables ([76e04aa](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/76e04aa3fcc7d536f7f98c4bddb92da3d6cd860e))
+
+
+### Miscellaneous
+
+* **env:** document default logger values ([6a5a1a4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6a5a1a4eae497b11e35717eaba6922445a40bef8))
+* **env:** standardise, sort, and group env variables ([41a2d75](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/41a2d75d484b1eee3a2c153f9db6fe318fe2e96d))
+
+
+### Improvements
+
+* **config:** consolidate logger pretty print conditional ([384049a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/384049aad16f2298c202f56864d62df7d917bc84))
+* replace `http-errors` with `fastify-sensible` plugin ([9890a07](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/9890a078ddef26900fdf2d4a9c8e5d45cfe5b5ea))
+* **routes:** `/healthcheck` moved to `/admin/healthcheck` ([990428e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/990428e0e8d91fe8858d90062b5bdbe5d9e0b847))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint-plugin-import from 2.23.4 to 2.24.0 ([24eb39d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/24eb39d088dcea04aa391cdc6e6bcfe736c41bdc))
+* **deps-dev:** bump eslint-plugin-jsdoc from 36.0.6 to 36.0.7 ([78d1da4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/78d1da4d764f85f181e1038799ca44ab78d79c77))
+* **deps:** bump actions/setup-node from 2.3.0 to 2.4.0 ([1b0b04f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1b0b04f0e0a15b2eef6af1183fb4c46348363957))
+* **deps:** bump ajv-formats from 2.1.0 to 2.1.1 ([a4f360a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a4f360ab1de068a09dd882b94b213117d84b1e7b))
+* **deps:** bump env-schema from 3.1.0 to 3.3.0 ([1971244](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1971244e6bc5b75d6a5dc80fe8bccfd8db1120cf))
+* **deps:** bump fastify from 3.19.2 to 3.20.2 ([3c0721c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/3c0721cd4cc4a9f5382830f57cf6a665808c958a))
+* **deps:** bump pino-pretty from 5.1.2 to 5.1.3 ([76942cc](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/76942cc34d0c357c010bd49a50e45e3b7ad6f85b))
+
 ## [5.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.3...v5.0.0) (2021-08-02)
 
 

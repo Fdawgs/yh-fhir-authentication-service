@@ -51,8 +51,8 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.statusCode).toEqual(200);
 				expect(response.payload).toEqual("ok");
+				expect(response.statusCode).toEqual(200);
 			});
 
 			test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
@@ -167,13 +167,12 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.statusCode).toBe(401);
-
 				expect(JSON.parse(response.payload)).toEqual(
 					expect.objectContaining({
 						error: "invalid authorization header",
 					})
 				);
+				expect(response.statusCode).toBe(401);
 			});
 
 			test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
@@ -219,8 +218,8 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.statusCode).toEqual(200);
 				expect(response.payload).toEqual("ok");
+				expect(response.statusCode).toEqual(200);
 			});
 
 			test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {

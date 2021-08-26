@@ -11,6 +11,8 @@ const tags = ["Redirect"];
 const redirectGetSchema = {
 	tags,
 	summary: "Redirect route",
+	description:
+		"Redirects to the URL set with the `SERVICE_REDIRECT_URL` environment variable.",
 	produces: ["application/fhir+json", "application/fhir+xml"],
 	params: S.object()
 		// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
@@ -56,6 +58,20 @@ const redirectGetSchema = {
 			]),
 		})
 		.additionalProperties(false),
+	response: {
+		401: S.ref("responses#/definitions/unauthorized").description(
+			"Unauthorized"
+		),
+		406: S.ref("responses#/definitions/notAcceptable").description(
+			"Not Acceptable"
+		),
+		429: S.ref("responses#/definitions/tooManyRequests").description(
+			"Too Many Requests"
+		),
+		503: S.ref("responses#/definitions/serviceUnavailable").description(
+			"Service Unavailable"
+		),
+	},
 };
 
 module.exports = { redirectGetSchema };

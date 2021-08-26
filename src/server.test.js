@@ -108,7 +108,7 @@ describe("Server Deployment", () => {
 						connection: "keep-alive",
 					})
 				);
-				expect(response.statusCode).toBe(200);
+				expect(response.statusCode).toEqual(200);
 			});
 
 			test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
@@ -154,7 +154,7 @@ describe("Server Deployment", () => {
 						connection: "keep-alive",
 					})
 				);
-				expect(response.statusCode).toBe(200);
+				expect(response.statusCode).toEqual(200);
 			});
 
 			test("Should return HTTP status code 401 if invalid bearer token provided in header", async () => {
@@ -167,12 +167,7 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({
-						error: "invalid authorization header",
-					})
-				);
-				expect(response.statusCode).toBe(401);
+				expect(response.statusCode).toEqual(401);
 			});
 
 			test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
@@ -286,7 +281,7 @@ describe("Server Deployment", () => {
 						connection: "keep-alive",
 					})
 				);
-				expect(response.statusCode).toBe(200);
+				expect(response.statusCode).toEqual(200);
 
 				await server.close();
 			});
@@ -338,7 +333,7 @@ describe("Server Deployment", () => {
 						connection: "keep-alive",
 					})
 				);
-				expect(response.statusCode).toBe(200);
+				expect(response.statusCode).toEqual(200);
 
 				await server.close();
 			});
@@ -392,7 +387,7 @@ describe("Server Deployment", () => {
 						connection: "keep-alive",
 					})
 				);
-				expect(response.statusCode).toBe(200);
+				expect(response.statusCode).toEqual(200);
 
 				await server.close();
 			});

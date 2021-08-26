@@ -30,7 +30,7 @@ async function route(server, options) {
 		},
 	});
 
-	server.addHook("onRequest", async (req, res) => {
+	server.addHook("preValidation", async (req, res) => {
 		if (
 			// Catch unsupported Accept header media types
 			!redirectGetSchema.produces.includes(
@@ -46,7 +46,14 @@ async function route(server, options) {
 		schema: redirectGetSchema,
 		preHandler: server.auth([
 			server.verifyJWT,
-			bearer({ keys: options.authKeys }),
+			bearer({
+				keys: options.authKeys,
+				errorResponse: (err) => ({
+					statusCode: 401,
+					error: "Unauthorized",
+					message: err.message,
+				}),
+			}),
 		]),
 		handler(req, res) {
 			res.from(req.url, {

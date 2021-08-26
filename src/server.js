@@ -12,6 +12,7 @@ const rateLimit = require("fastify-rate-limit");
 const sensible = require("fastify-sensible");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
+const sharedSchemas = require("./plugins/shared-schemas");
 
 /**
  * @author Frazer Smith
@@ -56,6 +57,9 @@ async function plugin(server, config) {
 
 		// Utility functions and error handlers
 		.register(sensible)
+
+		// Re-usable schemas
+		.register(sharedSchemas)
 
 		// Process load and 503 response handling
 		.register(underPressure, config.processLoad)

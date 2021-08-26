@@ -4,6 +4,43 @@ const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
 
+const expResHeaders = {
+	"content-security-policy":
+		"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
+	"x-dns-prefetch-control": "off",
+	"expect-ct": "max-age=0",
+	"x-frame-options": "SAMEORIGIN",
+	"strict-transport-security": "max-age=31536000; includeSubDomains",
+	"x-download-options": "noopen",
+	"x-content-type-options": "nosniff",
+	"x-permitted-cross-domain-policies": "none",
+	"referrer-policy": "no-referrer",
+	"x-xss-protection": "0",
+	"surrogate-control": "no-store",
+	"cache-control": "no-store, max-age=0, must-revalidate",
+	pragma: "no-cache",
+	expires: "0",
+	"permissions-policy": "interest-cohort=()",
+	vary: "Origin",
+	"x-ratelimit-limit": expect.any(Number),
+	"x-ratelimit-remaining": expect.any(Number),
+	"x-ratelimit-reset": expect.any(Number),
+	"content-type": "application/fhir+json; charset=UTF-8",
+	"content-length": expect.any(String),
+	date: expect.any(String),
+	connection: "keep-alive",
+};
+
+const expResHeadersJson = {
+	...expResHeaders,
+	...{ "content-type": expect.stringContaining("application/json") },
+};
+
+const expResHeadersText = {
+	...expResHeaders,
+	...{ "content-type": expect.stringContaining("text/plain") },
+};
+
 describe("Server Deployment", () => {
 	beforeAll(async () => {
 		try {
@@ -52,6 +89,9 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.payload).toEqual("ok");
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeadersText)
+				);
 				expect(response.statusCode).toEqual(200);
 			});
 
@@ -64,6 +104,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeadersJson)
+				);
 				expect(response.statusCode).toEqual(406);
 			});
 		});
@@ -80,33 +123,7 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.headers).toEqual(
-					expect.objectContaining({
-						"content-security-policy":
-							"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
-						"x-dns-prefetch-control": "off",
-						"expect-ct": "max-age=0",
-						"x-frame-options": "SAMEORIGIN",
-						"strict-transport-security":
-							"max-age=31536000; includeSubDomains",
-						"x-download-options": "noopen",
-						"x-content-type-options": "nosniff",
-						"x-permitted-cross-domain-policies": "none",
-						"referrer-policy": "no-referrer",
-						"x-xss-protection": "0",
-						"surrogate-control": "no-store",
-						"cache-control": "no-store, max-age=0, must-revalidate",
-						pragma: "no-cache",
-						expires: "0",
-						"permissions-policy": "interest-cohort=()",
-						vary: "Origin",
-						"x-ratelimit-limit": expect.any(Number),
-						"x-ratelimit-remaining": expect.any(Number),
-						"x-ratelimit-reset": expect.any(Number),
-						"content-type": "application/fhir+json; charset=UTF-8",
-						"content-length": expect.any(String),
-						date: expect.any(String),
-						connection: "keep-alive",
-					})
+					expect.objectContaining(expResHeaders)
 				);
 				expect(response.statusCode).toEqual(200);
 			});
@@ -126,33 +143,7 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.headers).toEqual(
-					expect.objectContaining({
-						"content-security-policy":
-							"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
-						"x-dns-prefetch-control": "off",
-						"expect-ct": "max-age=0",
-						"x-frame-options": "SAMEORIGIN",
-						"strict-transport-security":
-							"max-age=31536000; includeSubDomains",
-						"x-download-options": "noopen",
-						"x-content-type-options": "nosniff",
-						"x-permitted-cross-domain-policies": "none",
-						"referrer-policy": "no-referrer",
-						"x-xss-protection": "0",
-						"surrogate-control": "no-store",
-						"cache-control": "no-store, max-age=0, must-revalidate",
-						pragma: "no-cache",
-						expires: "0",
-						"permissions-policy": "interest-cohort=()",
-						vary: "Origin",
-						"x-ratelimit-limit": expect.any(Number),
-						"x-ratelimit-remaining": expect.any(Number),
-						"x-ratelimit-reset": expect.any(Number),
-						"content-type": "application/fhir+json; charset=UTF-8",
-						"content-length": expect.any(String),
-						date: expect.any(String),
-						connection: "keep-alive",
-					})
+					expect.objectContaining(expResHeaders)
 				);
 				expect(response.statusCode).toEqual(200);
 			});
@@ -167,6 +158,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeadersJson)
+				);
 				expect(response.statusCode).toEqual(401);
 			});
 
@@ -180,6 +174,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeadersJson)
+				);
 				expect(response.statusCode).toEqual(406);
 			});
 		});
@@ -214,6 +211,9 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.payload).toEqual("ok");
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeadersText)
+				);
 				expect(response.statusCode).toEqual(200);
 			});
 
@@ -226,6 +226,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeadersJson)
+				);
 				expect(response.statusCode).toEqual(406);
 			});
 		});
@@ -251,35 +254,7 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.headers).toEqual(
-					expect.objectContaining({
-						"access-control-allow-origin":
-							"https://notreal.ydh.nhs.uk",
-						"content-security-policy":
-							"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
-						"x-dns-prefetch-control": "off",
-						"expect-ct": "max-age=0",
-						"x-frame-options": "SAMEORIGIN",
-						"strict-transport-security":
-							"max-age=31536000; includeSubDomains",
-						"x-download-options": "noopen",
-						"x-content-type-options": "nosniff",
-						"x-permitted-cross-domain-policies": "none",
-						"referrer-policy": "no-referrer",
-						"x-xss-protection": "0",
-						"surrogate-control": "no-store",
-						"cache-control": "no-store, max-age=0, must-revalidate",
-						pragma: "no-cache",
-						expires: "0",
-						"permissions-policy": "interest-cohort=()",
-						vary: "Origin",
-						"x-ratelimit-limit": expect.any(Number),
-						"x-ratelimit-remaining": expect.any(Number),
-						"x-ratelimit-reset": expect.any(Number),
-						"content-type": "application/fhir+json; charset=UTF-8",
-						"content-length": expect.any(String),
-						date: expect.any(String),
-						connection: "keep-alive",
-					})
+					expect.objectContaining(expResHeaders)
 				);
 				expect(response.statusCode).toEqual(200);
 
@@ -305,33 +280,7 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.headers).toEqual(
-					expect.objectContaining({
-						"content-security-policy":
-							"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
-						"x-dns-prefetch-control": "off",
-						"expect-ct": "max-age=0",
-						"x-frame-options": "SAMEORIGIN",
-						"strict-transport-security":
-							"max-age=31536000; includeSubDomains",
-						"x-download-options": "noopen",
-						"x-content-type-options": "nosniff",
-						"x-permitted-cross-domain-policies": "none",
-						"referrer-policy": "no-referrer",
-						"x-xss-protection": "0",
-						"surrogate-control": "no-store",
-						"cache-control": "no-store, max-age=0, must-revalidate",
-						pragma: "no-cache",
-						expires: "0",
-						"permissions-policy": "interest-cohort=()",
-						vary: "Origin",
-						"x-ratelimit-limit": expect.any(Number),
-						"x-ratelimit-remaining": expect.any(Number),
-						"x-ratelimit-reset": expect.any(Number),
-						"content-type": "application/fhir+json; charset=UTF-8",
-						"content-length": expect.any(String),
-						date: expect.any(String),
-						connection: "keep-alive",
-					})
+					expect.objectContaining(expResHeaders)
 				);
 				expect(response.statusCode).toEqual(200);
 
@@ -357,35 +306,7 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.headers).toEqual(
-					expect.objectContaining({
-						"access-control-allow-origin":
-							"https://notreal.ydh.nhs.uk",
-						"content-security-policy":
-							"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
-						"x-dns-prefetch-control": "off",
-						"expect-ct": "max-age=0",
-						"x-frame-options": "SAMEORIGIN",
-						"strict-transport-security":
-							"max-age=31536000; includeSubDomains",
-						"x-download-options": "noopen",
-						"x-content-type-options": "nosniff",
-						"x-permitted-cross-domain-policies": "none",
-						"referrer-policy": "no-referrer",
-						"x-xss-protection": "0",
-						"surrogate-control": "no-store",
-						"cache-control": "no-store, max-age=0, must-revalidate",
-						pragma: "no-cache",
-						expires: "0",
-						"permissions-policy": "interest-cohort=()",
-						vary: "Origin",
-						"x-ratelimit-limit": expect.any(Number),
-						"x-ratelimit-remaining": expect.any(Number),
-						"x-ratelimit-reset": expect.any(Number),
-						"content-type": "application/fhir+json; charset=UTF-8",
-						"content-length": expect.any(String),
-						date: expect.any(String),
-						connection: "keep-alive",
-					})
+					expect.objectContaining(expResHeaders)
 				);
 				expect(response.statusCode).toEqual(200);
 

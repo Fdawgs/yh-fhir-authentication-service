@@ -3,6 +3,7 @@ const Fastify = require("fastify");
 const sensible = require("fastify-sensible");
 const route = require(".");
 const getConfig = require("../../../config");
+const sharedSchemas = require("../../../plugins/shared-schemas");
 
 describe("Healthcheck Route", () => {
 	describe("GET Requests", () => {
@@ -12,8 +13,11 @@ describe("Healthcheck Route", () => {
 		beforeAll(async () => {
 			config = await getConfig();
 
-			server = Fastify();
-			server.register(accepts).register(sensible).register(route, config);
+			server = Fastify()
+				.register(accepts)
+				.register(sensible)
+				.register(sharedSchemas)
+				.register(route, config);
 
 			await server.ready();
 		});

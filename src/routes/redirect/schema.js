@@ -11,6 +11,8 @@ const tags = ["Redirect"];
 const redirectGetSchema = {
 	tags,
 	summary: "Redirect route",
+	description:
+		"Redirects to the URL set with the `SERVICE_REDIRECT_URL` environment variable.",
 	produces: ["application/fhir+json", "application/fhir+xml"],
 	params: S.object()
 		// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars

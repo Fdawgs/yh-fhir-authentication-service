@@ -167,12 +167,7 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({
-						error: "invalid authorization header",
-					})
-				);
-				expect(response.statusCode).toBe(401);
+				expect(response.statusCode).toEqual(401);
 			});
 
 			test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {

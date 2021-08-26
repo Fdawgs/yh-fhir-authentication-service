@@ -46,7 +46,14 @@ async function route(server, options) {
 		schema: redirectGetSchema,
 		preHandler: server.auth([
 			server.verifyJWT,
-			bearer({ keys: options.authKeys }),
+			bearer({
+				keys: options.authKeys,
+				errorResponse: (err) => ({
+					statusCode: 401,
+					error: "Unauthorized",
+					message: err.message,
+				}),
+			}),
 		]),
 		handler(req, res) {
 			res.from(req.url, {

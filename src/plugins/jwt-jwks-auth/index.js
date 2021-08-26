@@ -44,10 +44,10 @@ async function getSigningKey(token, jwksUri) {
  * @param {string} options.maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
-	server.decorate("verifyJWT", async (req, res) => {
+	server.decorate("verifyJWT", async (req) => {
 		const header = req.headers.authorization;
 		if (!header) {
-			res.unauthorized();
+			throw new Error("missing authorization header");
 		}
 
 		// Remove 'Bearer' from beginning of token
@@ -77,5 +77,4 @@ async function plugin(server, options) {
 module.exports = fp(plugin, {
 	fastify: "3.x",
 	name: "jwt-jwks-auth",
-	dependencies: ["fastify-sensible"],
 });

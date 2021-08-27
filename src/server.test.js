@@ -65,7 +65,7 @@ describe("Server Deployment", () => {
 		beforeAll(async () => {
 			config = await getConfig();
 			config.redirectUrl = "http://127.0.0.1:3001";
-			config.authKeys = ["testtoken"];
+			config.bearerTokenAuthKeys = ["testtoken"];
 		});
 
 		beforeEach(async () => {

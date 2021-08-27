@@ -10,7 +10,7 @@ const { redirectGetSchema } = require("./schema");
  * @description Sets routing options for server.
  * @param {Function} server - Fastify instance.
  * @param {object} options - Route config values.
- * @param {Array|Set} options.authKeys - Array of accepted bearer tokens.
+ * @param {Array|Set} options.bearerTokenAuthKeys - Array of accepted bearer tokens.
  * @param {object} options.cors - CORS settings.
  * @param {string} options.redirectUrl - URL and port the Mirth Connect FHIR/HTTP Listener channel is listening on.
  */
@@ -47,7 +47,7 @@ async function route(server, options) {
 		preHandler: server.auth([
 			server.verifyJWT,
 			bearer({
-				keys: options.authKeys,
+				keys: options.bearerTokenAuthKeys,
 				errorResponse: (err) => ({
 					statusCode: 401,
 					error: "Unauthorized",

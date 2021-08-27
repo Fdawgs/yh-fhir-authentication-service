@@ -137,7 +137,7 @@ describe("configuration", () => {
 
 		expect(config.redirectUrl).toEqual(SERVICE_REDIRECT_URL);
 
-		expect(config.authKeys).toContain("testtoken");
+		expect(config.bearerTokenAuthKeys).toContain("testtoken");
 
 		expect(config.jwt).toEqual({
 			jwksEndpoint: JWKS_ENDPOINT,
@@ -260,7 +260,7 @@ describe("configuration", () => {
 
 		expect(config.redirectUrl).toEqual(SERVICE_REDIRECT_URL);
 
-		expect(config.authKeys).toContain("testtoken");
+		expect(config.bearerTokenAuthKeys).toContain("testtoken");
 
 		expect(config.jwt).toEqual({
 			jwksEndpoint: JWKS_ENDPOINT,

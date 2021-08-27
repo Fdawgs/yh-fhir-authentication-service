@@ -233,6 +233,7 @@ async function getConfig() {
 					},
 					version,
 				},
+				components: {},
 				tags: [
 					{
 						name: "Redirects",
@@ -277,7 +278,17 @@ async function getConfig() {
 		JSON.parse(env.AUTH_BEARER_TOKEN_ARRAY).forEach((element) => {
 			keys.add(element.value);
 		});
-		config.authKeys = keys;
+		config.bearerTokenAuthKeys = keys;
+
+		config.swagger.openapi.components.securitySchemes = {
+			bearerToken: {
+				type: "http",
+				description:
+					"Expects the request to contain an `Authorization` header with a bearer token.",
+				scheme: "bearer",
+				bearerFormat: "bearer <token>",
+			},
+		};
 	}
 
 	if (String(env.CORS_ALLOW_CREDENTIALS) === "true") {

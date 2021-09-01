@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.0.0...v6.0.1) (2021-09-01)
+
+
+### Bug Fixes
+
+* **config:** bearer token security scheme format ([#282](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/282)) ([2369280](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/236928005dfe71219fd2cc2609f97319fd4843e3))
+* **plugins/jwt-jwks-auth:** stop attempting to rend second res ([cffb9c8](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/cffb9c879baf268b46c3913b261e2e8e39b60455))
+* **routes:** rate-limiting not affecting 406 responses ([ff933f7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ff933f7a4104badda2404624ae8c581511644ecd))
+* **server:** standardise 401 response schema ([9057497](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/90574979713c52a04464cdd67ef3fb7b925de2eb))
+
+
+### Documentation
+
+* **readme:** add note regarding log retention for nhs digital ([0a9ecf8](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0a9ecf89100122835f365df952b26f211bfddb2e))
+
+
+### Improvements
+
+* add clearer summaries and descriptions for route schemas ([db9acd4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/db9acd49bd9696c0c6b8de47f62cff9e969b2b82))
+* **plugins/shared-schemas:** move response schemas to plugin ([9277822](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/9277822fedd579b7e3962c56ecf07f042bc32174))
+
+
+### Miscellaneous
+
+* **config:** remove excess word in inline comment ([444f99a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/444f99a35f9d4bc8c4dd6bf6163e277e3083b9dd))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint-plugin-import from 2.24.0 to 2.24.2 ([4b673ec](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/4b673ec7d62261b0264e4e0ea3bf79561324adba))
+* **deps-dev:** bump eslint-plugin-jsdoc from 36.0.7 to 36.0.8 ([e914b24](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e914b24ffe92909166cfb0d57b11fa59695085a6))
+* **deps-dev:** bump husky from 7.0.1 to 7.0.2 ([2b136d1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/2b136d172eb8f5c6ee5282763a0200631ddd68b2))
+* **deps-dev:** bump jest from 27.0.6 to 27.1.0 ([3a2d1de](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/3a2d1de04f0b9af010415c1f8cece6a989fd0ab5))
+* **deps:** bump actions/github-script from 4.0.2 to 4.1 ([c144ebc](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c144ebcc20b516a94ccc326a94e719767e452084))
+* **deps:** bump fastify-autoload from 3.8.0 to 3.8.1 ([0fcc361](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0fcc3618180d9b6d165d01bf3a8119e012b97347))
+* **deps:** bump fastify-rate-limit from 5.6.0 to 5.6.2 ([c2b532d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c2b532ddcfcb5e96739529bb353a17998a08efa7))
+* **deps:** bump pino from 6.13.0 to 6.13.1 ([fafc8d2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fafc8d2b87061e48373b95b7ad60e800e2c6df5b))
+* **deps:** bump pino-pretty from 5.1.3 to 6.0.0 ([a147e12](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a147e12f4d53b91d47510789d6c0af767fc84ae2))
+
 ## [6.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v5.0.0...v6.0.0) (2021-08-17)
 
 

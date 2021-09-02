@@ -42,10 +42,10 @@ const expResHeadersText = {
 	...{ "content-type": expect.stringContaining("text/plain") },
 };
 
-const expResHeaders404 = {
+const expResHeaders4xxErrors = {
 	...expResHeadersJson,
 };
-delete expResHeaders404.vary;
+delete expResHeaders4xxErrors.vary;
 
 describe("Server Deployment", () => {
 	beforeAll(async () => {
@@ -198,7 +198,7 @@ describe("Server Deployment", () => {
 				});
 
 				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders404)
+					expect.objectContaining(expResHeaders4xxErrors)
 				);
 				expect(response.statusCode).toEqual(404);
 			});

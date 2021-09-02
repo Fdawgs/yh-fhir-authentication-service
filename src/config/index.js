@@ -67,7 +67,7 @@ async function getConfig() {
 			// Service
 			.prop("SERVICE_HOST", S.string())
 			.prop("SERVICE_PORT", S.number())
-			.prop("SERVICE_REDIRECT_URL", S.anyOf([S.string(), S.null()]))
+			.prop("SERVICE_REDIRECT_URL", S.string())
 
 			// CORS
 			.prop("CORS_ORIGIN", S.anyOf([S.string(), S.null()]))
@@ -156,7 +156,12 @@ async function getConfig() {
 			.prop("JWT_ALLOWED_ALGO_ARRAY", S.anyOf([S.string(), S.null()]))
 			.prop("JWT_ALLOWED_ISSUERS", S.anyOf([S.string(), S.null()]))
 			.prop("JWT_MAX_AGE", S.anyOf([S.string(), S.null()]))
-			.required(["NODE_ENV", "SERVICE_HOST", "SERVICE_PORT"]),
+			.required([
+				"NODE_ENV",
+				"SERVICE_HOST",
+				"SERVICE_PORT",
+				"SERVICE_REDIRECT_URL",
+			]),
 	});
 
 	const isProduction = env.NODE_ENV.toLowerCase() === "production";

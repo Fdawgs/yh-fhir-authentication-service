@@ -22,7 +22,7 @@ const sharedSchemas = require("./plugins/shared-schemas");
  */
 async function plugin(server, config) {
 	// Enable plugins
-	server
+	await server
 		// Accept header handler
 		.register(accepts)
 
@@ -50,12 +50,11 @@ async function plugin(server, config) {
 			hsts: {
 				maxAge: 31536000,
 			},
-		});
+		})
 
-	// Rate limiting and 429 response handling
-	await server.register(rateLimit, config.rateLimit);
+		// Rate limiting and 429 response handling
+		.register(rateLimit, config.rateLimit)
 
-	server
 		// Utility functions and error handlers
 		.register(sensible)
 
@@ -63,18 +62,11 @@ async function plugin(server, config) {
 		.register(sharedSchemas)
 
 		// Process load and 503 response handling
-		.register(underPressure, config.processLoad)
+		.register(underPressure, config.processLoad);
 
-		// Customise 404 handler to rate limit responses
-		// Note that this only impacts routes in this service, not in 404s from the redirect
-		.setNotFoundHandler(
-			{
-				preHandler: server.rateLimit({ max: 5, timeWindow: 60000 }),
-			},
-			async (req, res) => {
-				res.notFound(`Route ${req.method}:${req.url} not found`);
-			}
-		)
+	server
+		// Ensure rate limit also applies to 4xx and 5xx responses
+		.addHook("onSend", server.rateLimit())
 
 		// Import and register admin routes
 		.register(autoLoad, {

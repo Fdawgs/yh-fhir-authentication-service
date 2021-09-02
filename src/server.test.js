@@ -4,6 +4,7 @@ const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
 
+// Expected response headers
 const expResHeaders = {
 	"content-security-policy":
 		"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
@@ -40,6 +41,11 @@ const expResHeadersText = {
 	...expResHeaders,
 	...{ "content-type": expect.stringContaining("text/plain") },
 };
+
+const expResHeaders404 = {
+	...expResHeadersJson,
+};
+delete expResHeaders404.vary;
 
 describe("Server Deployment", () => {
 	beforeAll(async () => {
@@ -178,6 +184,23 @@ describe("Server Deployment", () => {
 					expect.objectContaining(expResHeadersJson)
 				);
 				expect(response.statusCode).toEqual(406);
+			});
+		});
+
+		describe("Undeclared Route", () => {
+			test("Should return HTTP status code 404 if route not found", async () => {
+				const response = await server.inject({
+					method: "GET",
+					url: "/invalid",
+					headers: {
+						accept: "application/javascript",
+					},
+				});
+
+				expect(response.headers).toEqual(
+					expect.objectContaining(expResHeaders404)
+				);
+				expect(response.statusCode).toEqual(404);
 			});
 		});
 	});

@@ -1,6 +1,6 @@
 // Import plugins
 const replyFrom = require("fastify-reply-from");
-const bearer = require("fastify-bearer-auth").internals.factory;
+const bearer = require("fastify-bearer-auth");
 const cors = require("fastify-cors");
 
 const { redirectGetSchema } = require("./schema");
@@ -22,13 +22,24 @@ async function route(server, options) {
 		hideOptionsRoute: true,
 	});
 
-	server.register(replyFrom, {
-		base: options.redirectUrl,
-		undici: {
-			connections: 100,
-			pipelining: 10,
-		},
-	});
+	await server
+		.register(bearer, {
+			addHook: false,
+			keys: options.bearerTokenAuthKeys,
+			/* istanbul ignore next */
+			errorResponse: (err) => ({
+				statusCode: 401,
+				error: "Unauthorized",
+				message: err.message,
+			}),
+		})
+		.register(replyFrom, {
+			base: options.redirectUrl,
+			undici: {
+				connections: 100,
+				pipelining: 10,
+			},
+		});
 
 	server.addHook("preValidation", async (req, res) => {
 		if (
@@ -44,17 +55,7 @@ async function route(server, options) {
 	const opts = {
 		method: "GET",
 		schema: redirectGetSchema,
-		preHandler: server.auth([
-			server.verifyJWT,
-			bearer({
-				keys: options.bearerTokenAuthKeys,
-				errorResponse: (err) => ({
-					statusCode: 401,
-					error: "Unauthorized",
-					message: err.message,
-				}),
-			}),
-		]),
+		preHandler: server.auth([server.verifyJWT, server.verifyBearerAuth]),
 		handler(req, res) {
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {

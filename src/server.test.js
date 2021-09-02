@@ -4,6 +4,7 @@ const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
 
+// Expected response headers
 const expResHeaders = {
 	"content-security-policy":
 		"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",

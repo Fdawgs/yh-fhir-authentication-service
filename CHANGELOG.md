@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.1.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.0.1...v6.1.0) (2021-09-06)
+
+
+### Features
+
+* **config:** add option to set `Access-Control-Max-Age` CORS header ([#290](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/290)) ([ec4b7f7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ec4b7f7643b6507aee26a2ed50677c983b68bcca))
+
+
+### Bug Fixes
+
+* **config:** `SERVICE_REDIRECT_URL` env variable cannot be null ([71e105b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/71e105b93889992ddb31f1d6d1bc7936f6b24b25))
+* **server:** rate limit all 4xx and 5xx responses ([e803082](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e8030823651a4c09ce3f9355d4ce19fe1068be61))
+
+
+### Miscellaneous
+
+* **.env.template:** clarify on HTTPS usage ([43afa33](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/43afa33154177ccbdd7530298cd48bf055161304))
+* **.env.template:** clarify on required variables ([76df8d6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/76df8d642ac3d2a1ba1b7e41aa0c9f4f8572b997))
+* **.env.template:** remove log level value ([11d4942](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/11d4942b85a48896ad63a7b8daa5cc6412002afd))
+* **.github:** use new YAML configured GitHub issue forms ([#292](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/292)) ([90ab659](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/90ab659a3e44f5602e2f9319239f27c3825338fd))
+
+
+### Continuous Integration
+
+* **ci:** replace workflow-run-cleanup-action with github concurrency ([#293](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/293)) ([13cfe4e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/13cfe4ee291e901144f5ebcb12b0fb399d91d7df))
+
+
+### Dependencies
+
+* **deps:** bump fastify-disablecache from 2.0.2 to 2.0.3 ([798d46d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/798d46dcf241981bcba9a86e6d02c07cf6f14855))
+* **deps:** bump fastify-floc-off from 1.0.1 to 1.0.2 ([7286968](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/728696870f3c7f3a945a77664f9ab95b0bef935b))
+
 ### [6.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.0.0...v6.0.1) (2021-09-01)
 
 

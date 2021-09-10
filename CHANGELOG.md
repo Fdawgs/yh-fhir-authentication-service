@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.1.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.1.0...v6.1.1) (2021-09-10)
+
+
+### Continuous Integration
+
+* **ci:** revert to workflow-run-clean-action from github concurrency ([028f4eb](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/028f4eb953ab41412c1c1be3944f8f4d8c7977db))
+
+
+### Miscellaneous
+
+* **.dockerignore:** ignore development documentation ([55fa023](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/55fa0237b4db0cac12940e505a3dbbc831adae71))
+* **.husky/.gitignore:** remove now redundant file ([5ab524e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5ab524ed3850c294635c4966b8d4e7600e1d2d95))
+* **.prettierrc:** override defaults for html, css, and scss files ([#297](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/297)) ([420569d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/420569d273d5a0f3f59a2c10ac10fe3ab21149ae))
+* **.vscode:** add `mhutchie.git-graph` extension ([0d5cb0a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0d5cb0adefa4ebde1b58ac1374312d53fcc0af65))
+
 ## [6.1.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.0.1...v6.1.0) (2021-09-06)
 
 

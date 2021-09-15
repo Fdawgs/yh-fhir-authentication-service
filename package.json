@@ -14,7 +14,7 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "benchmark": "autocannon \"http://0.0.0.0:8204/\"",
+    "benchmark": "autocannon -a 1000 \"http://0.0.0.0:8204/admin/healthcheck\"",
     "jest": "jest --detectOpenHandles --runInBand",
     "jest:coverage": "jest --coverage --runInBand",
     "lint": "eslint . --cache --ext js,jsx,ts,tsx --ignore-path .gitignore",

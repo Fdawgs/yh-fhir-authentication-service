@@ -11,6 +11,9 @@ describe("Healthcheck Route", () => {
 		let server;
 
 		beforeAll(async () => {
+			Object.assign(process.env, {
+				SERVICE_REDIRECT_URL: "https://www.nhs.uk",
+			});
 			config = await getConfig();
 
 			server = Fastify()

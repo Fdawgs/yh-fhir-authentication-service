@@ -67,7 +67,7 @@ async function getConfig() {
 			// Service
 			.prop("SERVICE_HOST", S.string())
 			.prop("SERVICE_PORT", S.number())
-			.prop("SERVICE_REDIRECT_URL", S.string())
+			.prop("SERVICE_REDIRECT_URL", S.string().format("uri"))
 
 			// CORS
 			.prop("CORS_ORIGIN", S.anyOf([S.string(), S.null()]))

@@ -69,6 +69,9 @@ describe("Server Deployment", () => {
 		let config;
 
 		beforeAll(async () => {
+			Object.assign(process.env, {
+				SERVICE_REDIRECT_URL: "https://www.nhs.uk",
+			});
 			config = await getConfig();
 			config.redirectUrl = "http://127.0.0.1:3001";
 			config.bearerTokenAuthKeys = ["testtoken"];
@@ -211,11 +214,14 @@ describe("Server Deployment", () => {
 			let config;
 
 			beforeAll(async () => {
-				server = Fastify();
+				Object.assign(process.env, {
+					SERVICE_REDIRECT_URL: "https://www.nhs.uk",
+				});
 				config = await getConfig();
 				config.redirectUrl = "http://127.0.0.1:3001";
 				config.cors.origin = true;
 
+				server = Fastify();
 				server.register(startServer, config);
 				await server.ready();
 			});

@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.2.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.0...v6.2.1) (2021-09-25)
+
+
+### Documentation
+
+* **readme:** add link to hospital logo ([#315](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/315)) ([74b0e02](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/74b0e02181f15e8002efc9e473801af559f4a249))
+
+
+### Miscellaneous
+
+* **.env.template:** document `SERVICE_HOST` default ([#313](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/313)) ([1fb16d2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1fb16d25386b86728b1a84e1b5ebf6aee98dadfb))
+* **server:** update inline comment re child context ([#329](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/329)) ([9010ea3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/9010ea394403a0782c798f422fd19b1fba6549b6))
+
+
+### Dependencies
+
+* **deps-dev:** add eslint-plugin-security-node ([#316](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/316)) ([523bf0f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/523bf0fee94170e595839efe75162dce30432406))
+* **deps-dev:** bump eslint-plugin-jest from 24.4.0 to 24.4.2 ([6268c86](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6268c86facb884f7a9db1ea0d4783a961bda58f3))
+* **deps-dev:** bump glob from 7.1.7 to 7.2.0 ([1d2173b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1d2173b3bff62ea8654f7a9599d02c1c7bd9eb81))
+* **deps-dev:** bump jest from 27.2.0 to 27.2.1 ([9193b49](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/9193b49d67985072f40a8e50ca0cdc43851d217e))
+* **deps-dev:** bump nodemon from 2.0.12 to 2.0.13 ([1f98bb5](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1f98bb5213e02176735d20bfd4c642096a13c9f9))
+* **deps-dev:** bump prettier from 2.4.0 to 2.4.1 ([ba0f1fe](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ba0f1fee5402b15899d47990a1b07a11fc59fc70))
+* **deps:** bump fastify from 3.21.1 to 3.21.6 ([49caa34](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/49caa34c9e52089c27882e6f40c5496c8543b4d1))
+* **deps:** bump fastify-accepts from 2.0.1 to 2.1.0 ([d172dc6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d172dc6bf21346e3e70675982047744877ed24b4))
+* **deps:** bump fastify-reply-from from 6.0.1 to 6.1.0 ([45fbc41](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/45fbc417fc541ce1f07b41938abea5319e56f37f))
+* **deps:** bump GoogleCloudPlatform/release-please-action ([253ef99](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/253ef99911e77753c52219ef74e345ea5ebb21fb))
+* **deps:** bump pino from 6.13.2 to 6.13.3 ([54d4581](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/54d45810d19d3b1d8a537770473d21c84ad8d4df))
+* **deps:** bump pino-pretty from 7.0.0 to 7.0.1 ([fa9e8a0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fa9e8a0281ccdffbc894bf1b1e4fa0a106bf1e2b))
+* **docker:** bump curl from 7.79.0-r0 to 7.79.1-r0 ([#328](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/328)) ([a7d0f77](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a7d0f7780ee4212ee142b49ab041b27147005342))
+
 ## [6.2.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.1.0...v6.2.0) (2021-09-15)
 
 

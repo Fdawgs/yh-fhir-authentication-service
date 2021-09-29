@@ -19,9 +19,9 @@ async function route(server, options) {
 	server.register(cors, {
 		...options.cors,
 		methods: ["GET"],
-		hideOptionsRoute: true,
 	});
 
+	// Register plugins
 	await server
 		.register(bearer, {
 			addHook: false,

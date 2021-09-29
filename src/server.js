@@ -21,7 +21,7 @@ const sharedSchemas = require("./plugins/shared-schemas");
  * @param {object} config - Fastify configuration values.
  */
 async function plugin(server, config) {
-	// Enable plugins
+	// Register plugins
 	server
 		// Accept header handler
 		.register(accepts)

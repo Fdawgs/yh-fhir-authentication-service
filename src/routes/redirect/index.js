@@ -21,6 +21,7 @@ async function route(server, options) {
 		methods: ["GET"],
 	});
 
+	// Register plugins
 	await server
 		.register(bearer, {
 			addHook: false,

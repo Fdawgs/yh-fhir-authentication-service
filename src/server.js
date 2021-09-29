@@ -61,10 +61,13 @@ async function plugin(server, config) {
 		 */
 		.addHook("onSend", async (req, res) => {
 			if (
-				!res.getHeader("content-type").startsWith("text/html") &&
-				!res
-					.getHeader("content-type")
-					.startsWith("application/fhir+xml")
+				res?.getHeader("content-type")?.startsWith("text/plain") ||
+				res
+					?.getHeader("content-type")
+					?.startsWith("application/json") ||
+				res
+					?.getHeader("content-type")
+					?.startsWith("application/fhir+json")
 			) {
 				res.raw.setHeader(
 					"content-security-policy",

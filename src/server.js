@@ -61,10 +61,9 @@ async function plugin(server, config) {
 		 */
 		.addHook("onSend", async (req, res) => {
 			if (
-				!res.getHeader("content-type").startsWith("text/html") &&
-				!res
-					.getHeader("content-type")
-					.startsWith("application/fhir+xml")
+				res.getHeader("content-type") !== undefined &&
+				!res.getHeader("content-type")?.includes("html") &&
+				!res.getHeader("content-type")?.includes("xml")
 			) {
 				res.raw.setHeader(
 					"content-security-policy",
@@ -77,9 +76,8 @@ async function plugin(server, config) {
 
 		// Import and register admin routes
 		.register(autoLoad, {
-			dir: path.join(__dirname, "routes"),
-			ignorePattern: /redirect/,
-			options: config,
+			dir: path.join(__dirname, "routes", "admin"),
+			options: { ...config, prefix: "admin" },
 		})
 
 		/**
@@ -94,9 +92,8 @@ async function plugin(server, config) {
 				.register(jwtJwks, config.jwt)
 				// Import and register service routes
 				.register(autoLoad, {
-					dir: path.join(__dirname, "routes"),
+					dir: path.join(__dirname, "routes", "redirect"),
 					dirNameRoutePrefix: false,
-					ignorePattern: /admin/,
 					options: config,
 				});
 		});

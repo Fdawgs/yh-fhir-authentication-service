@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.2.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.1...v6.2.2) (2021-10-01)
+
+
+### Improvements
+
+* **routes:** move cors options route config to config file ([e8a4877](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e8a4877a42037781b241d3f5ac3f40e6bf59d19d))
+* **server:** move helmet config to config file ([faa2689](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/faa2689f78911bf7804111d6a5f8d63adb10012f))
+* **server:** reduce globbing use when registering routes ([#333](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/333)) ([28d3f6b](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/28d3f6b09f5f8fb77b5c920309c4d8350aa95d3b))
+* **server:** reduce response header size ([933be97](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/933be979d1ffda5d7563ce91c4f31fd39f17f1d0))
+
+
+### Dependencies
+
+* **deps-dev:** bump @commitlint/cli from 13.1.0 to 13.2.0 ([81f0c0e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/81f0c0e9085bdff1722db12bce741ebd89275a99))
+* **deps-dev:** bump @commitlint/config-conventional ([1792fd1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1792fd1955551dfd4bf0d72bf7df208d67279f04))
+* **deps-dev:** bump eslint-plugin-jest from 24.4.2 to 24.5.0 ([84baecf](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/84baecfb2b524c2235558f6438e168beb6f6717d))
+* **deps-dev:** bump jest from 27.2.1 to 27.2.4 ([e9771e6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e9771e634bbd3f19584ea5d7a6262f1705ba14a8))
+* **deps:** bump actions/github-script from 4.1 to 5 ([d3c89ac](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d3c89ac08ea363a0d22fe96bb411dce6642f2a7c))
+* **deps:** bump actions/setup-node from 2.4.0 to 2.4.1 ([a47fad7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a47fad72255f30149d157dc30542c9c051c6979d))
+* **deps:** bump fastify from 3.21.6 to 3.22.0 ([8ca5be8](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/8ca5be8e0f840982701f504fcf66a07b026fb33e))
+* **deps:** bump fastify-reply-from from 6.1.0 to 6.3.0 ([913f434](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/913f4346ed4a63041625657ca4b09989428ff41e))
+* **docker:** remove package versioning ([a4321ab](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/a4321ab3970973be508ebb20f9c9e046ecb1e1b8))
+
+
+### Continuous Integration
+
+* **automerge:** update location of octokit rest methods ([7a9e9e6](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/7a9e9e659e9c68f4d6613e4914dfbb15d7a7f3ee))
+* ignore hadolint rule DL3018 ([c5cbe26](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c5cbe2629249c8e613a5436d4838342ae83747a4))
+* update hadolint-action namespace ([e9e1f40](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e9e1f40a8a9ad47e470fae4d16143acc61ea9dfc))
+
+
+### Miscellaneous
+
+* **.prettierrc:** enable `bracketsameline` option ([#343](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/343)) ([e0dc31a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e0dc31adf00fc98d213e224ba6366f145dfa1713))
+* tidy inline comments re plugins ([49d25bd](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/49d25bdd25c5ad53f45beb8270a3eb1633d29e4f))
+
 ### [6.2.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.0...v6.2.1) (2021-09-25)
 
 

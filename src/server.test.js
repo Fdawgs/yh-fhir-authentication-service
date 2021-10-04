@@ -134,8 +134,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({ resourceType: "Patient" })
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
 				expect(response.headers).toEqual(expResHeaders);
 				expect(response.statusCode).toBe(200);
@@ -155,8 +156,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({ resourceType: "Patient" })
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
 				expect(response.headers).toEqual(expResHeaders);
 				expect(response.statusCode).toBe(200);
@@ -298,8 +300,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({ resourceType: "Patient" })
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
 				expect(response.headers).toEqual({
 					...expResHeaders,
@@ -328,8 +331,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({ resourceType: "Patient" })
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
 				expect(response.headers).toEqual(expResHeaders);
 				expect(response.statusCode).toBe(200);
@@ -355,8 +359,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.payload)).toEqual(
-					expect.objectContaining({ resourceType: "Patient" })
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
 				expect(response.headers).toEqual({
 					...expResHeaders,

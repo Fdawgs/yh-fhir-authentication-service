@@ -38,8 +38,8 @@ describe("Healthcheck Route", () => {
 				},
 			});
 
-			expect(response.payload).toEqual("ok");
-			expect(response.statusCode).toEqual(200);
+			expect(response.payload).toBe("ok");
+			expect(response.statusCode).toBe(200);
 		});
 
 		test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
@@ -51,7 +51,12 @@ describe("Healthcheck Route", () => {
 				},
 			});
 
-			expect(response.statusCode).toEqual(406);
+			expect(JSON.parse(response.payload)).toEqual({
+				statusCode: 406,
+				error: "Not Acceptable",
+				message: "Not Acceptable",
+			});
+			expect(response.statusCode).toBe(406);
 		});
 	});
 });

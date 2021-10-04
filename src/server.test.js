@@ -114,9 +114,9 @@ describe("Server Deployment", () => {
 				});
 
 				expect(JSON.parse(response.payload)).toEqual({
-					statusCode: 406,
 					error: "Not Acceptable",
 					message: "Not Acceptable",
+					statusCode: 406,
 				});
 				expect(response.headers).toEqual(expResHeadersJson);
 				expect(response.statusCode).toBe(406);
@@ -175,9 +175,9 @@ describe("Server Deployment", () => {
 				});
 
 				expect(JSON.parse(response.payload)).toEqual({
-					statusCode: 401,
 					error: "Unauthorized",
 					message: "invalid authorization header",
+					statusCode: 401,
 				});
 				expect(response.headers).toEqual(expResHeadersJson);
 				expect(response.statusCode).toBe(401);
@@ -194,9 +194,9 @@ describe("Server Deployment", () => {
 				});
 
 				expect(JSON.parse(response.payload)).toEqual({
-					statusCode: 406,
 					error: "Not Acceptable",
 					message: "Not Acceptable",
+					statusCode: 406,
 				});
 				expect(response.headers).toEqual(expResHeadersJson);
 				expect(response.statusCode).toBe(406);
@@ -215,8 +215,8 @@ describe("Server Deployment", () => {
 				});
 
 				expect(JSON.parse(response.payload)).toEqual({
-					message: "Route GET:/invalid not found",
 					error: "Not Found",
+					message: "Route GET:/invalid not found",
 					statusCode: 404,
 				});
 				expect(response.headers).toEqual(expResHeaders4xxErrors);
@@ -271,9 +271,9 @@ describe("Server Deployment", () => {
 				});
 
 				expect(JSON.parse(response.payload)).toEqual({
-					statusCode: 406,
 					error: "Not Acceptable",
 					message: "Not Acceptable",
+					statusCode: 406,
 				});
 				expect(response.headers).toEqual(expResHeadersJson);
 				expect(response.statusCode).toBe(406);

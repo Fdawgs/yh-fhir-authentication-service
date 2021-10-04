@@ -6,44 +6,48 @@ const getConfig = require("./config");
 
 // Expected response headers
 const expResHeaders = {
-	"content-security-policy": "default-src 'self';frame-ancestors 'none'",
-	"x-dns-prefetch-control": "off",
-	"expect-ct": "max-age=0",
-	"x-frame-options": "SAMEORIGIN",
-	"strict-transport-security": "max-age=31536000; includeSubDomains",
-	"x-download-options": "noopen",
-	"x-content-type-options": "nosniff",
-	"x-permitted-cross-domain-policies": "none",
-	"referrer-policy": "no-referrer",
-	"surrogate-control": "no-store",
 	"cache-control": "no-store, max-age=0, must-revalidate",
-	pragma: "no-cache",
+	connection: "keep-alive",
+	"content-length": expect.any(String),
+	"content-security-policy": "default-src 'self';frame-ancestors 'none'",
+	"content-type": "application/fhir+json; charset=UTF-8",
+	date: expect.any(String),
+	"expect-ct": "max-age=0",
 	expires: "0",
+	"keep-alive": "timeout=5",
 	"permissions-policy": "interest-cohort=()",
+	pragma: "no-cache",
+	"referrer-policy": "no-referrer",
+	"strict-transport-security": "max-age=31536000; includeSubDomains",
+	"surrogate-control": "no-store",
 	vary: "Origin",
+	"x-content-type-options": "nosniff",
+	"x-dns-prefetch-control": "off",
+	"x-download-options": "noopen",
+	"x-frame-options": "SAMEORIGIN",
+	"x-permitted-cross-domain-policies": "none",
 	"x-ratelimit-limit": expect.any(Number),
 	"x-ratelimit-remaining": expect.any(Number),
 	"x-ratelimit-reset": expect.any(Number),
-	"content-type": "application/fhir+json; charset=UTF-8",
-	"content-length": expect.any(String),
-	date: expect.any(String),
-	connection: "keep-alive",
 };
 
 const expResHeadersJson = {
 	...expResHeaders,
-	...{ "content-type": expect.stringContaining("application/json") },
+	"content-type": expect.stringContaining("application/json"),
 };
+delete expResHeadersJson["keep-alive"];
 
 const expResHeadersText = {
 	...expResHeaders,
-	...{ "content-type": expect.stringContaining("text/plain") },
+	"content-type": expect.stringContaining("text/plain"),
 };
+delete expResHeadersText["keep-alive"];
 
 const expResHeaders4xxErrors = {
 	...expResHeadersJson,
 };
 delete expResHeaders4xxErrors.vary;
+delete expResHeaders4xxErrors["keep-alive"];
 
 describe("Server Deployment", () => {
 	beforeAll(async () => {
@@ -95,11 +99,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.payload).toEqual("ok");
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeadersText)
-				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.payload).toBe("ok");
+				expect(response.headers).toEqual(expResHeadersText);
+				expect(response.statusCode).toBe(200);
 			});
 
 			test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
@@ -111,10 +113,13 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeadersJson)
-				);
-				expect(response.statusCode).toEqual(406);
+				expect(JSON.parse(response.payload)).toEqual({
+					error: "Not Acceptable",
+					message: "Not Acceptable",
+					statusCode: 406,
+				});
+				expect(response.headers).toEqual(expResHeadersJson);
+				expect(response.statusCode).toBe(406);
 			});
 		});
 
@@ -129,10 +134,12 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders)
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.headers).toEqual(expResHeaders);
+				expect(response.statusCode).toBe(200);
 			});
 
 			test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
@@ -149,10 +156,12 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders)
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.headers).toEqual(expResHeaders);
+				expect(response.statusCode).toBe(200);
 			});
 
 			test("Should return HTTP status code 401 if invalid bearer token provided in header", async () => {
@@ -165,10 +174,13 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeadersJson)
-				);
-				expect(response.statusCode).toEqual(401);
+				expect(JSON.parse(response.payload)).toEqual({
+					error: "Unauthorized",
+					message: "invalid authorization header",
+					statusCode: 401,
+				});
+				expect(response.headers).toEqual(expResHeadersJson);
+				expect(response.statusCode).toBe(401);
 			});
 
 			test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
@@ -181,10 +193,13 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeadersJson)
-				);
-				expect(response.statusCode).toEqual(406);
+				expect(JSON.parse(response.payload)).toEqual({
+					error: "Not Acceptable",
+					message: "Not Acceptable",
+					statusCode: 406,
+				});
+				expect(response.headers).toEqual(expResHeadersJson);
+				expect(response.statusCode).toBe(406);
 			});
 		});
 
@@ -194,14 +209,18 @@ describe("Server Deployment", () => {
 					method: "GET",
 					url: "/invalid",
 					headers: {
-						accept: "application/javascript",
+						accept: "application/fhir+json",
+						authorization: "Bearer testtoken",
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders4xxErrors)
-				);
-				expect(response.statusCode).toEqual(404);
+				expect(JSON.parse(response.payload)).toEqual({
+					error: "Not Found",
+					message: "Route GET:/invalid not found",
+					statusCode: 404,
+				});
+				expect(response.headers).toEqual(expResHeaders4xxErrors);
+				expect(response.statusCode).toBe(404);
 			});
 		});
 	});
@@ -237,11 +256,9 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.payload).toEqual("ok");
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeadersText)
-				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.payload).toBe("ok");
+				expect(response.headers).toEqual(expResHeadersText);
+				expect(response.statusCode).toBe(200);
 			});
 
 			test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
@@ -253,10 +270,13 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeadersJson)
-				);
-				expect(response.statusCode).toEqual(406);
+				expect(JSON.parse(response.payload)).toEqual({
+					error: "Not Acceptable",
+					message: "Not Acceptable",
+					statusCode: 406,
+				});
+				expect(response.headers).toEqual(expResHeadersJson);
+				expect(response.statusCode).toBe(406);
 			});
 		});
 
@@ -280,10 +300,15 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders)
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.headers).toEqual({
+					...expResHeaders,
+					"access-control-allow-origin": "https://notreal.ydh.nhs.uk",
+				});
+				expect(response.statusCode).toBe(200);
 
 				await server.close();
 			});
@@ -306,10 +331,12 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders)
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.headers).toEqual(expResHeaders);
+				expect(response.statusCode).toBe(200);
 
 				await server.close();
 			});
@@ -332,10 +359,15 @@ describe("Server Deployment", () => {
 					},
 				});
 
-				expect(response.headers).toEqual(
-					expect.objectContaining(expResHeaders)
+				expect(JSON.parse(response.payload)).toHaveProperty(
+					"resourceType",
+					"Patient"
 				);
-				expect(response.statusCode).toEqual(200);
+				expect(response.headers).toEqual({
+					...expResHeaders,
+					"access-control-allow-origin": "https://notreal.ydh.nhs.uk",
+				});
+				expect(response.statusCode).toBe(200);
 
 				await server.close();
 			});

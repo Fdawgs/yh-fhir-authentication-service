@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* eslint-disable security-node/detect-crlf */
 const Fastify = require("fastify");
 const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");

@@ -15,9 +15,11 @@ mockServer.route({
 			"Access-Control-Allow-Origin": "*",
 			"Access-Control-Expose-Headers": "Content-Location, Location",
 			"Content-Type": "application/fhir+json; charset=UTF-8",
+			Date: new Date().toUTCString(),
 			ETag: 'W/"1"',
-			Server: "Mirth Connect FHIR Server (3.10.0.b1356)",
+			"Last-Modified": "Tue, 10 Oct 2021 08:55:07 GMT",
 			Location: "http://localhost:444/STU3/Patient/5484125/_history/1",
+			Server: "Mirth Connect FHIR Server (3.10.0.b1356)",
 		});
 
 		// Test patient
@@ -26,7 +28,7 @@ mockServer.route({
 			id: "5484125",
 			meta: {
 				versionId: "1",
-				lastUpdated: "2020-11-16T14:47:07+00:00",
+				lastUpdated: "2021-10-05T08:55:07+00:00",
 				profile: [
 					"https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1",
 				],
@@ -194,7 +196,7 @@ mockServer.route({
 			"Access-Control-Expose-Headers": "Content-Location, Location",
 			"Content-Type": "application/fhir+json; charset=UTF-8",
 			ETag: 'W/"1"',
-			Server: "Mirth Connect FHIR Server (3.10.0.b1356)",
+			Server: "Mirth Connect FHIR Server (3.11.0.b1424)",
 			Location: `http://localhost:444/STU3/Patient/${req.identifier}/_history/1`,
 		});
 

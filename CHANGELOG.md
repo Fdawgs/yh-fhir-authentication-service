@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.2.3](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.2...v6.2.3) (2021-10-13)
+
+
+### Miscellaneous
+
+* **.eslintrc:** remove inaccurate sourcetype ([#351](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/351)) ([877f6ce](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/877f6ce3200ac6a98be0f58af26706748ab3d468))
+* **.vscode:** remove deprecated settings ([#352](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/issues/352)) ([1b205e8](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1b205e8a4766eee197dc99a3ca45695839ad58e9))
+* apply eslint rules per line, not file-wide ([71f37e7](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/71f37e736391ccaf3360078089ac182fd800f0c0))
+* **server:** update inline comment re clickjacking ([182feed](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/182feedf4e54dd0128a614128297f465bfdfc38d))
+
+
+### Dependencies
+
+* **deps-dev:** bump @commitlint/cli from 13.2.0 to 13.2.1 ([cec41ef](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/cec41ef85ae19feb100a58878d52169d205c1674))
+* **deps-dev:** bump eslint-plugin-import from 2.24.2 to 2.25.2 ([deaa104](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/deaa1043d02968115111711f14705057e50acb86))
+* **deps-dev:** bump eslint-plugin-jest from 24.5.0 to 25.0.5 ([f45fc2d](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/f45fc2d55883c0a15b24bb1689ac27886978367f))
+* **deps-dev:** bump eslint-plugin-jsdoc from 36.1.0 to 36.1.1 ([41e4c8e](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/41e4c8e0ad7f29a6bbd3b6fdb674ba0ed46f356c))
+* **deps-dev:** bump jest from 27.2.4 to 27.2.5 ([d566db0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/d566db05b7270d25bc6d56512e9a7e8c6ed67343))
+* **deps:** bump fastify-reply-from from 6.3.0 to 6.4.0 ([2272d05](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/2272d050e5727cb4e341f2e73045b3900ddffed3))
+* **deps:** bump GoogleCloudPlatform/release-please-action ([fed775f](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fed775f847873f8a62a7e34913cbe5995766e26f))
+* **deps:** bump hadolint/hadolint-action from 1.5.0 to 1.6.0 ([ee85f86](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/ee85f86e01a0e2045dfc85e489add30100661d13))
+* **deps:** bump under-pressure from 5.7.0 to 5.8.0 ([dcfb0df](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/dcfb0dfa466a6a64b9fe57a40d4d7b83eb71741f))
+* **deps:** bump wagoid/commitlint-github-action from 4.1.4 to 4.1.5 ([30af151](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/30af1517d20dba2a403f1ee2bbb4d8b87fd209f8))
+* **deps:** bump wagoid/commitlint-github-action from 4.1.5 to 4.1.9 ([92ceba0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/92ceba0b7062c035ab0cee2a2fb1678652d98c3e))
+
 ### [6.2.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.1...v6.2.2) (2021-10-01)
 
 

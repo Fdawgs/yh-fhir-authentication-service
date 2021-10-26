@@ -7,6 +7,7 @@ const S = require("fluent-json-schema");
 const fsp = require("fs").promises;
 const pino = require("pino");
 const rotatingLogStream = require("file-stream-rotator");
+const secJSON = require("secure-json-parse");
 
 /**
  * Use own AJV instance rather than included one in `env-schema`,
@@ -279,7 +280,7 @@ async function getConfig() {
 		jwt: {
 			jwksEndpoint: env.JWKS_ENDPOINT,
 			allowedAudiences: env.JWT_ALLOWED_AUDIENCE,
-			allowedAlgorithms: JSON.parse(env.JWT_ALLOWED_ALGO_ARRAY),
+			allowedAlgorithms: secJSON.parse(env.JWT_ALLOWED_ALGO_ARRAY),
 			allowedIssuers: env.JWT_ALLOWED_ISSUERS,
 			maxAge: env.JWT_MAX_AGE,
 		},
@@ -299,12 +300,14 @@ async function getConfig() {
 	}
 
 	if (env.RATE_LIMIT_EXCLUDED_ARRAY) {
-		config.rateLimit.allowList = JSON.parse(env.RATE_LIMIT_EXCLUDED_ARRAY);
+		config.rateLimit.allowList = secJSON.parse(
+			env.RATE_LIMIT_EXCLUDED_ARRAY
+		);
 	}
 
 	if (env.AUTH_BEARER_TOKEN_ARRAY) {
 		const keys = new Set();
-		JSON.parse(env.AUTH_BEARER_TOKEN_ARRAY).forEach((element) => {
+		secJSON.parse(env.AUTH_BEARER_TOKEN_ARRAY).forEach((element) => {
 			keys.add(element.value);
 		});
 		config.bearerTokenAuthKeys = keys;

@@ -26,7 +26,7 @@ const redirectGetSchema = {
 	// Querystring search parameters from https://www.hl7.org/fhir/STU3/search.html
 	query: S.object()
 		.patternProperties({
-			"^[a-zA-Z\\-\\.\\_\\:]+$": S.anyOf([
+			"^[a-zA-Z-._:]+$": S.anyOf([
 				S.string()
 					.description("number")
 					.pattern(/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)[\d.]+$/m),

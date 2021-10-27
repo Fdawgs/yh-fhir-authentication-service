@@ -15,8 +15,11 @@ const redirectGetSchema = {
 		"Redirects to the URL set with the `SERVICE_REDIRECT_URL` environment variable.",
 	produces: ["application/fhir+json", "application/fhir+xml"],
 	params: S.object()
-		// Longest STU3 FHIR resource name is "ImmunizationRecommendation" at 26 chars
-		.prop("resource", S.string().pattern(/^\w{1,26}$/m))
+		/**
+		 * Longest STU3 FHIR resource name is "ImmunizationRecommendation" at 26 chars:
+		 * https://www.hl7.org/fhir/STU3/resourcelist.html
+		 */
+		.prop("resource", S.string().pattern(/^[a-zA-Z]{1,26}$/m))
 		.prop("id", S.string().pattern(/^[\w-]+$/m))
 		.required(["resource"]),
 

@@ -26,12 +26,13 @@ async function route(server, options) {
 		.register(bearer, {
 			addHook: false,
 			keys: options.bearerTokenAuthKeys,
-			/* istanbul ignore next */
-			errorResponse: (err) => ({
-				statusCode: 401,
-				error: "Unauthorized",
-				message: err.message,
-			}),
+			errorResponse:
+				/* istanbul ignore next */
+				(err) => ({
+					statusCode: 401,
+					error: "Unauthorized",
+					message: err.message,
+				}),
 		})
 		.register(replyFrom, {
 			base: options.redirectUrl,

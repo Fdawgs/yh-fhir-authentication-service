@@ -1,6 +1,6 @@
 const autoLoad = require("fastify-autoload");
 const fp = require("fastify-plugin");
-const path = require("path");
+const path = require("upath");
 
 // Import plugins
 const accepts = require("fastify-accepts");
@@ -77,7 +77,7 @@ async function plugin(server, config) {
 
 		// Import and register admin routes
 		.register(autoLoad, {
-			dir: path.join(__dirname, "routes", "admin"),
+			dir: path.joinSafe(__dirname, "routes", "admin"),
 			options: { ...config, prefix: "admin" },
 		})
 
@@ -93,7 +93,7 @@ async function plugin(server, config) {
 				.register(jwtJwks, config.jwt)
 				// Import and register service routes
 				.register(autoLoad, {
-					dir: path.join(__dirname, "routes", "redirect"),
+					dir: path.joinSafe(__dirname, "routes", "redirect"),
 					dirNameRoutePrefix: false,
 					options: config,
 				});

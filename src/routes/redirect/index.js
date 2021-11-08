@@ -49,7 +49,7 @@ async function route(server, options) {
 				req.accepts().type(redirectGetSchema.produces)
 			)
 		) {
-			res.notAcceptable();
+			throw res.notAcceptable();
 		}
 	});
 

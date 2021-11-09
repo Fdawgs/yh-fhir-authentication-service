@@ -105,7 +105,7 @@
     "fluent-json-schema": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.5",
-    "pino": "^7.0.5",
+    "pino": "^7.1.0",
     "pino-pretty": "^7.1.0",
     "secure-json-parse": "^2.4.0",
     "under-pressure": "^5.8.0",

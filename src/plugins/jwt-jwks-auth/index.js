@@ -2,6 +2,9 @@
 const fp = require("fastify-plugin");
 const jwt = require("jsonwebtoken");
 const jwksClient = require("jwks-rsa");
+const { promisify } = require("util");
+
+const verify = promisify(jwt.verify);
 
 /**
  * @author Frazer Smith
@@ -55,22 +58,13 @@ async function plugin(server, options) {
 
 		const signingKey = await getSigningKey(token, options.jwksEndpoint);
 
-		jwt.verify(
-			token,
-			signingKey,
-			{
-				audience: options.allowedAudiences,
-				algorithms: options.allowedAlgorithms,
-				ignoreExpiration: false,
-				issuer: options.allowedIssuers,
-				maxAge: options.maxAge,
-			},
-			(err) => {
-				if (err) {
-					throw err;
-				}
-			}
-		);
+		await verify(token, signingKey, {
+			audience: options.allowedAudiences,
+			algorithms: options.allowedAlgorithms,
+			ignoreExpiration: false,
+			issuer: options.allowedIssuers,
+			maxAge: options.maxAge,
+		});
 	});
 }
 

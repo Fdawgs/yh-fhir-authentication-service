@@ -2,6 +2,9 @@
 const fp = require("fastify-plugin");
 const jwt = require("jsonwebtoken");
 const jwksClient = require("jwks-rsa");
+const { promisify } = require("util");
+
+const verify = promisify(jwt.verify);
 
 /**
  * @author Frazer Smith
@@ -44,37 +47,29 @@ async function getSigningKey(token, jwksUri) {
  * @param {string} options.maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
-	server.decorate("verifyJWT", async (req) => {
+	server.decorate("verifyJWT", async (req, res) => {
 		const header = req.headers.authorization;
 		if (!header) {
-			throw new Error("missing authorization header");
+			throw res.badRequest("Missing authorization header");
 		}
 
 		// Remove 'Bearer' from beginning of token
-		const token = header.substring(6).trim();
+		const token = header.replace(/^Bearer/, "").trim();
 
 		const signingKey = await getSigningKey(token, options.jwksEndpoint);
 
-		jwt.verify(
-			token,
-			signingKey,
-			{
-				audience: options.allowedAudiences,
-				algorithms: options.allowedAlgorithms,
-				ignoreExpiration: false,
-				issuer: options.allowedIssuers,
-				maxAge: options.maxAge,
-			},
-			(err) => {
-				if (err) {
-					throw err;
-				}
-			}
-		);
+		await verify(token, signingKey, {
+			audience: options.allowedAudiences,
+			algorithms: options.allowedAlgorithms,
+			ignoreExpiration: false,
+			issuer: options.allowedIssuers,
+			maxAge: options.maxAge,
+		});
 	});
 }
 
 module.exports = fp(plugin, {
 	fastify: "3.x",
 	name: "jwt-jwks-auth",
+	dependencies: ["fastify-sensible"],
 });

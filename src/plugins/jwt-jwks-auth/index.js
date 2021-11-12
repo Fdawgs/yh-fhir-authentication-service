@@ -54,7 +54,7 @@ async function plugin(server, options) {
 		}
 
 		// Remove 'Bearer' from beginning of token
-		const token = header.substring(6).trim();
+		const token = header.replace(/^Bearer/, "").trim();
 
 		const signingKey = await getSigningKey(token, options.jwksEndpoint);
 

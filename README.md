@@ -67,7 +67,7 @@ To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest
 
 ### Deploying Using Docker
 
-This requires [Docker](https://www.docker.com/products) installed.
+This requires [Docker](https://www.docker.com) installed.
 
 1. Run `docker compose up` (or `docker compose up -d` to run in background)
 

@@ -5,6 +5,7 @@ const path = require("upath");
 // Import plugins
 const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
+const bearer = require("fastify-bearer-auth");
 const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
 const helmet = require("fastify-helmet");
@@ -90,7 +91,23 @@ async function plugin(server, config) {
 			securedContext
 				// Multi-Auth handler (bearer token and JWT)
 				.register(auth)
+
+				// JWKS/JWT auth
 				.register(jwtJwks, config.jwt)
+
+				// Bearer token auth
+				.register(bearer, {
+					addHook: false,
+					keys: config.bearerTokenAuthKeys,
+					errorResponse:
+						/* istanbul ignore next */
+						(err) => ({
+							statusCode: 401,
+							error: "Unauthorized",
+							message: err.message,
+						}),
+				})
+
 				// Import and register service routes
 				.register(autoLoad, {
 					dir: path.joinSafe(__dirname, "routes", "redirect"),

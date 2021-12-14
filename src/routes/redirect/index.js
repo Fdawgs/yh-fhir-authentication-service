@@ -42,7 +42,6 @@ async function route(server, options) {
 	const opts = {
 		method: "GET",
 		schema: redirectGetSchema,
-		preHandler: server.auth([server.verifyJWT, server.verifyBearerAuth]),
 		handler(req, res) {
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {

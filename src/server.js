@@ -88,7 +88,7 @@ async function plugin(server, config) {
 		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
 		 */
 		.register(async (securedContext) => {
-			securedContext
+			await securedContext
 				// Multi-Auth handler (bearer token and JWT)
 				.register(auth)
 
@@ -106,7 +106,16 @@ async function plugin(server, config) {
 							error: "Unauthorized",
 							message: err.message,
 						}),
-				})
+				});
+
+			await securedContext
+				.addHook(
+					"preHandler",
+					securedContext.auth([
+						securedContext.verifyJWT,
+						securedContext.verifyBearerAuth,
+					])
+				)
 
 				// Import and register service routes
 				.register(autoLoad, {

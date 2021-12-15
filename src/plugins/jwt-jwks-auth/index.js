@@ -1,15 +1,12 @@
 /* eslint-disable promise/prefer-await-to-callbacks */
 const fp = require("fastify-plugin");
-const jwt = require("jsonwebtoken");
+const { createVerifier, createDecoder } = require("fast-jwt");
 const jwksClient = require("jwks-rsa");
-const { promisify } = require("util");
-
-const verify = promisify(jwt.verify);
 
 /**
  * @author Frazer Smith
  * @author Mark Hunt
- * @description Retrieve signing key.
+ * @description Retrieve signing key from JWKS endpoint.
  * @param {string} token - JSON web token.
  * @param {string} jwksUri - Endpoint containing JSON Web Key Set (JWKS).
  * @returns {Promise<string>} Signing key on resolve, error text on rejection.
@@ -21,9 +18,9 @@ async function getSigningKey(token, jwksUri) {
 			jwksUri,
 		});
 
-		const decoded = jwt.decode(token, { complete: true });
+		const jwtDecoder = createDecoder({ complete: true });
 
-		client.getSigningKey(decoded.header.kid, (err, key) => {
+		client.getSigningKey(jwtDecoder(token).header.kid, (err, key) => {
 			if (err) {
 				reject(err);
 			} else {
@@ -41,10 +38,10 @@ async function getSigningKey(token, jwksUri) {
  * @param {Function} server - Fastify instance.
  * @param {object} options - Plugin config values.
  * @param {string} options.jwksEndpoint - URL of endpoint containing JWKS public keys.
- * @param {string|Array} options.allowedAudiences - Accepted recipient(s) that JWT is intended for.
- * @param {Array} options.allowedAlgorithms - Accepted signing algorithm(s).
- * @param {string|Array} options.allowedIssuers - Accepted principal(s) that issued JWT.
- * @param {string} options.maxAge - The maximum allowed age for tokens to still be valid.
+ * @param {string|Array=} options.allowedAudiences - Accepted recipient(s) that JWT is intended for.
+ * @param {Array=} options.allowedAlgorithms - Accepted signing algorithm(s).
+ * @param {string|Array=} options.allowedIssuers - Accepted principal(s) that issued JWT.
+ * @param {string=} options.maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
 	server.decorate("verifyJWT", async (req, res) => {
@@ -58,13 +55,17 @@ async function plugin(server, options) {
 
 		const signingKey = await getSigningKey(token, options.jwksEndpoint);
 
-		await verify(token, signingKey, {
-			audience: options.allowedAudiences,
+		const jwtVerifier = createVerifier({
 			algorithms: options.allowedAlgorithms,
+			allowedAud: options.allowedAudiences,
+			allowedIss: options.allowedIssuers,
+			cache: true,
 			ignoreExpiration: false,
-			issuer: options.allowedIssuers,
+			key: signingKey,
 			maxAge: options.maxAge,
 		});
+
+		await jwtVerifier(token);
 	});
 }
 

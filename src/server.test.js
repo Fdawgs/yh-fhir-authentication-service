@@ -374,6 +374,15 @@ describe("Server Deployment", () => {
 	});
 
 	describe("Auth", () => {
+		beforeAll(async () => {
+			Object.assign(process.env, {
+				JWT_ALLOWED_AUDIENCE: "",
+				JWT_ALLOWED_ALGO_ARRAY: "",
+				JWT_ALLOWED_ISSUERS: "",
+				JWT_MAX_AGE: "",
+			});
+		});
+
 		describe("End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Enabled", () => {
 			let server;
 			let config;
@@ -384,10 +393,6 @@ describe("Server Deployment", () => {
 						'[{"service": "test", "value": "testtoken"}]',
 					JWKS_ENDPOINT:
 						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
-					JWT_ALLOWED_AUDIENCE: "",
-					JWT_ALLOWED_ALGO_ARRAY: "",
-					JWT_ALLOWED_ISSUERS: "",
-					JWT_MAX_AGE: "",
 				});
 				config = await getConfig();
 				config.redirectUrl = "http://127.0.0.1:3001";
@@ -451,10 +456,6 @@ describe("Server Deployment", () => {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
 					JWKS_ENDPOINT: "",
-					JWT_ALLOWED_AUDIENCE: "",
-					JWT_ALLOWED_ALGO_ARRAY: "",
-					JWT_ALLOWED_ISSUERS: "",
-					JWT_MAX_AGE: "",
 				});
 				config = await getConfig();
 				config.redirectUrl = "http://127.0.0.1:3001";
@@ -519,10 +520,6 @@ describe("Server Deployment", () => {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWKS_ENDPOINT:
 						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
-					JWT_ALLOWED_AUDIENCE: "",
-					JWT_ALLOWED_ALGO_ARRAY: "",
-					JWT_ALLOWED_ISSUERS: "",
-					JWT_MAX_AGE: "",
 				});
 				config = await getConfig();
 				config.redirectUrl = "http://127.0.0.1:3001";

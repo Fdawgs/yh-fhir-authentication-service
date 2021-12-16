@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable security-node/detect-crlf */
 const Fastify = require("fastify");
+const createJWKSMock = require("mock-jwks").default;
 const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
@@ -51,7 +52,25 @@ delete expResHeaders4xxErrors.vary;
 delete expResHeaders4xxErrors["keep-alive"];
 
 describe("Server Deployment", () => {
+	let mockJwksServer;
+	let token;
+
 	beforeAll(async () => {
+		Object.assign(process.env, {
+			SERVICE_REDIRECT_URL: "https://www.nhs.uk",
+		});
+
+		mockJwksServer = createJWKSMock(
+			"https://not-real-issuer.ydh.nhs.uk",
+			"/auth/realms/SIDER/protocol/openid-connect/certs"
+		);
+		mockJwksServer.start();
+
+		token = mockJwksServer.token({
+			aud: "private",
+			iss: "master",
+		});
+
 		try {
 			await mockServer.listen(3001);
 			console.log(
@@ -64,148 +83,298 @@ describe("Server Deployment", () => {
 	});
 
 	afterAll(async () => {
+		await mockJwksServer.stop();
 		await mockServer.close();
 	});
 
-	describe("End-To-End - CORS Disabled, Bearer Token Auth Disabled, and JWT Auth Disabled", () => {
-		let server;
-		let config;
-
+	describe("CORS", () => {
 		beforeAll(async () => {
 			Object.assign(process.env, {
 				AUTH_BEARER_TOKEN_ARRAY: "",
 				JWKS_ENDPOINT: "",
-				SERVICE_REDIRECT_URL: "https://www.nhs.uk",
-			});
-			config = await getConfig();
-			config.redirectUrl = "http://127.0.0.1:3001";
-		});
-
-		beforeEach(async () => {
-			server = Fastify();
-			server.register(startServer, config);
-			await server.ready();
-		});
-
-		afterEach(async () => {
-			await server.close();
-		});
-
-		describe("/admin/healthcheck Route", () => {
-			test("Should return `ok`", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/admin/healthcheck",
-					headers: {
-						accept: "text/plain",
-					},
-				});
-
-				expect(response.payload).toBe("ok");
-				expect(response.headers).toEqual(expResHeadersText);
-				expect(response.statusCode).toBe(200);
-			});
-
-			test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/admin/healthcheck",
-					headers: {
-						accept: "application/javascript",
-					},
-				});
-
-				expect(JSON.parse(response.payload)).toEqual({
-					error: "Not Acceptable",
-					message: "Not Acceptable",
-					statusCode: 406,
-				});
-				expect(response.headers).toEqual(expResHeadersJson);
-				expect(response.statusCode).toBe(406);
 			});
 		});
 
-		describe("/redirect Route", () => {
-			test("Should redirect request to 'redirectUrl'", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient/5484125",
-					headers: {
-						accept: "application/fhir+json",
-					},
-				});
+		describe("End-To-End - CORS Disabled", () => {
+			let server;
+			let config;
 
-				expect(JSON.parse(response.payload)).toHaveProperty(
-					"resourceType",
-					"Patient"
-				);
-				expect(response.headers).toEqual(expResHeaders);
-				expect(response.statusCode).toBe(200);
+			beforeAll(async () => {
+				config = await getConfig();
+				config.redirectUrl = "http://127.0.0.1:3001";
 			});
 
-			test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient",
-					headers: {
-						accept: "application/fhir+json",
-					},
-					query: {
-						identifier: "5484126",
-						birthdate: ["ge2021-01-01", "le2021-05-01"],
-					},
-				});
-
-				expect(JSON.parse(response.payload)).toHaveProperty(
-					"resourceType",
-					"Patient"
-				);
-				expect(response.headers).toEqual(expResHeaders);
-				expect(response.statusCode).toBe(200);
+			beforeEach(async () => {
+				server = Fastify();
+				server.register(startServer, config);
+				await server.ready();
 			});
 
-			test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient/5484125",
-					headers: {
-						accept: "application/javascript",
-					},
+			afterEach(async () => {
+				await server.close();
+			});
+
+			describe("/admin/healthcheck Route", () => {
+				test("Should return `ok`", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/admin/healthcheck",
+						headers: {
+							accept: "text/plain",
+						},
+					});
+
+					expect(response.payload).toBe("ok");
+					expect(response.headers).toEqual(expResHeadersText);
+					expect(response.statusCode).toBe(200);
 				});
 
-				expect(JSON.parse(response.payload)).toEqual({
-					error: "Not Acceptable",
-					message: "Not Acceptable",
-					statusCode: 406,
+				test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/admin/healthcheck",
+						headers: {
+							accept: "application/javascript",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Not Acceptable",
+						message: "Not Acceptable",
+						statusCode: 406,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(406);
 				});
-				expect(response.headers).toEqual(expResHeadersJson);
-				expect(response.statusCode).toBe(406);
+			});
+
+			describe("/redirect Route", () => {
+				test("Should redirect request to 'redirectUrl'", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
+				});
+
+				test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient",
+						headers: {
+							accept: "application/fhir+json",
+						},
+						query: {
+							identifier: "5484126",
+							birthdate: ["ge2021-01-01", "le2021-05-01"],
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
+				});
+
+				test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/javascript",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Not Acceptable",
+						message: "Not Acceptable",
+						statusCode: 406,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(406);
+				});
+			});
+
+			describe("Undeclared Route", () => {
+				test("Should return HTTP status code 404 if route not found", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/invalid",
+						headers: {
+							accept: "application/fhir+json",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Not Found",
+						message: "Route GET:/invalid not found",
+						statusCode: 404,
+					});
+					expect(response.headers).toEqual(expResHeaders4xxErrors);
+					expect(response.statusCode).toBe(404);
+				});
 			});
 		});
 
-		describe("Undeclared Route", () => {
-			test("Should return HTTP status code 404 if route not found", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/invalid",
-					headers: {
-						accept: "application/fhir+json",
-					},
+		describe("End-To-End - CORS Enabled", () => {
+			describe("/admin/healthcheck Route", () => {
+				let server;
+				let config;
+
+				beforeAll(async () => {
+					config = await getConfig();
+					config.redirectUrl = "http://127.0.0.1:3001";
+					config.cors.origin = true;
+
+					server = Fastify();
+					server.register(startServer, config);
+					await server.ready();
 				});
 
-				expect(JSON.parse(response.payload)).toEqual({
-					error: "Not Found",
-					message: "Route GET:/invalid not found",
-					statusCode: 404,
+				afterAll(async () => {
+					await server.close();
 				});
-				expect(response.headers).toEqual(expResHeaders4xxErrors);
-				expect(response.statusCode).toBe(404);
+
+				test("Should return `ok`", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/admin/healthcheck",
+						headers: {
+							accept: "text/plain",
+						},
+					});
+
+					expect(response.payload).toBe("ok");
+					expect(response.headers).toEqual(expResHeadersText);
+					expect(response.statusCode).toBe(200);
+				});
+
+				test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/admin/healthcheck",
+						headers: {
+							accept: "application/javascript",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Not Acceptable",
+						message: "Not Acceptable",
+						statusCode: 406,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(406);
+				});
+			});
+
+			describe("/redirect Route", () => {
+				test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
+					const server = Fastify();
+					const config = await getConfig();
+					config.redirectUrl = "http://127.0.0.1:3001";
+					config.cors.origin = true;
+
+					server.register(startServer, config);
+					await server.ready();
+
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							Origin: "https://notreal.ydh.nhs.uk",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual({
+						...expResHeaders,
+						"access-control-allow-origin":
+							"https://notreal.ydh.nhs.uk",
+					});
+					expect(response.statusCode).toBe(200);
+
+					await server.close();
+				});
+
+				test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
+					const server = Fastify();
+					const config = await getConfig();
+					config.redirectUrl = "http://127.0.0.1:3001";
+					config.cors.origin = true;
+
+					server.register(startServer, config);
+					await server.ready();
+
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
+
+					await server.close();
+				});
+
+				test("Should set 'access-control-allow-origin' to string in config", async () => {
+					const server = Fastify();
+					const config = await getConfig();
+					config.redirectUrl = "http://127.0.0.1:3001";
+					config.cors.origin = "https://notreal.ydh.nhs.uk";
+
+					server.register(startServer, config);
+					await server.ready();
+
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual({
+						...expResHeaders,
+						"access-control-allow-origin":
+							"https://notreal.ydh.nhs.uk",
+					});
+					expect(response.statusCode).toBe(200);
+
+					await server.close();
+				});
 			});
 		});
 	});
 
-	describe("End-To-End - CORS Enabled, Bearer Token Auth Enabled, and JWT Auth Disabled", () => {
-		describe("/admin/healthcheck Route", () => {
+	describe("Auth", () => {
+		describe("End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Enabled", () => {
 			let server;
 			let config;
 
@@ -213,144 +382,199 @@ describe("Server Deployment", () => {
 				Object.assign(process.env, {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
-					SERVICE_REDIRECT_URL: "https://www.nhs.uk",
+					JWKS_ENDPOINT:
+						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
+					JWT_ALLOWED_AUDIENCE: "",
+					JWT_ALLOWED_ALGO_ARRAY: "",
+					JWT_ALLOWED_ISSUERS: "",
+					JWT_MAX_AGE: "",
 				});
 				config = await getConfig();
 				config.redirectUrl = "http://127.0.0.1:3001";
-				config.cors.origin = true;
+			});
 
+			beforeEach(async () => {
 				server = Fastify();
 				server.register(startServer, config);
 				await server.ready();
 			});
 
-			afterAll(async () => {
+			afterEach(async () => {
 				await server.close();
 			});
 
-			test("Should return `ok`", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/admin/healthcheck",
-					headers: {
-						accept: "text/plain",
-					},
+			describe("/redirect Route", () => {
+				test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: "Bearer testtoken",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
 				});
 
-				expect(response.payload).toBe("ok");
-				expect(response.headers).toEqual(expResHeadersText);
-				expect(response.statusCode).toBe(200);
-			});
+				test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: `Bearer ${token}`,
+						},
+					});
 
-			test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/admin/healthcheck",
-					headers: {
-						accept: "application/javascript",
-					},
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
 				});
-
-				expect(JSON.parse(response.payload)).toEqual({
-					error: "Not Acceptable",
-					message: "Not Acceptable",
-					statusCode: 406,
-				});
-				expect(response.headers).toEqual(expResHeadersJson);
-				expect(response.statusCode).toBe(406);
 			});
 		});
 
-		describe("/redirect Route", () => {
-			test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
-				const server = Fastify();
-				const config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
-				config.cors.origin = true;
+		describe("End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Disabled", () => {
+			let server;
+			let config;
 
+			beforeAll(async () => {
+				Object.assign(process.env, {
+					AUTH_BEARER_TOKEN_ARRAY:
+						'[{"service": "test", "value": "testtoken"}]',
+					JWKS_ENDPOINT: "",
+					JWT_ALLOWED_AUDIENCE: "",
+					JWT_ALLOWED_ALGO_ARRAY: "",
+					JWT_ALLOWED_ISSUERS: "",
+					JWT_MAX_AGE: "",
+				});
+				config = await getConfig();
+				config.redirectUrl = "http://127.0.0.1:3001";
+			});
+
+			beforeEach(async () => {
+				server = Fastify();
 				server.register(startServer, config);
 				await server.ready();
+			});
 
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient/5484125",
-					headers: {
-						accept: "application/fhir+json",
-						authorization: "Bearer testtoken",
-						Origin: "https://notreal.ydh.nhs.uk",
-					},
-				});
-
-				expect(JSON.parse(response.payload)).toHaveProperty(
-					"resourceType",
-					"Patient"
-				);
-				expect(response.headers).toEqual({
-					...expResHeaders,
-					"access-control-allow-origin": "https://notreal.ydh.nhs.uk",
-				});
-				expect(response.statusCode).toBe(200);
-
+			afterEach(async () => {
 				await server.close();
 			});
 
-			test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
-				const server = Fastify();
-				const config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
-				config.cors.origin = true;
+			describe("/redirect Route", () => {
+				test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: "Bearer testtoken",
+						},
+					});
 
-				server.register(startServer, config);
-				await server.ready();
-
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient/5484125",
-					headers: {
-						accept: "application/fhir+json",
-						authorization: "Bearer testtoken",
-					},
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
 				});
 
-				expect(JSON.parse(response.payload)).toHaveProperty(
-					"resourceType",
-					"Patient"
-				);
-				expect(response.headers).toEqual(expResHeaders);
-				expect(response.statusCode).toBe(200);
+				test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: `Bearer ${token}`,
+						},
+					});
 
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Unauthorized",
+						message: expect.any(String),
+						statusCode: 401,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(401);
+				});
+			});
+		});
+
+		describe("End-To-End - Bearer Token Auth Disabled and JWKS JWT Auth Enabled", () => {
+			let server;
+			let config;
+
+			beforeAll(async () => {
+				Object.assign(process.env, {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWKS_ENDPOINT:
+						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
+					JWT_ALLOWED_AUDIENCE: "",
+					JWT_ALLOWED_ALGO_ARRAY: "",
+					JWT_ALLOWED_ISSUERS: "",
+					JWT_MAX_AGE: "",
+				});
+				config = await getConfig();
+				config.redirectUrl = "http://127.0.0.1:3001";
+			});
+
+			beforeEach(async () => {
+				server = Fastify();
+				server.register(startServer, config);
+				await server.ready();
+			});
+
+			afterEach(async () => {
 				await server.close();
 			});
 
-			test("Should set 'access-control-allow-origin' to string in config", async () => {
-				const server = Fastify();
-				const config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
-				config.cors.origin = "https://notreal.ydh.nhs.uk";
+			describe("/redirect Route", () => {
+				test("Should fail to redirect request to 'redirectUrl' using bearer token auth", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: "Bearer testtoken",
+						},
+					});
 
-				server.register(startServer, config);
-				await server.ready();
-
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient/5484125",
-					headers: {
-						accept: "application/fhir+json",
-						authorization: "Bearer testtoken",
-					},
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Unauthorized",
+						message: expect.any(String),
+						statusCode: 401,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(401);
 				});
 
-				expect(JSON.parse(response.payload)).toHaveProperty(
-					"resourceType",
-					"Patient"
-				);
-				expect(response.headers).toEqual({
-					...expResHeaders,
-					"access-control-allow-origin": "https://notreal.ydh.nhs.uk",
-				});
-				expect(response.statusCode).toBe(200);
+				test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: `Bearer ${token}`,
+						},
+					});
 
-				await server.close();
+					expect(JSON.parse(response.payload)).toHaveProperty(
+						"resourceType",
+						"Patient"
+					);
+					expect(response.headers).toEqual(expResHeaders);
+					expect(response.statusCode).toBe(200);
+				});
 			});
 		});
 	});

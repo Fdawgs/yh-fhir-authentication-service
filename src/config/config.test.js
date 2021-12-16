@@ -58,7 +58,7 @@ describe("configuration", () => {
 		const JWT_ALLOWED_ALGO_ARRAY = '["RS256"]';
 		const JWT_ALLOWED_ISSUERS =
 			"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER";
-		const JWT_MAX_AGE = "15m";
+		const JWT_MAX_AGE = 900000;
 
 		Object.assign(process.env, {
 			NODE_ENV,

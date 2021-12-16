@@ -156,7 +156,7 @@ async function getConfig() {
 			.prop("JWT_ALLOWED_AUDIENCE", S.anyOf([S.string(), S.null()]))
 			.prop("JWT_ALLOWED_ALGO_ARRAY", S.anyOf([S.string(), S.null()]))
 			.prop("JWT_ALLOWED_ISSUERS", S.anyOf([S.string(), S.null()]))
-			.prop("JWT_MAX_AGE", S.anyOf([S.string(), S.null()]))
+			.prop("JWT_MAX_AGE", S.anyOf([S.number(), S.null()]))
 			.required([
 				"NODE_ENV",
 				"SERVICE_HOST",
@@ -279,7 +279,9 @@ async function getConfig() {
 		config.jwt = {
 			jwksEndpoint: env.JWKS_ENDPOINT,
 			allowedAudiences: env.JWT_ALLOWED_AUDIENCE,
-			allowedAlgorithms: secJSON.parse(env.JWT_ALLOWED_ALGO_ARRAY),
+			allowedAlgorithms: env.JWT_ALLOWED_ALGO_ARRAY
+				? secJSON.parse(env.JWT_ALLOWED_ALGO_ARRAY)
+				: "",
 			allowedIssuers: env.JWT_ALLOWED_ISSUERS,
 			maxAge: env.JWT_MAX_AGE,
 		};

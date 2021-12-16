@@ -383,194 +383,144 @@ describe("Server Deployment", () => {
 			});
 		});
 
-		describe("End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Enabled", () => {
-			let server;
-			let config;
-
-			beforeAll(async () => {
-				Object.assign(process.env, {
+		const authTests = [
+			{
+				test_name:
+					"End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
+				env_variables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
 					JWKS_ENDPOINT:
 						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
-				});
-				config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
-			});
-
-			beforeEach(async () => {
-				server = Fastify();
-				server.register(startServer, config);
-				await server.ready();
-			});
-
-			afterEach(async () => {
-				await server.close();
-			});
-
-			describe("/redirect Route", () => {
-				test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							authorization: "Bearer testtoken",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							authorization: `Bearer ${token}`,
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-			});
-		});
-
-		describe("End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Disabled", () => {
-			let server;
-			let config;
-
-			beforeAll(async () => {
-				Object.assign(process.env, {
+				},
+			},
+			{
+				test_name:
+					"End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
+				env_variables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
 					JWKS_ENDPOINT: "",
-				});
-				config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
-			});
-
-			beforeEach(async () => {
-				server = Fastify();
-				server.register(startServer, config);
-				await server.ready();
-			});
-
-			afterEach(async () => {
-				await server.close();
-			});
-
-			describe("/redirect Route", () => {
-				test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							authorization: "Bearer testtoken",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							authorization: `Bearer ${token}`,
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Unauthorized",
-						message: expect.any(String),
-						statusCode: 401,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(401);
-				});
-			});
-		});
-
-		describe("End-To-End - Bearer Token Auth Disabled and JWKS JWT Auth Enabled", () => {
-			let server;
-			let config;
-
-			beforeAll(async () => {
-				Object.assign(process.env, {
+				},
+			},
+			{
+				test_name:
+					"End-To-End - Bearer Token Auth Disabled and JWKS JWT Auth Enabled",
+				env_variables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWKS_ENDPOINT:
 						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
-				});
-				config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
-			});
+				},
+			},
+		];
+		authTests.forEach((testObject) => {
+			describe(`${testObject.test_name}`, () => {
+				let server;
+				let config;
 
-			beforeEach(async () => {
-				server = Fastify();
-				server.register(startServer, config);
-				await server.ready();
-			});
-
-			afterEach(async () => {
-				await server.close();
-			});
-
-			describe("/redirect Route", () => {
-				test("Should fail to redirect request to 'redirectUrl' using bearer token auth", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							authorization: "Bearer testtoken",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Unauthorized",
-						message: expect.any(String),
-						statusCode: 401,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(401);
+				beforeAll(async () => {
+					Object.assign(process.env, testObject.env_variables);
+					config = await getConfig();
+					config.redirectUrl = "http://127.0.0.1:3001";
 				});
 
-				test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							authorization: `Bearer ${token}`,
-						},
-					});
+				beforeEach(async () => {
+					server = Fastify();
+					server.register(startServer, config);
+					await server.ready();
+				});
 
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
+				afterEach(async () => {
+					await server.close();
+				});
+
+				describe("/redirect Route", () => {
+					if (
+						testObject?.env_variables?.AUTH_BEARER_TOKEN_ARRAY !==
+						""
+					) {
+						test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: "Bearer testtoken",
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toHaveProperty(
+								"resourceType",
+								"Patient"
+							);
+							expect(response.headers).toEqual(expResHeaders);
+							expect(response.statusCode).toBe(200);
+						});
+					}
+					if (
+						testObject?.env_variables?.AUTH_BEARER_TOKEN_ARRAY ===
+						""
+					) {
+						test("Should fail to redirect request to 'redirectUrl' using bearer token auth", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: "Bearer testtoken",
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toEqual({
+								error: "Unauthorized",
+								message: expect.any(String),
+								statusCode: 401,
+							});
+							expect(response.headers).toEqual(expResHeadersJson);
+							expect(response.statusCode).toBe(401);
+						});
+					}
+
+					if (testObject?.env_variables?.JWKS_ENDPOINT !== "") {
+						test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: `Bearer ${token}`,
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toHaveProperty(
+								"resourceType",
+								"Patient"
+							);
+							expect(response.headers).toEqual(expResHeaders);
+							expect(response.statusCode).toBe(200);
+						});
+					}
+
+					if (testObject?.env_variables?.JWKS_ENDPOINT === "") {
+						test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: `Bearer ${token}`,
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toEqual({
+								error: "Unauthorized",
+								message: expect.any(String),
+								statusCode: 401,
+							});
+							expect(response.headers).toEqual(expResHeadersJson);
+							expect(response.statusCode).toBe(401);
+						});
+					}
 				});
 			});
 		});

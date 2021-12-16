@@ -57,7 +57,7 @@ describe("Server Deployment", () => {
 
 	beforeAll(async () => {
 		Object.assign(process.env, {
-			SERVICE_REDIRECT_URL: "https://www.nhs.uk",
+			SERVICE_REDIRECT_URL: "http://127.0.0.1:3001",
 		});
 
 		mockJwksServer = createJWKSMock(
@@ -101,7 +101,6 @@ describe("Server Deployment", () => {
 
 			beforeAll(async () => {
 				config = await getConfig();
-				config.redirectUrl = "http://127.0.0.1:3001";
 			});
 
 			beforeEach(async () => {
@@ -234,7 +233,6 @@ describe("Server Deployment", () => {
 
 				beforeAll(async () => {
 					config = await getConfig();
-					config.redirectUrl = "http://127.0.0.1:3001";
 					config.cors.origin = true;
 
 					server = Fastify();
@@ -283,7 +281,6 @@ describe("Server Deployment", () => {
 				test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
 					const server = Fastify();
 					const config = await getConfig();
-					config.redirectUrl = "http://127.0.0.1:3001";
 					config.cors.origin = true;
 
 					server.register(startServer, config);
@@ -315,7 +312,6 @@ describe("Server Deployment", () => {
 				test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
 					const server = Fastify();
 					const config = await getConfig();
-					config.redirectUrl = "http://127.0.0.1:3001";
 					config.cors.origin = true;
 
 					server.register(startServer, config);
@@ -342,7 +338,6 @@ describe("Server Deployment", () => {
 				test("Should set 'access-control-allow-origin' to string in config", async () => {
 					const server = Fastify();
 					const config = await getConfig();
-					config.redirectUrl = "http://127.0.0.1:3001";
 					config.cors.origin = "https://notreal.ydh.nhs.uk";
 
 					server.register(startServer, config);
@@ -421,7 +416,6 @@ describe("Server Deployment", () => {
 				beforeAll(async () => {
 					Object.assign(process.env, testObject.env_variables);
 					config = await getConfig();
-					config.redirectUrl = "http://127.0.0.1:3001";
 				});
 
 				beforeEach(async () => {

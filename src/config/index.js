@@ -272,15 +272,18 @@ async function getConfig() {
 				],
 			},
 		},
-		jwt: {
+		redirectUrl: env.SERVICE_REDIRECT_URL,
+	};
+
+	if (env.JWKS_ENDPOINT) {
+		config.jwt = {
 			jwksEndpoint: env.JWKS_ENDPOINT,
 			allowedAudiences: env.JWT_ALLOWED_AUDIENCE,
 			allowedAlgorithms: secJSON.parse(env.JWT_ALLOWED_ALGO_ARRAY),
 			allowedIssuers: env.JWT_ALLOWED_ISSUERS,
 			maxAge: env.JWT_MAX_AGE,
-		},
-		redirectUrl: env.SERVICE_REDIRECT_URL,
-	};
+		};
+	}
 
 	if (env.LOG_ROTATION_FILENAME) {
 		// Rotation options: https://github.com/rogerc/file-stream-rotator/#options

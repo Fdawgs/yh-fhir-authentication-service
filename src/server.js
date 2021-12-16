@@ -88,15 +88,18 @@ async function plugin(server, config) {
 		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
 		 */
 		.register(async (securedContext) => {
-			await securedContext
-				// Multi-Auth handler (bearer token and JWT)
-				.register(auth)
+			const authFunctions = [];
 
-				// JWKS/JWT auth
-				.register(jwtJwks, config.jwt)
+			// JWKS JWT auth
+			if (config.jwt) {
+				await securedContext.register(jwtJwks, config.jwt);
 
-				// Bearer token auth
-				.register(bearer, {
+				authFunctions.push(securedContext.verifyJWT);
+			}
+
+			// Bearer token auth
+			if (config.bearerTokenAuthKeys) {
+				await securedContext.register(bearer, {
 					addHook: false,
 					keys: config.bearerTokenAuthKeys,
 					errorResponse:
@@ -108,15 +111,18 @@ async function plugin(server, config) {
 						}),
 				});
 
-			await securedContext
-				.addHook(
-					"preHandler",
-					securedContext.auth([
-						securedContext.verifyJWT,
-						securedContext.verifyBearerAuth,
-					])
-				)
+				authFunctions.push(securedContext.verifyBearerAuth);
+			}
 
+			if (authFunctions.length > 0) {
+				await securedContext.register(auth);
+				await securedContext.addHook(
+					"preHandler",
+					securedContext.auth(authFunctions)
+				);
+			}
+
+			securedContext
 				// Import and register service routes
 				.register(autoLoad, {
 					dir: path.joinSafe(__dirname, "routes", "redirect"),

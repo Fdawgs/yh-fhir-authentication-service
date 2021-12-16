@@ -67,17 +67,18 @@ describe("Server Deployment", () => {
 		await mockServer.close();
 	});
 
-	describe("End-To-End - CORS Disabled", () => {
+	describe("End-To-End - CORS Disabled, Bearer Token Auth Disabled, and JWT Auth Disabled", () => {
 		let server;
 		let config;
 
 		beforeAll(async () => {
 			Object.assign(process.env, {
+				AUTH_BEARER_TOKEN_ARRAY: "",
+				JWKS_ENDPOINT: "",
 				SERVICE_REDIRECT_URL: "https://www.nhs.uk",
 			});
 			config = await getConfig();
 			config.redirectUrl = "http://127.0.0.1:3001";
-			config.bearerTokenAuthKeys = ["testtoken"];
 		});
 
 		beforeEach(async () => {
@@ -125,13 +126,12 @@ describe("Server Deployment", () => {
 		});
 
 		describe("/redirect Route", () => {
-			test("Should redirect request to 'redirectUrl' with valid bearer token in header", async () => {
+			test("Should redirect request to 'redirectUrl'", async () => {
 				const response = await server.inject({
 					method: "GET",
 					url: "/STU3/Patient/5484125",
 					headers: {
 						accept: "application/fhir+json",
-						authorization: "Bearer testtoken",
 					},
 				});
 
@@ -149,7 +149,6 @@ describe("Server Deployment", () => {
 					url: "/STU3/Patient",
 					headers: {
 						accept: "application/fhir+json",
-						authorization: "Bearer testtoken",
 					},
 					query: {
 						identifier: "5484126",
@@ -165,32 +164,12 @@ describe("Server Deployment", () => {
 				expect(response.statusCode).toBe(200);
 			});
 
-			test("Should return HTTP status code 401 if invalid bearer token provided in header", async () => {
-				const response = await server.inject({
-					method: "GET",
-					url: "/STU3/Patient/5484125",
-					headers: {
-						accept: "application/fhir+json",
-						authorization: "Bearer invalid",
-					},
-				});
-
-				expect(JSON.parse(response.payload)).toEqual({
-					error: "Unauthorized",
-					message: "invalid authorization header",
-					statusCode: 401,
-				});
-				expect(response.headers).toEqual(expResHeadersJson);
-				expect(response.statusCode).toBe(401);
-			});
-
 			test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
 				const response = await server.inject({
 					method: "GET",
 					url: "/STU3/Patient/5484125",
 					headers: {
 						accept: "application/javascript",
-						authorization: "Bearer testtoken",
 					},
 				});
 
@@ -211,7 +190,6 @@ describe("Server Deployment", () => {
 					url: "/invalid",
 					headers: {
 						accept: "application/fhir+json",
-						authorization: "Bearer testtoken",
 					},
 				});
 
@@ -226,13 +204,15 @@ describe("Server Deployment", () => {
 		});
 	});
 
-	describe("End-To-End - CORS Enabled", () => {
+	describe("End-To-End - CORS Enabled, Bearer Token Auth Enabled, and JWT Auth Disabled", () => {
 		describe("/admin/healthcheck Route", () => {
 			let server;
 			let config;
 
 			beforeAll(async () => {
 				Object.assign(process.env, {
+					AUTH_BEARER_TOKEN_ARRAY:
+						'[{"service": "test", "value": "testtoken"}]',
 					SERVICE_REDIRECT_URL: "https://www.nhs.uk",
 				});
 				config = await getConfig();

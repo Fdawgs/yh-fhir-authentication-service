@@ -227,13 +227,18 @@ describe("Server Deployment", () => {
 		});
 
 		describe("End-To-End - CORS Enabled", () => {
+			beforeAll(async () => {
+				Object.assign(process.env, {
+					CORS_ORIGIN: true,
+				});
+			});
+
 			describe("/admin/healthcheck Route", () => {
 				let server;
 				let config;
 
 				beforeAll(async () => {
 					config = await getConfig();
-					config.cors.origin = true;
 
 					server = Fastify();
 					server.register(startServer, config);
@@ -281,7 +286,6 @@ describe("Server Deployment", () => {
 				test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
 					const server = Fastify();
 					const config = await getConfig();
-					config.cors.origin = true;
 
 					server.register(startServer, config);
 					await server.ready();
@@ -312,7 +316,6 @@ describe("Server Deployment", () => {
 				test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
 					const server = Fastify();
 					const config = await getConfig();
-					config.cors.origin = true;
 
 					server.register(startServer, config);
 					await server.ready();

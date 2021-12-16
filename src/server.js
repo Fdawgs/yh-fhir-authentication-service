@@ -5,6 +5,7 @@ const path = require("upath");
 // Import plugins
 const accepts = require("fastify-accepts");
 const auth = require("fastify-auth");
+const bearer = require("fastify-bearer-auth");
 const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
 const helmet = require("fastify-helmet");
@@ -87,10 +88,41 @@ async function plugin(server, config) {
 		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
 		 */
 		.register(async (securedContext) => {
+			const authFunctions = [];
+
+			// JWKS JWT auth
+			if (config.jwt) {
+				await securedContext.register(jwtJwks, config.jwt);
+
+				authFunctions.push(securedContext.verifyJWT);
+			}
+
+			// Bearer token auth
+			if (config.bearerTokenAuthKeys) {
+				await securedContext.register(bearer, {
+					addHook: false,
+					keys: config.bearerTokenAuthKeys,
+					errorResponse:
+						/* istanbul ignore next */
+						(err) => ({
+							statusCode: 401,
+							error: "Unauthorized",
+							message: err.message,
+						}),
+				});
+
+				authFunctions.push(securedContext.verifyBearerAuth);
+			}
+
+			if (authFunctions.length > 0) {
+				await securedContext.register(auth);
+				await securedContext.addHook(
+					"preHandler",
+					securedContext.auth(authFunctions)
+				);
+			}
+
 			securedContext
-				// Multi-Auth handler (bearer token and JWT)
-				.register(auth)
-				.register(jwtJwks, config.jwt)
 				// Import and register service routes
 				.register(autoLoad, {
 					dir: path.joinSafe(__dirname, "routes", "redirect"),

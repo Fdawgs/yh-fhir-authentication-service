@@ -1,6 +1,5 @@
 // Import plugins
 const replyFrom = require("fastify-reply-from");
-const bearer = require("fastify-bearer-auth");
 const cors = require("fastify-cors");
 
 const { redirectGetSchema } = require("./schema");
@@ -10,7 +9,6 @@ const { redirectGetSchema } = require("./schema");
  * @description Sets routing options for server.
  * @param {Function} server - Fastify instance.
  * @param {object} options - Route config values.
- * @param {Array|Set} options.bearerTokenAuthKeys - Array of accepted bearer tokens.
  * @param {object} options.cors - CORS settings.
  * @param {string} options.redirectUrl - URL and port the Mirth Connect FHIR/HTTP Listener channel is listening on.
  */
@@ -22,25 +20,13 @@ async function route(server, options) {
 	});
 
 	// Register plugins
-	await server
-		.register(bearer, {
-			addHook: false,
-			keys: options.bearerTokenAuthKeys,
-			errorResponse:
-				/* istanbul ignore next */
-				(err) => ({
-					statusCode: 401,
-					error: "Unauthorized",
-					message: err.message,
-				}),
-		})
-		.register(replyFrom, {
-			base: options.redirectUrl,
-			undici: {
-				connections: 100,
-				pipelining: 10,
-			},
-		});
+	await server.register(replyFrom, {
+		base: options.redirectUrl,
+		undici: {
+			connections: 100,
+			pipelining: 10,
+		},
+	});
 
 	server.addHook("preValidation", async (req, res) => {
 		if (
@@ -56,7 +42,6 @@ async function route(server, options) {
 	const opts = {
 		method: "GET",
 		schema: redirectGetSchema,
-		preHandler: server.auth([server.verifyJWT, server.verifyBearerAuth]),
 		handler(req, res) {
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {

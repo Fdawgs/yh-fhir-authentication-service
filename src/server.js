@@ -84,7 +84,7 @@ async function plugin(server, config) {
 
 		/**
 		 * Encapsulate plugins and routes into secured child context, so that admin and docs
-		 * routes do not inherit auth and JWT plugins.
+		 * routes do not inherit auth plugins.
 		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
 		 */
 		.register(async (securedContext) => {
@@ -114,6 +114,7 @@ async function plugin(server, config) {
 				authFunctions.push(securedContext.verifyBearerAuth);
 			}
 
+			// If any auth scheme has been registered then register auth plugin and hook
 			if (authFunctions.length > 0) {
 				await securedContext.register(auth);
 				await securedContext.addHook(

@@ -98,9 +98,11 @@ describe("Server Deployment", () => {
 		describe("End-To-End - CORS Disabled", () => {
 			let server;
 			let config;
+			let currentEnv;
 
 			beforeAll(async () => {
 				config = await getConfig();
+				currentEnv = { ...process.env };
 			});
 
 			beforeEach(async () => {
@@ -110,6 +112,10 @@ describe("Server Deployment", () => {
 			});
 
 			afterEach(async () => {
+				// Reset the process.env to default after each test
+				jest.resetModules();
+				Object.assign(process.env, currentEnv);
+
 				await server.close();
 			});
 
@@ -374,6 +380,7 @@ describe("Server Deployment", () => {
 	describe("Auth", () => {
 		let config;
 		let server;
+		let currentEnv;
 
 		beforeAll(async () => {
 			Object.assign(process.env, {
@@ -382,9 +389,14 @@ describe("Server Deployment", () => {
 				JWT_ALLOWED_ISSUERS: "",
 				JWT_MAX_AGE: "",
 			});
+			currentEnv = { ...process.env };
 		});
 
 		afterEach(async () => {
+			// Reset the process.env to default after each test
+			jest.resetModules();
+			Object.assign(process.env, currentEnv);
+
 			await server.close();
 		});
 

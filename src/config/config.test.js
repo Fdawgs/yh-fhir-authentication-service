@@ -18,6 +18,7 @@ describe("Configuration", () => {
 	});
 
 	afterEach(() => {
+		// Reset the process.env to default after each test
 		jest.resetModules();
 		Object.assign(process.env, currentEnv);
 	});

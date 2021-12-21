@@ -383,9 +383,9 @@ describe("Server Deployment", () => {
 
 		const authTests = [
 			{
-				test_name:
+				testName:
 					"End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
-				env_variables: {
+				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
 					JWKS_ENDPOINT:
@@ -393,18 +393,18 @@ describe("Server Deployment", () => {
 				},
 			},
 			{
-				test_name:
+				testName:
 					"End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
-				env_variables: {
+				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
 					JWKS_ENDPOINT: "",
 				},
 			},
 			{
-				test_name:
+				testName:
 					"End-To-End - Bearer Token Auth Disabled and JWKS JWT Auth Enabled",
-				env_variables: {
+				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWKS_ENDPOINT:
 						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
@@ -412,12 +412,12 @@ describe("Server Deployment", () => {
 			},
 		];
 		authTests.forEach((testObject) => {
-			describe(`${testObject.test_name}`, () => {
+			describe(`${testObject.testName}`, () => {
 				let server;
 				let config;
 
 				beforeAll(async () => {
-					Object.assign(process.env, testObject.env_variables);
+					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
 				});
 
@@ -433,8 +433,7 @@ describe("Server Deployment", () => {
 
 				describe("/redirect Route", () => {
 					if (
-						testObject?.env_variables?.AUTH_BEARER_TOKEN_ARRAY !==
-						""
+						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
 					) {
 						test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
 							const response = await server.inject({
@@ -455,8 +454,7 @@ describe("Server Deployment", () => {
 						});
 					}
 					if (
-						testObject?.env_variables?.AUTH_BEARER_TOKEN_ARRAY ===
-						""
+						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY === ""
 					) {
 						test("Should fail to redirect request to 'redirectUrl' using bearer token auth", async () => {
 							const response = await server.inject({
@@ -478,7 +476,7 @@ describe("Server Deployment", () => {
 						});
 					}
 
-					if (testObject?.env_variables?.JWKS_ENDPOINT !== "") {
+					if (testObject?.envVariables?.JWKS_ENDPOINT !== "") {
 						test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
 							const response = await server.inject({
 								method: "GET",
@@ -498,7 +496,7 @@ describe("Server Deployment", () => {
 						});
 					}
 
-					if (testObject?.env_variables?.JWKS_ENDPOINT === "") {
+					if (testObject?.envVariables?.JWKS_ENDPOINT === "") {
 						test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
 							const response = await server.inject({
 								method: "GET",

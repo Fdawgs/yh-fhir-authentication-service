@@ -95,143 +95,6 @@ describe("Server Deployment", () => {
 			});
 		});
 
-		describe("End-To-End - CORS Disabled", () => {
-			let server;
-			let config;
-			let currentEnv;
-
-			beforeAll(async () => {
-				config = await getConfig();
-				currentEnv = { ...process.env };
-			});
-
-			beforeEach(async () => {
-				server = Fastify();
-				server.register(startServer, config);
-				await server.ready();
-			});
-
-			afterEach(async () => {
-				// Reset the process.env to default after each test
-				jest.resetModules();
-				Object.assign(process.env, currentEnv);
-
-				await server.close();
-			});
-
-			describe("/admin/healthcheck Route", () => {
-				test("Should return `ok`", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/admin/healthcheck",
-						headers: {
-							accept: "text/plain",
-						},
-					});
-
-					expect(response.payload).toBe("ok");
-					expect(response.headers).toEqual(expResHeadersText);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/admin/healthcheck",
-						headers: {
-							accept: "application/javascript",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Acceptable",
-						message: "Not Acceptable",
-						statusCode: 406,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(406);
-				});
-			});
-
-			describe("/redirect Route", () => {
-				test("Should redirect request to 'redirectUrl'", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient",
-						headers: {
-							accept: "application/fhir+json",
-						},
-						query: {
-							identifier: "5484126",
-							birthdate: ["ge2021-01-01", "le2021-05-01"],
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/javascript",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Acceptable",
-						message: "Not Acceptable",
-						statusCode: 406,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(406);
-				});
-			});
-
-			describe("Undeclared Route", () => {
-				test("Should return HTTP status code 404 if route not found", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/invalid",
-						headers: {
-							accept: "application/fhir+json",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Found",
-						message: "Route GET:/invalid not found",
-						statusCode: 404,
-					});
-					expect(response.headers).toEqual(expResHeaders4xxErrors);
-					expect(response.statusCode).toBe(404);
-				});
-			});
-		});
-
 		describe("End-To-End - CORS Enabled", () => {
 			beforeAll(async () => {
 				Object.assign(process.env, {
@@ -372,6 +235,165 @@ describe("Server Deployment", () => {
 					expect(response.statusCode).toBe(200);
 
 					await server.close();
+				});
+			});
+		});
+	});
+
+	describe("CORS 2", () => {
+		let config;
+		let server;
+		let currentEnv;
+
+		beforeAll(async () => {
+			Object.assign(process.env, {
+				AUTH_BEARER_TOKEN_ARRAY: "",
+				JWKS_ENDPOINT: "",
+			});
+			currentEnv = { ...process.env };
+		});
+
+		afterEach(async () => {
+			// Reset the process.env to default after each test
+			jest.resetModules();
+			Object.assign(process.env, currentEnv);
+
+			await server.close();
+		});
+
+		const corsTests = [
+			{
+				testName: "End-To-End - CORS Disabled",
+				envVariables: {
+					CORS_ORIGIN: "",
+				},
+			},
+		];
+		corsTests.forEach((testObject) => {
+			describe(`${testObject.testName}`, () => {
+				beforeAll(async () => {
+					Object.assign(process.env, testObject.envVariables);
+					config = await getConfig();
+				});
+
+				beforeEach(async () => {
+					server = Fastify();
+					server.register(startServer, config);
+					await server.ready();
+				});
+
+				describe("/admin/healthcheck Route", () => {
+					test("Should return `ok`", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/admin/healthcheck",
+							headers: {
+								accept: "text/plain",
+							},
+						});
+
+						expect(response.payload).toBe("ok");
+						expect(response.headers).toEqual(expResHeadersText);
+						expect(response.statusCode).toBe(200);
+					});
+
+					test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/admin/healthcheck",
+							headers: {
+								accept: "application/javascript",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Not Acceptable",
+							message: "Not Acceptable",
+							statusCode: 406,
+						});
+						expect(response.headers).toEqual(expResHeadersJson);
+						expect(response.statusCode).toBe(406);
+					});
+				});
+
+				describe("/redirect Route", () => {
+					test("Should redirect request to 'redirectUrl'", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(expResHeaders);
+						expect(response.statusCode).toBe(200);
+					});
+
+					test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient",
+							headers: {
+								accept: "application/fhir+json",
+							},
+							query: {
+								identifier: "5484126",
+								birthdate: ["ge2021-01-01", "le2021-05-01"],
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(expResHeaders);
+						expect(response.statusCode).toBe(200);
+					});
+
+					test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/javascript",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Not Acceptable",
+							message: "Not Acceptable",
+							statusCode: 406,
+						});
+						expect(response.headers).toEqual(expResHeadersJson);
+						expect(response.statusCode).toBe(406);
+					});
+				});
+
+				describe("Undeclared Route", () => {
+					test("Should return HTTP status code 404 if route not found", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/invalid",
+							headers: {
+								accept: "application/fhir+json",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Not Found",
+							message: "Route GET:/invalid not found",
+							statusCode: 404,
+						});
+						expect(response.headers).toEqual(
+							expResHeaders4xxErrors
+						);
+						expect(response.statusCode).toBe(404);
+					});
 				});
 			});
 		});

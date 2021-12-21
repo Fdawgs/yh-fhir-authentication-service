@@ -88,290 +88,275 @@ describe("Server Deployment", () => {
 	});
 
 	describe("CORS", () => {
+		let config;
+		let server;
+		let currentEnv;
+
 		beforeAll(async () => {
 			Object.assign(process.env, {
 				AUTH_BEARER_TOKEN_ARRAY: "",
 				JWKS_ENDPOINT: "",
 			});
+			currentEnv = { ...process.env };
 		});
 
-		describe("End-To-End - CORS Disabled", () => {
-			let server;
-			let config;
-			let currentEnv;
+		afterEach(async () => {
+			// Reset the process.env to default after each test
+			jest.resetModules();
+			Object.assign(process.env, currentEnv);
 
-			beforeAll(async () => {
-				config = await getConfig();
-				currentEnv = { ...process.env };
-			});
-
-			beforeEach(async () => {
-				server = Fastify();
-				server.register(startServer, config);
-				await server.ready();
-			});
-
-			afterEach(async () => {
-				// Reset the process.env to default after each test
-				jest.resetModules();
-				Object.assign(process.env, currentEnv);
-
-				await server.close();
-			});
-
-			describe("/admin/healthcheck Route", () => {
-				test("Should return `ok`", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/admin/healthcheck",
-						headers: {
-							accept: "text/plain",
-						},
-					});
-
-					expect(response.payload).toBe("ok");
-					expect(response.headers).toEqual(expResHeadersText);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/admin/healthcheck",
-						headers: {
-							accept: "application/javascript",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Acceptable",
-						message: "Not Acceptable",
-						statusCode: 406,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(406);
-				});
-			});
-
-			describe("/redirect Route", () => {
-				test("Should redirect request to 'redirectUrl'", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient",
-						headers: {
-							accept: "application/fhir+json",
-						},
-						query: {
-							identifier: "5484126",
-							birthdate: ["ge2021-01-01", "le2021-05-01"],
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-				});
-
-				test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/javascript",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Acceptable",
-						message: "Not Acceptable",
-						statusCode: 406,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(406);
-				});
-			});
-
-			describe("Undeclared Route", () => {
-				test("Should return HTTP status code 404 if route not found", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/invalid",
-						headers: {
-							accept: "application/fhir+json",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Found",
-						message: "Route GET:/invalid not found",
-						statusCode: 404,
-					});
-					expect(response.headers).toEqual(expResHeaders4xxErrors);
-					expect(response.statusCode).toBe(404);
-				});
-			});
+			await server.close();
 		});
 
-		describe("End-To-End - CORS Enabled", () => {
-			beforeAll(async () => {
-				Object.assign(process.env, {
+		const corsTests = [
+			{
+				testName: "CORS Disabled",
+				envVariables: {
+					CORS_ORIGIN: "",
+				},
+				request: {
+					headers: {
+						origin: null,
+					},
+				},
+				expected: {
+					response: {
+						headers: {
+							basic: expResHeaders,
+							json: expResHeadersJson,
+							text: expResHeadersText,
+						},
+					},
+				},
+			},
+			{
+				testName: "CORS Enabled",
+				envVariables: {
 					CORS_ORIGIN: true,
-				});
-			});
-
-			describe("/admin/healthcheck Route", () => {
-				let server;
-				let config;
-
+				},
+				request: {
+					headers: {
+						origin: "https://notreal.ydh.nhs.uk",
+					},
+				},
+				expected: {
+					response: {
+						headers: {
+							basic: {
+								...expResHeaders,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+							json: {
+								...expResHeadersJson,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+							text: {
+								...expResHeadersText,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+						},
+					},
+				},
+			},
+			{
+				testName: "Cors Enabled and Set to String",
+				envVariables: {
+					CORS_ORIGIN: "https://notreal.ydh.nhs.uk",
+				},
+				request: {
+					headers: {
+						origin: "https://notreal.ydh.nhs.uk",
+					},
+				},
+				expected: {
+					response: {
+						headers: {
+							basic: {
+								...expResHeaders,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+							json: {
+								...expResHeadersJson,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+							text: {
+								...expResHeadersText,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+						},
+					},
+				},
+			},
+		];
+		corsTests.forEach((testObject) => {
+			describe(`End-To-End - ${testObject.testName}`, () => {
 				beforeAll(async () => {
+					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
+				});
 
+				beforeEach(async () => {
 					server = Fastify();
 					server.register(startServer, config);
 					await server.ready();
 				});
 
-				afterAll(async () => {
-					await server.close();
+				describe("/admin/healthcheck Route", () => {
+					test("Should return `ok`", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/admin/healthcheck",
+							headers: {
+								accept: "text/plain",
+								origin: testObject.request.headers.origin,
+							},
+						});
+
+						expect(response.payload).toBe("ok");
+						expect(response.headers).toEqual(
+							testObject.expected.response.headers.text
+						);
+						expect(response.statusCode).toBe(200);
+					});
+
+					test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/admin/healthcheck",
+							headers: {
+								accept: "application/javascript",
+								origin: testObject.request.headers.origin,
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Not Acceptable",
+							message: "Not Acceptable",
+							statusCode: 406,
+						});
+						expect(response.headers).toEqual(
+							testObject.expected.response.headers.json
+						);
+						expect(response.statusCode).toBe(406);
+					});
 				});
 
-				test("Should return `ok`", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/admin/healthcheck",
-						headers: {
-							accept: "text/plain",
-						},
+				describe("/redirect Route", () => {
+					test("Should redirect request to 'redirectUrl'", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								origin: testObject.request.headers.origin,
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(
+							testObject.expected.response.headers.basic
+						);
+						expect(response.statusCode).toBe(200);
 					});
 
-					expect(response.payload).toBe("ok");
-					expect(response.headers).toEqual(expResHeadersText);
-					expect(response.statusCode).toBe(200);
+					test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient",
+							headers: {
+								accept: "application/fhir+json",
+								origin: testObject.request.headers.origin,
+							},
+							query: {
+								identifier: "5484126",
+								birthdate: ["ge2021-01-01", "le2021-05-01"],
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(
+							testObject.expected.response.headers.basic
+						);
+						expect(response.statusCode).toBe(200);
+					});
+
+					// Only applicable to "CORS Enabled" test
+					if (testObject.envVariables.CORS_ORIGIN === true) {
+						test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toHaveProperty(
+								"resourceType",
+								"Patient"
+							);
+							expect(response.headers).toEqual(expResHeaders);
+							expect(response.statusCode).toBe(200);
+
+							await server.close();
+						});
+					}
+
+					test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/javascript",
+								origin: testObject.request.headers.origin,
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Not Acceptable",
+							message: "Not Acceptable",
+							statusCode: 406,
+						});
+						expect(response.headers).toEqual(
+							testObject.expected.response.headers.json
+						);
+						expect(response.statusCode).toBe(406);
+					});
 				});
 
-				test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
-					const response = await server.inject({
-						method: "GET",
-						url: "/admin/healthcheck",
-						headers: {
-							accept: "application/javascript",
-						},
+				describe("Undeclared Route", () => {
+					test("Should return HTTP status code 404 if route not found", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/invalid",
+							headers: {
+								accept: "application/fhir+json",
+								origin: testObject.request.headers.origin,
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Not Found",
+							message: "Route GET:/invalid not found",
+							statusCode: 404,
+						});
+						expect(response.headers).toEqual(
+							expResHeaders4xxErrors
+						);
+						expect(response.statusCode).toBe(404);
 					});
-
-					expect(JSON.parse(response.payload)).toEqual({
-						error: "Not Acceptable",
-						message: "Not Acceptable",
-						statusCode: 406,
-					});
-					expect(response.headers).toEqual(expResHeadersJson);
-					expect(response.statusCode).toBe(406);
-				});
-			});
-
-			describe("/redirect Route", () => {
-				test("Should set 'access-control-allow-origin' to reflect 'origin' in request header", async () => {
-					const server = Fastify();
-					const config = await getConfig();
-
-					server.register(startServer, config);
-					await server.ready();
-
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-							Origin: "https://notreal.ydh.nhs.uk",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual({
-						...expResHeaders,
-						"access-control-allow-origin":
-							"https://notreal.ydh.nhs.uk",
-					});
-					expect(response.statusCode).toBe(200);
-
-					await server.close();
-				});
-
-				test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
-					const server = Fastify();
-					const config = await getConfig();
-
-					server.register(startServer, config);
-					await server.ready();
-
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual(expResHeaders);
-					expect(response.statusCode).toBe(200);
-
-					await server.close();
-				});
-
-				test("Should set 'access-control-allow-origin' to string in config", async () => {
-					const server = Fastify();
-					const config = await getConfig();
-					config.cors.origin = "https://notreal.ydh.nhs.uk";
-
-					server.register(startServer, config);
-					await server.ready();
-
-					const response = await server.inject({
-						method: "GET",
-						url: "/STU3/Patient/5484125",
-						headers: {
-							accept: "application/fhir+json",
-						},
-					});
-
-					expect(JSON.parse(response.payload)).toHaveProperty(
-						"resourceType",
-						"Patient"
-					);
-					expect(response.headers).toEqual({
-						...expResHeaders,
-						"access-control-allow-origin":
-							"https://notreal.ydh.nhs.uk",
-					});
-					expect(response.statusCode).toBe(200);
-
-					await server.close();
 				});
 			});
 		});
@@ -402,8 +387,7 @@ describe("Server Deployment", () => {
 
 		const authTests = [
 			{
-				testName:
-					"End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
+				testName: "Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
@@ -413,7 +397,7 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
-					"End-To-End - Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
+					"Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
@@ -422,7 +406,7 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
-					"End-To-End - Bearer Token Auth Disabled and JWKS JWT Auth Enabled",
+					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWKS_ENDPOINT:
@@ -431,7 +415,7 @@ describe("Server Deployment", () => {
 			},
 		];
 		authTests.forEach((testObject) => {
-			describe(`${testObject.testName}`, () => {
+			describe(`End-To-End - ${testObject.testName}`, () => {
 				beforeAll(async () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();

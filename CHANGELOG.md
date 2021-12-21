@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+### [7.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v7.0.0...v7.0.1) (2021-12-21)
+
+
+### Miscellaneous
+
+* **.env.template:** clarify jwt env variable comments ([45f0c05](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/45f0c05923ede331914573d5ba92c174ffa17820))
+* **server:** update inline comments ([5b306d4](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/5b306d458636cbcd8e59b1fc1543c0e36f37a37a))
+
+
+### Documentation
+
+* **contributing:** add mention of husky pre-commit hook ([fb4c99a](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/fb4c99a4b758fe56fbf0602e8177f88252f8ac34))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint-plugin-jsdoc from 37.2.2 to 37.4.0 ([96d6624](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/96d6624d346dbbcac90e7068286b4cdf5418e763))
+* **deps-dev:** bump eslint-plugin-promise from 5.2.0 to 6.0.0 ([0099649](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/0099649a906ba5526048f0f1e31645c8d409faf4))
+* **deps-dev:** bump eslint-plugin-security-node from 1.0.14 to 1.1.0 ([b642c43](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/b642c432e791952864da501f1e3bd6b9d755e34a))
+* **deps:** bump env-schema from 3.5.0 to 3.5.1 ([e524f44](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/e524f443e497100d365c84bcae5634d1182bc78c))
+* **deps:** bump fastify from 3.25.0 to 3.25.1 ([7332eda](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/7332edaa4d497bd70867ce5add6b2536b9ed28b9))
+* **deps:** bump pino from 7.5.1 to 7.6.0 ([01e00a8](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/01e00a836e90d92aefcb155d18760953e05820d8))
+
 ## [7.0.0](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.5...v7.0.0) (2021-12-16)
 
 

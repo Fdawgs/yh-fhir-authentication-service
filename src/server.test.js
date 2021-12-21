@@ -372,6 +372,9 @@ describe("Server Deployment", () => {
 	});
 
 	describe("Auth", () => {
+		let config;
+		let server;
+
 		beforeAll(async () => {
 			Object.assign(process.env, {
 				JWT_ALLOWED_AUDIENCE: "",
@@ -379,6 +382,10 @@ describe("Server Deployment", () => {
 				JWT_ALLOWED_ISSUERS: "",
 				JWT_MAX_AGE: "",
 			});
+		});
+
+		afterEach(async () => {
+			await server.close();
 		});
 
 		const authTests = [
@@ -413,9 +420,6 @@ describe("Server Deployment", () => {
 		];
 		authTests.forEach((testObject) => {
 			describe(`${testObject.testName}`, () => {
-				let server;
-				let config;
-
 				beforeAll(async () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
@@ -425,10 +429,6 @@ describe("Server Deployment", () => {
 					server = Fastify();
 					server.register(startServer, config);
 					await server.ready();
-				});
-
-				afterEach(async () => {
-					await server.close();
 				});
 
 				describe("/redirect Route", () => {

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+### [7.0.2](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v7.0.1...v7.0.2) (2021-12-31)
+
+
+### Documentation
+
+* **contributing:** add step for `lint:licenses` script ([47a9d66](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/47a9d66439b0ae1ca4f4532d654c410f02c83faf))
+* **contributing:** update husky hook mention ([6cf5d76](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/6cf5d760eee8362501ea348f2601b1e90954920f))
+
+
+### Miscellaneous
+
+* fix `server` jsdoc tag param type ([98e9064](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/98e9064ac77940b259f416ea3a6f802f34824775))
+* **scripts:** remove invalid license identifier from `lint:licenses` ([1a72e33](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/1a72e333605329a91a4e2ef6563d8db7b2d1ea52))
+* **server:** update inline comment re helmet defaults ([c58c62c](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/commit/c58c62c7e52064ad565ef551a386e98f0663a435))
+
 ### [7.0.1](https://www.github.com/Fdawgs/ydh-fhir-authentication-service/compare/v7.0.0...v7.0.1) (2021-12-21)
 
 

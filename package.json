@@ -90,7 +90,7 @@
     "dotenv": "^10.0.0",
     "env-schema": "^3.5.1",
     "fast-jwt": "^1.4.1",
-    "fastify": "^3.25.1",
+    "fastify": "^3.25.3",
     "fastify-accepts": "^2.1.0",
     "fastify-auth": "^1.1.0",
     "fastify-autoload": "^3.9.0",

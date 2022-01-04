@@ -1,6 +1,7 @@
 // Import plugins
 const replyFrom = require("fastify-reply-from");
 const cors = require("fastify-cors");
+const { URL } = require("url");
 
 const { redirectGetSchema } = require("./schema");
 
@@ -21,7 +22,7 @@ async function route(server, options) {
 
 	// Register plugins
 	await server.register(replyFrom, {
-		base: options.redirectUrl,
+		base: new URL(options.redirectUrl).href,
 		undici: {
 			connections: 100,
 			pipelining: 10,

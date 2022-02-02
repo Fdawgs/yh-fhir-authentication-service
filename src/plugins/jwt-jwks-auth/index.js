@@ -36,12 +36,12 @@ async function getSigningKey(token, jwksUri) {
  * @description Decorator plugin that adds `verifyJWT` function
  * to authenticate JWTs using JWKS endpoint.
  * @param {object} server - Fastify instance.
- * @param {object} options - Plugin config values.
- * @param {string} options.jwksEndpoint - URL of endpoint containing JWKS public keys.
- * @param {string|Array=} options.allowedAudiences - Accepted recipient(s) that JWT is intended for.
- * @param {Array=} options.allowedAlgorithms - Accepted signing algorithm(s).
- * @param {string|Array=} options.allowedIssuers - Accepted principal(s) that issued JWT.
- * @param {string=} options.maxAge - The maximum allowed age for tokens to still be valid.
+ * @param {object[]} options - Plugin config values.
+ * @param {string} options[].jwksEndpoint - URL of endpoint containing JWKS public keys.
+ * @param {string|Array=} options[].allowedAudiences - Accepted recipient(s) that JWT is intended for.
+ * @param {Array=} options[].allowedAlgorithms - Accepted signing algorithm(s).
+ * @param {string|Array=} options[].allowedIssuers - Accepted principal(s) that issued JWT.
+ * @param {string=} options[].maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
 	server.decorate("verifyJWT", async (req, res) => {
@@ -53,19 +53,27 @@ async function plugin(server, options) {
 		// Remove 'Bearer' from beginning of token
 		const token = header.replace(/^Bearer/, "").trim();
 
-		const signingKey = await getSigningKey(token, options.jwksEndpoint);
+		// Allow through aslong as the JWT is authenticated by atleast one JWKS endpoint
+		await Promise.any(
+			options.map(async (element) => {
+				const signingKey = await getSigningKey(
+					token,
+					element?.jwksEndpoint
+				);
 
-		const jwtVerifier = createVerifier({
-			algorithms: options.allowedAlgorithms,
-			allowedAud: options.allowedAudiences,
-			allowedIss: options.allowedIssuers,
-			cache: true,
-			ignoreExpiration: false,
-			key: signingKey,
-			maxAge: options.maxAge,
-		});
+				const jwtVerifier = createVerifier({
+					algorithms: element?.allowedAlgorithms,
+					allowedAud: element?.allowedAudiences,
+					allowedIss: element?.allowedIssuers,
+					cache: true,
+					ignoreExpiration: false,
+					key: signingKey,
+					maxAge: element?.maxAge,
+				});
 
-		await jwtVerifier(token);
+				await jwtVerifier(token);
+			})
+		);
 	});
 }
 

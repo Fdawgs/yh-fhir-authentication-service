@@ -47,7 +47,7 @@ describe("Configuration", () => {
 		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = "";
 		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
 		const AUTH_BEARER_TOKEN_ARRAY = "";
-		const JWKS_ENDPOINT = "";
+		const JWT_JWKS_ARRAY = "";
 
 		Object.assign(process.env, {
 			NODE_ENV,
@@ -73,7 +73,7 @@ describe("Configuration", () => {
 			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
 			RATE_LIMIT_EXCLUDED_ARRAY,
 			AUTH_BEARER_TOKEN_ARRAY,
-			JWKS_ENDPOINT,
+			JWT_JWKS_ARRAY,
 		});
 
 		const config = await getConfig();
@@ -156,13 +156,8 @@ describe("Configuration", () => {
 		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
-		const JWKS_ENDPOINT =
-			"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs";
-		const JWT_ALLOWED_AUDIENCE = "who-knows";
-		const JWT_ALLOWED_ALGO_ARRAY = '["RS256"]';
-		const JWT_ALLOWED_ISSUERS =
-			"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER";
-		const JWT_MAX_AGE = 900000;
+		const JWT_JWKS_ARRAY =
+			'[{"jwksEndpoint": "https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/certs", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "allowedIssuers": "sider", "maxAge": 90000}]';
 
 		Object.assign(process.env, {
 			NODE_ENV,
@@ -183,11 +178,7 @@ describe("Configuration", () => {
 			RATE_LIMIT_MAX_CONNECTIONS_PER_MIN,
 			RATE_LIMIT_EXCLUDED_ARRAY,
 			AUTH_BEARER_TOKEN_ARRAY,
-			JWKS_ENDPOINT,
-			JWT_ALLOWED_AUDIENCE,
-			JWT_ALLOWED_ALGO_ARRAY,
-			JWT_ALLOWED_ISSUERS,
-			JWT_MAX_AGE,
+			JWT_JWKS_ARRAY,
 		});
 
 		const config = await getConfig();
@@ -241,13 +232,7 @@ describe("Configuration", () => {
 
 		expect(config.bearerTokenAuthKeys).toContain("testtoken");
 
-		expect(config.jwt).toEqual({
-			jwksEndpoint: JWKS_ENDPOINT,
-			allowedAudiences: JWT_ALLOWED_AUDIENCE,
-			allowedAlgorithms: expect.arrayContaining(["RS256"]),
-			allowedIssuers: JWT_ALLOWED_ISSUERS,
-			maxAge: JWT_MAX_AGE,
-		});
+		expect(config.jwt).toEqual(JSON.parse(JWT_JWKS_ARRAY));
 	});
 
 	test("Should return values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {

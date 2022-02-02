@@ -65,6 +65,7 @@ async function plugin(server, options) {
 					algorithms: element?.allowedAlgorithms,
 					allowedAud: element?.allowedAudiences,
 					allowedIss: element?.allowedIssuers,
+					allowedSub: element?.allowedSubjects,
 					cache: true,
 					ignoreExpiration: false,
 					key: signingKey,

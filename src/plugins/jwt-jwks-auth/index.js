@@ -41,6 +41,7 @@ async function getSigningKey(token, jwksUri) {
  * @param {string|Array=} options[].allowedAudiences - Accepted recipient(s) that JWT is intended for.
  * @param {Array=} options[].allowedAlgorithms - Accepted signing algorithm(s).
  * @param {string|Array=} options[].allowedIssuers - Accepted principal(s) that issued JWT.
+ * @param {String|Array=} options[].allowedSubjects - Accepted subjects(s).
  * @param {string=} options[].maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {

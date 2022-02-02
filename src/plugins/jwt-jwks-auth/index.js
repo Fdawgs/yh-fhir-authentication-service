@@ -64,7 +64,7 @@ async function plugin(server, options) {
 					);
 
 					/**
-					 * Verifying config options explicitly defined as functionality not tested;
+					 * Verifier config options explicitly defined as functionality not tested;
 					 * will stop changes to defaults in dependency from impacting auth
 					 */
 					const jwtVerifier = createVerifier({

@@ -54,28 +54,32 @@ async function plugin(server, options) {
 		// Remove 'Bearer' from beginning of token
 		const token = header.replace(/^Bearer/, "").trim();
 
-		// Allow through aslong as the JWT is authenticated by atleast one JWKS endpoint
-		await Promise.any(
-			options.map(async (element) => {
-				const signingKey = await getSigningKey(
-					token,
-					element?.jwksEndpoint
-				);
+		try {
+			// Allow through aslong as the JWT is authenticated by atleast one JWKS endpoint
+			await Promise.any(
+				options.map(async (element) => {
+					const signingKey = await getSigningKey(
+						token,
+						element?.jwksEndpoint
+					);
 
-				const jwtVerifier = createVerifier({
-					algorithms: element?.allowedAlgorithms,
-					allowedAud: element?.allowedAudiences,
-					allowedIss: element?.allowedIssuers,
-					allowedSub: element?.allowedSubjects,
-					cache: true,
-					ignoreExpiration: false,
-					key: signingKey,
-					maxAge: element?.maxAge,
-				});
+					const jwtVerifier = createVerifier({
+						algorithms: element?.allowedAlgorithms,
+						allowedAud: element?.allowedAudiences,
+						allowedIss: element?.allowedIssuers,
+						allowedSub: element?.allowedSubjects,
+						cache: true,
+						ignoreExpiration: false,
+						key: signingKey,
+						maxAge: element?.maxAge,
+					});
 
-				await jwtVerifier(token);
-			})
-		);
+					await jwtVerifier(token);
+				})
+			);
+		} catch (err) {
+			throw new Error("invalid authorization header");
+		}
 	});
 }
 

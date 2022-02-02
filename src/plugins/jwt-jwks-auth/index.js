@@ -63,13 +63,21 @@ async function plugin(server, options) {
 						element?.jwksEndpoint
 					);
 
+					/**
+					 * Verifying config options explicitly defined as functionality not tested;
+					 * will stop changes to defaults in dependency from impacting auth
+					 */
 					const jwtVerifier = createVerifier({
 						algorithms: element?.allowedAlgorithms,
 						allowedAud: element?.allowedAudiences,
 						allowedIss: element?.allowedIssuers,
 						allowedSub: element?.allowedSubjects,
 						cache: true,
+						cacheTTL: 600000,
+						clockTimestamp: Date.now(),
+						clockTolerance: 0,
 						ignoreExpiration: false,
+						ignoreNotBefore: false,
 						key: signingKey,
 						maxAge: element?.maxAge,
 					});

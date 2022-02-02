@@ -52,7 +52,8 @@ delete expResHeaders4xxErrors.vary;
 delete expResHeaders4xxErrors["keep-alive"];
 
 describe("Server Deployment", () => {
-	let mockJwksServer;
+	let mockJwksServerOne;
+	let mockJwksServerTwo;
 	let token;
 
 	beforeAll(async () => {
@@ -60,13 +61,19 @@ describe("Server Deployment", () => {
 			SERVICE_REDIRECT_URL: "http://127.0.0.1:3001",
 		});
 
-		mockJwksServer = createJWKSMock(
-			"https://not-real-issuer.ydh.nhs.uk",
-			"/auth/realms/SIDER/protocol/openid-connect/certs"
+		mockJwksServerOne = createJWKSMock(
+			"https://not-real-issuer-valid.ydh.nhs.uk",
+			"/certs"
 		);
-		mockJwksServer.start();
+		mockJwksServerOne.start();
 
-		token = mockJwksServer.token({
+		mockJwksServerTwo = createJWKSMock(
+			"https://not-real-issuer-invalid.ydh.nhs.uk",
+			"/certs"
+		);
+		mockJwksServerTwo.start();
+
+		token = mockJwksServerOne.token({
 			aud: "private",
 			iss: "master",
 		});
@@ -83,7 +90,8 @@ describe("Server Deployment", () => {
 	});
 
 	afterAll(async () => {
-		await mockJwksServer.stop();
+		await mockJwksServerOne.stop();
+		await mockJwksServerTwo.stop();
 		await mockServer.close();
 	});
 
@@ -369,10 +377,7 @@ describe("Server Deployment", () => {
 
 		beforeAll(async () => {
 			Object.assign(process.env, {
-				JWT_ALLOWED_AUDIENCE: "",
-				JWT_ALLOWED_ALGO_ARRAY: "",
-				JWT_ALLOWED_ISSUERS: "",
-				JWT_MAX_AGE: "",
+				JWT_JWKS_ARRAY: "",
 			});
 			currentEnv = { ...process.env };
 		});
@@ -391,8 +396,8 @@ describe("Server Deployment", () => {
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
-					JWKS_ENDPOINT:
-						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
+					JWT_JWKS_ARRAY:
+						'[{"jwksEndpoint": "https://not-real-issuer-valid.ydh.nhs.uk/certs"}]',
 				},
 			},
 			{
@@ -401,16 +406,35 @@ describe("Server Deployment", () => {
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
-					JWKS_ENDPOINT: "",
+					JWT_JWKS_ARRAY: "",
 				},
 			},
 			{
 				testName:
-					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled",
+					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWKS_ENDPOINT:
-						"https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/protocol/openid-connect/certs",
+					JWT_JWKS_ARRAY:
+						'[{"jwksEndpoint": "https://not-real-issuer-valid.ydh.nhs.uk/certs"}]',
+				},
+			},
+			{
+				testName:
+					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With Two Jwks Endpoints (With Valid Key for One)",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY:
+						'[{"jwksEndpoint": "https://not-real-issuer-valid.ydh.nhs.uk/certs"},{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]',
+				},
+			},
+
+			{
+				testName:
+					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With One Jwks Endpoint (With an Invalid Key)",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY:
+						'[{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]',
 				},
 			},
 		];
@@ -472,7 +496,11 @@ describe("Server Deployment", () => {
 						});
 					}
 
-					if (testObject?.envVariables?.JWKS_ENDPOINT !== "") {
+					if (
+						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
+						testObject?.envVariables?.JWT_JWKS_ARRAY !==
+							'[{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]'
+					) {
 						test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
 							const response = await server.inject({
 								method: "GET",
@@ -492,7 +520,11 @@ describe("Server Deployment", () => {
 						});
 					}
 
-					if (testObject?.envVariables?.JWKS_ENDPOINT === "") {
+					if (
+						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
+						testObject?.envVariables?.JWT_JWKS_ARRAY ===
+							'[{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]'
+					) {
 						test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
 							const response = await server.inject({
 								method: "GET",
@@ -505,7 +537,7 @@ describe("Server Deployment", () => {
 
 							expect(JSON.parse(response.payload)).toEqual({
 								error: "Unauthorized",
-								message: expect.any(String),
+								message: "invalid authorization header",
 								statusCode: 401,
 							});
 							expect(response.headers).toEqual(expResHeadersJson);

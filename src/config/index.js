@@ -143,14 +143,7 @@ async function getConfig() {
 			.prop("AUTH_BEARER_TOKEN_ARRAY", S.anyOf([S.string(), S.null()]))
 
 			// JWT Validation
-			.prop(
-				"JWKS_ENDPOINT",
-				S.anyOf([S.string().format("uri"), S.null()])
-			)
-			.prop("JWT_ALLOWED_AUDIENCE", S.anyOf([S.string(), S.null()]))
-			.prop("JWT_ALLOWED_ALGO_ARRAY", S.anyOf([S.string(), S.null()]))
-			.prop("JWT_ALLOWED_ISSUERS", S.anyOf([S.string(), S.null()]))
-			.prop("JWT_MAX_AGE", S.anyOf([S.number(), S.null()]))
+			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
 			.required([
 				"NODE_ENV",
 				"SERVICE_HOST",
@@ -279,16 +272,8 @@ async function getConfig() {
 		redirectUrl: env.SERVICE_REDIRECT_URL,
 	};
 
-	if (env.JWKS_ENDPOINT) {
-		config.jwt = {
-			jwksEndpoint: env.JWKS_ENDPOINT,
-			allowedAudiences: env.JWT_ALLOWED_AUDIENCE,
-			allowedAlgorithms: env.JWT_ALLOWED_ALGO_ARRAY
-				? secJSON.parse(env.JWT_ALLOWED_ALGO_ARRAY)
-				: "",
-			allowedIssuers: env.JWT_ALLOWED_ISSUERS,
-			maxAge: env.JWT_MAX_AGE,
-		};
+	if (env.JWT_JWKS_ARRAY) {
+		config.jwt = secJSON.parse(env.JWT_JWKS_ARRAY);
 	}
 
 	if (env.LOG_ROTATION_FILENAME) {

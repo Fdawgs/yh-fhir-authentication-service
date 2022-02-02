@@ -26,7 +26,7 @@ This service was created to provide that functionality, acting as middleware bet
 
 ## Prerequisites
 
--   [Node.js](https://nodejs.org/en/) >=14.0.0 (if running outside of Docker)
+-   [Node.js](https://nodejs.org/en/) >=16.0.0 (if running outside of Docker)
 -   [Mirth Connect](https://github.com/nextgenhealthcare/connect)
 
 ## Setup

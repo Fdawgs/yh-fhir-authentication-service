@@ -14,7 +14,7 @@ const { redirectGetSchema } = require("./schema");
  * @param {string} options.redirectUrl - URL and port the Mirth Connect FHIR/HTTP Listener channel is listening on.
  */
 async function route(server, options) {
-	// Use CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+	// Enable CORS if options passed
 	server.register(cors, {
 		...options.cors,
 		methods: ["GET"],

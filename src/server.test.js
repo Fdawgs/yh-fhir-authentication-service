@@ -103,7 +103,7 @@ describe("Server Deployment", () => {
 		beforeAll(async () => {
 			Object.assign(process.env, {
 				AUTH_BEARER_TOKEN_ARRAY: "",
-				JWKS_ENDPOINT: "",
+				JWT_JWKS_ARRAY: "",
 			});
 			currentEnv = { ...process.env };
 		});

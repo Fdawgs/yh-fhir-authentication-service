@@ -80,7 +80,7 @@
     "jest": "^27.5.1",
     "license-checker": "^25.0.1",
     "mock-jwks": "^1.0.3",
-    "nock": "^13.2.2",
+    "nock": "^13.2.4",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1"
   },

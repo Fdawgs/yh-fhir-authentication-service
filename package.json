@@ -86,7 +86,7 @@
   },
   "dependencies": {
     "ajv-formats": "^2.1.1",
-    "dotenv": "^15.0.0",
+    "dotenv": "^16.0.0",
     "env-schema": "^3.5.2",
     "fast-jwt": "^1.4.1",
     "fastify": "^3.27.0",

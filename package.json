@@ -94,7 +94,7 @@
     "fastify-auth": "^1.1.0",
     "fastify-autoload": "^3.10.0",
     "fastify-bearer-auth": "^6.2.0",
-    "fastify-cors": "^6.0.2",
+    "fastify-cors": "^6.0.3",
     "fastify-disablecache": "^2.0.5",
     "fastify-floc-off": "^1.0.4",
     "fastify-helmet": "^7.0.1",

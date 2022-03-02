@@ -83,7 +83,7 @@ async function plugin(server, config) {
 		})
 
 		/**
-		 * Encapsulate plugins and routes into secured child context, so that admin and docs
+		 * Encapsulate plugins and routes into secured child context, so that admin
 		 * routes do not inherit auth plugins.
 		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
 		 */

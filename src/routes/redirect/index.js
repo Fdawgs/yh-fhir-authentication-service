@@ -14,13 +14,14 @@ const { redirectGetSchema } = require("./schema");
  * @param {string} options.redirectUrl - URL and port the Mirth Connect FHIR/HTTP Listener channel is listening on.
  */
 async function route(server, options) {
-	// Enable CORS if options passed
-	server.register(cors, {
-		...options.cors,
-		methods: ["GET"],
-	});
-
 	// Register plugins
+	server
+		// Enable CORS if options passed
+		.register(cors, {
+			...options.cors,
+			methods: ["GET"],
+		});
+
 	await server.register(replyFrom, {
 		base: new URL(options.redirectUrl).href,
 		undici: {
@@ -29,21 +30,20 @@ async function route(server, options) {
 		},
 	});
 
-	server.addHook("preValidation", async (req, res) => {
-		if (
-			// Catch unsupported Accept header media types
-			!redirectGetSchema.produces.includes(
-				req.accepts().type(redirectGetSchema.produces)
-			)
-		) {
-			throw res.notAcceptable();
-		}
-	});
-
 	const opts = {
 		method: "GET",
 		schema: redirectGetSchema,
-		handler(req, res) {
+		preValidation: async (req, res) => {
+			if (
+				// Catch unsupported Accept header media types
+				!redirectGetSchema.produces.includes(
+					req.accepts().type(redirectGetSchema.produces)
+				)
+			) {
+				throw res.notAcceptable();
+			}
+		},
+		handler: (req, res) => {
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
 					// Remove CORS origin set by Mirth Connect

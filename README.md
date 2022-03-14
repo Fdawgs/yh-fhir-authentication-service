@@ -51,7 +51,7 @@ Perform the following steps before deployment:
 1. Run `npm install --ignore-scripts --production` to install dependencies
 2. Run `npm start`
 
-The service should now be up and running on the port set in the config. You should see the following output in stdout or the log file specified using the `LOG_ROTATION_FILENAME` environment variable:
+The service should now be up and running on the port set in the config. You should see output similar to the following in stdout or in the log file specified using the `LOG_ROTATION_FILENAME` environment variable:
 
 ```json
 {
@@ -90,7 +90,7 @@ If using a Microsoft Windows OS utilise [pm2-installer](https://github.com/jesse
 
 Contributions are welcome, and any help is greatly appreciated!
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to get started.
+See [the contributing guide](./CONTRIBUTING.md) for details on how to get started.
 Please adhere to this project's [Code of Conduct](./CODE_OF_CONDUCT.md) when contributing.
 
 ## Acknowledgements

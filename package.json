@@ -103,7 +103,7 @@
 		"fastify-reply-from": "^6.5.0",
 		"fastify-sensible": "^3.1.2",
 		"file-stream-rotator": "^0.6.1",
-		"fluent-json-schema": "^3.0.1",
+		"fluent-json-schema": "^3.1.0",
 		"jwks-rsa": "^2.0.5",
 		"pino": "^7.8.0",
 		"pino-pretty": "^7.5.1",

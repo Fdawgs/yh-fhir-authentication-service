@@ -87,9 +87,9 @@
 	"dependencies": {
 		"ajv-formats": "^2.1.1",
 		"dotenv": "^16.0.0",
-		"env-schema": "^3.5.2",
+		"env-schema": "^4.0.0",
 		"fast-jwt": "^1.5.1",
-		"fastify": "^3.27.2",
+		"fastify": "^3.27.4",
 		"fastify-accepts": "^2.1.0",
 		"fastify-auth": "^1.1.0",
 		"fastify-autoload": "^3.11.0",

@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+### [8.0.2](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.1...v8.0.2) (2022-03-30)
+
+
+### Improvements
+
+* chain response functions ([8361b75](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8361b755a5fdee3e8b0226b85c60caf2e9655da8))
+* **routes:** clean `accept` header conditionals ([0531f9f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0531f9f5727a2f044b0cce7594bee4aef5ca9570))
+
+
+### Dependencies
+
+* **deps-dev:** bump @faker-js/faker from 6.0.0 to 6.1.1 ([836dc14](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/836dc1482a4c04c9eecdd6976b07b14914315571))
+* **deps-dev:** bump autocannon from 7.8.0 to 7.8.1 ([1fbacc0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1fbacc07cb691ff8d5bfdc9076d5ad62f9de6d05))
+* **deps-dev:** bump eslint from 8.11.0 to 8.12.0 ([c3d9b57](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c3d9b57058f76e3b45230f151b275be9c55445fa))
+* **deps-dev:** bump eslint-plugin-jsdoc from 37.9.7 to 38.1.4 ([5d59424](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5d59424c6655df7d9b38feae3bb48252f6e9709e))
+* **deps-dev:** bump prettier from 2.5.1 to 2.6.1 ([4f9faec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4f9faec4ccc057f00b4d4f1a35159daae0273ef6))
+* **deps:** bump fastify-disablecache from 2.0.6 to 2.0.7 ([5650456](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/56504568fb4beff77975c2aad61dae144f8224f3))
+* **deps:** bump fastify-floc-off from 1.0.5 to 1.0.6 ([95dfafa](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/95dfafa62082bec65fb0161b6dad6ba5fc140258))
+* **deps:** bump hadolint/hadolint-action from 1.7.0 to 2.0.0 ([995d856](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/995d8568ec91b55b09fb1c404fa985b32bc9a813))
+* **deps:** bump pino-pretty from 7.5.4 to 7.6.0 ([e48d6d9](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e48d6d9fcf9a62947cd75b2576c5baf515f5ebea))
+
 ### [8.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.0...v8.0.1) (2022-03-25)
 
 

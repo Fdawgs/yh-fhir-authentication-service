@@ -71,7 +71,7 @@
 		"eslint-config-prettier": "^8.4.0",
 		"eslint-plugin-import": "^2.25.4",
 		"eslint-plugin-jest": "^26.1.1",
-		"eslint-plugin-jsdoc": "^37.9.5",
+		"eslint-plugin-jsdoc": "^38.1.4",
 		"eslint-plugin-promise": "^6.0.0",
 		"eslint-plugin-security": "^1.4.0",
 		"eslint-plugin-security-node": "^1.1.1",
@@ -106,7 +106,7 @@
 		"fluent-json-schema": "^3.1.0",
 		"jwks-rsa": "^2.0.5",
 		"pino": "^7.9.2",
-		"pino-pretty": "^7.5.4",
+		"pino-pretty": "^7.6.0",
 		"secure-json-parse": "^2.4.0",
 		"under-pressure": "^5.8.0",
 		"upath": "^2.0.1"

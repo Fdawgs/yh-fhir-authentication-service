@@ -88,7 +88,7 @@
 		"ajv-formats": "^2.1.1",
 		"dotenv": "^16.0.0",
 		"env-schema": "^4.0.0",
-		"fast-jwt": "^1.5.1",
+		"fast-jwt": "^1.5.3",
 		"fastify": "^3.27.4",
 		"fastify-accepts": "^2.1.0",
 		"fastify-auth": "^1.1.0",

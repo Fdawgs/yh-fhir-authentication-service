@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [8.0.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.3...v8.0.4) (2022-04-12)
+
+
+### Documentation
+
+* **readme:** add deprecation note ([ed57dc7](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ed57dc758b3c397f41c621d3ae1c634d2ea147c5))
+
 ### [8.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.2...v8.0.3) (2022-04-12)
 
 

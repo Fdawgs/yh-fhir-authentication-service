@@ -27,6 +27,19 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    dependency-review:
+        name: Dependency Review
+        if: >
+            github.event.pull_request.draft == false &&
+            github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repo
+              uses: actions/checkout@v3
+
+            - name: "Dependency review"
+              uses: actions/dependency-review-action@v1
+
     lint:
         name: Lint Code
         if: github.event.pull_request.draft == false
@@ -54,7 +67,7 @@ jobs:
               run: npm run lint:licenses
 
             - name: Run Lockfile Linter
-              run: npx lockfile-lint --path package-lock.json --type npm --allowed-hosts npm --validate-https
+              run: npx lockfile-lint -p package-lock.json -t npm -a npm -s -n
 
     commit-lint:
         name: Lint Commit Messages
@@ -152,6 +165,7 @@ jobs:
     # This job is used to save the PR number in an artifact, for use in the automerge.yml workflow
     save-pr-number:
         name: Save Dependabot PR Number
+        needs: unit-tests
         if: >
             github.event.pull_request.draft == false &&
             github.event_name == 'pull_request' &&

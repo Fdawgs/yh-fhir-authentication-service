@@ -1,5 +1,3 @@
-> **NOTE: Development of this repository has been discontinued as of 2022-04-12. Please use https://github.com/Fdawgs/ydh-fhir-api**
-
 <a href="https://yeovilhospital.co.uk/">
 	<img alttext="Yeovil District Hospital Logo" src="https://github.com/Fdawgs/ydh-logos/raw/HEAD/images/ydh-full-logo-transparent-background.svg" width="480" />
 </a>
@@ -9,7 +7,6 @@
 [![GitHub Release](https://img.shields.io/github/release/Fdawgs/ydh-fhir-authentication-service.svg)](https://github.com/Fdawgs/ydh-fhir-authentication-service/releases/latest/)
 ![Build Status](https://github.com/Fdawgs/ydh-fhir-authentication-service/workflows/CI/badge.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/Fdawgs/ydh-fhir-authentication-service/badge.svg?branch=master)](https://coveralls.io/github/Fdawgs/ydh-fhir-authentication-service?branch=master)
-[![Known Vulnerabilities](https://snyk.io/test/github/Fdawgs/ydh-fhir-authentication-service/badge.svg)](https://snyk.io/test/github/Fdawgs/ydh-fhir-authentication-service)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 > Yeovil District Hospital NHSFT's FHIR API Authentication Service
@@ -50,7 +47,7 @@ Perform the following steps before deployment:
 
 ### Standard Deployment
 
-1. Run `npm install --ignore-scripts --production` to install dependencies
+1. Run `npm ci --ignore-scripts --production` to install dependencies
 2. Run `npm start`
 
 The service should now be up and running on the port set in the config. You should see output similar to the following in stdout or in the log file specified using the `LOG_ROTATION_FILENAME` environment variable:
@@ -65,7 +62,7 @@ The service should now be up and running on the port set in the config. You shou
 }
 ```
 
-To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
+To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
 
 ### Deploying Using Docker
 
@@ -77,7 +74,7 @@ This requires [Docker](https://www.docker.com) installed.
 
 If you are unable to deploy this into production using Docker, it is recommended that you use a process manager such as [PM2](https://pm2.keymetrics.io/).
 
-1. Run `npm install --ignore-scripts --production` to install dependencies
+1. Run `npm ci --ignore-scripts --production` to install dependencies
 2. Run `npm install -g pm2` to install pm2 globally
 3. Launch application with `pm2 start .pm2.config.js`
 4. Check the application has been deployed using `pm2 list` or `pm2 monit`

@@ -1,16 +1,16 @@
-const autoLoad = require("fastify-autoload");
+const autoLoad = require("@fastify/autoload");
 const fp = require("fastify-plugin");
 const path = require("upath");
 
 // Import plugins
-const accepts = require("fastify-accepts");
-const auth = require("fastify-auth");
-const bearer = require("fastify-bearer-auth");
+const accepts = require("@fastify/accepts");
+const auth = require("@fastify/auth");
+const bearer = require("@fastify/bearer-auth");
 const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
-const helmet = require("fastify-helmet");
-const rateLimit = require("fastify-rate-limit");
-const sensible = require("fastify-sensible");
+const helmet = require("@fastify/helmet");
+const rateLimit = require("@fastify/rate-limit");
+const sensible = require("@fastify/sensible");
 const underPressure = require("under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
 const sharedSchemas = require("./plugins/shared-schemas");
@@ -51,7 +51,7 @@ async function plugin(server, config) {
 
 	// Register routes
 	server
-		/*
+		/**
 		 * `x-xss-protection` and `content-security-policy` is set by default by Helmet.
 		 * These are only useful for HTML/XML content; the only CSP directive that
 		 * is of use to other content is "frame-ancestors 'none'" to stop responses

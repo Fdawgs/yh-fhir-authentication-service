@@ -81,7 +81,7 @@
 		"license-checker": "^25.0.1",
 		"mock-jwks": "^1.0.3",
 		"nock": "^13.2.4",
-		"nodemon": "^2.0.15",
+		"nodemon": "^2.0.16",
 		"prettier": "2.6.2"
 	},
 	"dependencies": {

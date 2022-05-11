@@ -62,7 +62,7 @@ The service should now be up and running on the port set in the config. You shou
 }
 ```
 
-To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
+To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
 
 ### Deploying Using Docker
 

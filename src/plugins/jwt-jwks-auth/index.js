@@ -50,8 +50,6 @@ async function plugin(server, options) {
 						allowedAud: element?.allowedAudiences,
 						allowedIss: element.issuerDomain,
 						allowedSub: element?.allowedSubjects,
-						cache: true,
-						cacheTTL: 600000, // 10 mins
 						clockTimestamp: Date.now(),
 						clockTolerance: 0,
 						ignoreExpiration: false,

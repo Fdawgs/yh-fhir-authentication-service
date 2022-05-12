@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.0.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.4...v9.0.0) (2022-05-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **plugins/jwt-jwks-auth:** `allowedIssuers` key removed from JWT_JWKS_ARRAY env variable. `jwksEndpoint` key renamed to `issuerDomain` in JWT_JWKS_ARRAY env variable. `issuerDomain` key treated as OpenID issuer
+
+### Bug Fixes
+
+* **plugins/jwt-jwks-auth:** log errors from `Promise.any()` ([d29d241](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d29d2419a2bf19d5533f5abc1d929a47afc25ef1))
+* **server:** do not transform 503 http error into 500 http error res ([91c7165](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/91c71654e1021b3acaa2d448f5c6e3a57fc1eb02))
+
+
+### Improvements
+
+* **plugins/jwt-jwks-auth:** cache jwk for 15 mins ([e8c8349](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e8c834969515a8fdc05a562a321662208c24702b))
+* **plugins/jwt-jwks-auth:** obtain jwks_uri from openid endpoint ([fc5e05b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/fc5e05bdb6eb06f74abf374dae607547451fc2aa))
+* **plugins/jwt-jwks-auth:** remove unused jwt cache ([dbf50c9](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/dbf50c9f67994c24e838f9a4ac7d8c99cf22b402))
+
+
+### Miscellaneous
+
+* **.eslintrc:** enable `plugin:jest/style` rules ([#620](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/620)) ([565476e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/565476e5c51a76bc16f5ed80efd60757548376b8))
+* **server:** use optional chaining for error message logging ([6a73d6a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6a73d6a009bde5480aed447912fd5a97781458a9))
+
 ### [8.0.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.3...v8.0.4) (2022-05-11)
 
 

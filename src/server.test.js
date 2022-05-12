@@ -2,6 +2,7 @@
 /* eslint-disable security-node/detect-crlf */
 const Fastify = require("fastify");
 const createJWKSMock = require("mock-jwks").default;
+const nock = require("nock");
 const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
 const startServer = require("./server");
 const getConfig = require("./config");
@@ -52,6 +53,8 @@ delete expResHeaders4xxErrors.vary;
 delete expResHeaders4xxErrors["keep-alive"];
 
 describe("Server Deployment", () => {
+	const invalidIssuerUri = "https://invalid-issuer.ydh.nhs.uk";
+	const validIssuerUri = "https://valid-issuer.ydh.nhs.uk";
 	let mockJwksServerOne;
 	let mockJwksServerTwo;
 	let token;
@@ -61,22 +64,36 @@ describe("Server Deployment", () => {
 			SERVICE_REDIRECT_URL: "http://127.0.0.1:3001",
 		});
 
+		nock.disableNetConnect();
+
+		// Create an issuer that we have a valid JWT for
+		nock(validIssuerUri)
+			.get("/.well-known/openid-configuration")
+			.reply(200, {
+				jwks_uri: "https://valid-issuer.sft.nhs.uk/jwks",
+			});
 		mockJwksServerOne = createJWKSMock(
-			"https://not-real-issuer-valid.ydh.nhs.uk",
-			"/certs"
+			"https://valid-issuer.sft.nhs.uk",
+			"/jwks"
 		);
 		mockJwksServerOne.start();
 
-		mockJwksServerTwo = createJWKSMock(
-			"https://not-real-issuer-invalid.ydh.nhs.uk",
-			"/certs"
-		);
-		mockJwksServerTwo.start();
-
 		token = mockJwksServerOne.token({
 			aud: "private",
-			iss: "master",
+			iss: validIssuerUri,
 		});
+
+		// Create an issuer that we do not have a valid JWT for
+		nock(invalidIssuerUri)
+			.get("/.well-known/openid-configuration")
+			.reply(200, {
+				jwks_uri: "https://invalid-issuer.sft.nhs.uk/jwks",
+			});
+		mockJwksServerTwo = createJWKSMock(
+			"https://invalid-issuer.sft.nhs.uk",
+			"/jwks"
+		);
+		mockJwksServerTwo.start();
 
 		try {
 			await mockServer.listen(3001);
@@ -90,6 +107,8 @@ describe("Server Deployment", () => {
 	});
 
 	afterAll(async () => {
+		nock.cleanAll();
+		nock.enableNetConnect();
 		await mockJwksServerOne.stop();
 		await mockJwksServerTwo.stop();
 		await mockServer.close();
@@ -396,8 +415,7 @@ describe("Server Deployment", () => {
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
-					JWT_JWKS_ARRAY:
-						'[{"jwksEndpoint": "https://not-real-issuer-valid.ydh.nhs.uk/certs"}]',
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
 				},
 			},
 			{
@@ -414,8 +432,7 @@ describe("Server Deployment", () => {
 					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY:
-						'[{"jwksEndpoint": "https://not-real-issuer-valid.ydh.nhs.uk/certs"}]',
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
 				},
 			},
 			{
@@ -423,8 +440,7 @@ describe("Server Deployment", () => {
 					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With Two Jwks Endpoints (With Valid Key for One)",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY:
-						'[{"jwksEndpoint": "https://not-real-issuer-valid.ydh.nhs.uk/certs"},{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]',
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"},{"issuerDomain": "${invalidIssuerUri}"}]`,
 				},
 			},
 
@@ -433,8 +449,7 @@ describe("Server Deployment", () => {
 					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With One Jwks Endpoint (With an Invalid Key)",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY:
-						'[{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]',
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${invalidIssuerUri}"}]`,
 				},
 			},
 		];
@@ -499,7 +514,7 @@ describe("Server Deployment", () => {
 					if (
 						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
 						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							'[{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]'
+							`[{"issuerDomain": "${invalidIssuerUri}"}]`
 					) {
 						test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
 							const response = await server.inject({
@@ -523,7 +538,7 @@ describe("Server Deployment", () => {
 					if (
 						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
 						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							'[{"jwksEndpoint": "https://not-real-issuer-invalid.ydh.nhs.uk/certs"}]'
+							`[{"issuerDomain": "${invalidIssuerUri}"}]`
 					) {
 						test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
 							const response = await server.inject({

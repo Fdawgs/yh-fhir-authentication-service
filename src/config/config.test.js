@@ -161,7 +161,7 @@ describe("Configuration", () => {
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
 		const JWT_JWKS_ARRAY =
-			'[{"jwksEndpoint": "https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER/certs", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "allowedIssuers": "sider", "maxAge": 90000}]';
+			'[{"issuerDomain": "https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "maxAge": 90000}]';
 
 		Object.assign(process.env, {
 			NODE_ENV,

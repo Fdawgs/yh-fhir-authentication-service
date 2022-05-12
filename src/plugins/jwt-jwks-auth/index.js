@@ -1,35 +1,13 @@
 /* eslint-disable promise/prefer-await-to-callbacks */
 const fp = require("fastify-plugin");
+const buildGetJwks = require("get-jwks");
 const { createVerifier, createDecoder } = require("fast-jwt");
-const jwksClient = require("jwks-rsa");
 
-/**
- * @author Frazer Smith
- * @author Mark Hunt
- * @description Retrieve signing key from JWKS endpoint.
- * @param {string} token - JSON web token.
- * @param {string} jwksUri - Endpoint containing JSON Web Key Set (JWKS).
- * @returns {Promise<string>} Signing key on resolve, error text on rejection.
- */
-async function getSigningKey(token, jwksUri) {
-	return new Promise((resolve, reject) => {
-		const client = jwksClient({
-			strictSsl: true, // Default value
-			jwksUri,
-		});
-
-		const jwtDecoder = createDecoder({ complete: true });
-
-		client.getSigningKey(jwtDecoder(token).header.kid, (err, key) => {
-			if (err) {
-				reject(err);
-			} else {
-				const signingKey = key.publicKey || key.rsaPublicKey;
-				resolve(signingKey);
-			}
-		});
-	});
-}
+const getJwks = buildGetJwks({
+	providerDiscovery: true, // Automatically obtain jwks_uri from the OpenID Provider Discovery Endpoint
+	ttl: 900000, // Cache for 15 mins
+});
+const jwtDecoder = createDecoder({ complete: true });
 
 /**
  * @author Frazer Smith
@@ -37,10 +15,9 @@ async function getSigningKey(token, jwksUri) {
  * to authenticate JWTs using JWKS endpoint.
  * @param {object} server - Fastify instance.
  * @param {object[]} options - Plugin config values.
- * @param {string} options[].jwksEndpoint - URL of endpoint containing JWKS public keys.
+ * @param {string} options[].issuerDomain - URI of accepted principal that issued JWT.
  * @param {string|Array=} options[].allowedAudiences - Accepted recipient(s) that JWT is intended for.
  * @param {Array=} options[].allowedAlgorithms - Accepted signing algorithm(s).
- * @param {string|Array=} options[].allowedIssuers - Accepted principal(s) that issued JWT.
  * @param {string|Array=} options[].allowedSubjects - Accepted subjects(s).
  * @param {string=} options[].maxAge - The maximum allowed age for tokens to still be valid.
  */
@@ -55,13 +32,14 @@ async function plugin(server, options) {
 		const token = header.replace(/^Bearer/, "").trim();
 
 		try {
-			// Allow through aslong as the JWT is authenticated by atleast one JWKS endpoint
+			// Allow through aslong as the JWT is verified by atleast one JWKS public key
 			await Promise.any(
 				options.map(async (element) => {
-					const signingKey = await getSigningKey(
-						token,
-						element?.jwksEndpoint
-					);
+					const publicKey = await getJwks.getPublicKey({
+						domain: element.issuerDomain,
+						alg: jwtDecoder(token).header.alg,
+						kid: jwtDecoder(token).header.kid,
+					});
 
 					/**
 					 * Verifier config options explicitly defined as functionality not tested;
@@ -70,15 +48,13 @@ async function plugin(server, options) {
 					const jwtVerifier = createVerifier({
 						algorithms: element?.allowedAlgorithms,
 						allowedAud: element?.allowedAudiences,
-						allowedIss: element?.allowedIssuers,
+						allowedIss: element.issuerDomain,
 						allowedSub: element?.allowedSubjects,
-						cache: true,
-						cacheTTL: 600000,
 						clockTimestamp: Date.now(),
 						clockTolerance: 0,
 						ignoreExpiration: false,
 						ignoreNotBefore: false,
-						key: signingKey,
+						key: publicKey,
 						maxAge: element?.maxAge,
 					});
 
@@ -86,6 +62,20 @@ async function plugin(server, options) {
 				})
 			);
 		} catch (err) {
+			/**
+			 * Retrieve and log errors from Promise.any()'s AggregateError,
+			 * assists in diagnosing connection issues to JWKS endpoints
+			 */
+			if (token.substring(0, 2) === "ey") {
+				err.errors.forEach((element) => {
+					if (
+						element.message !== "No matching JWK found in the set."
+					) {
+						req.log.error({ req, err: element }, element?.message);
+					}
+				});
+			}
+
 			throw new Error("invalid authorization header");
 		}
 	});

@@ -62,6 +62,20 @@ async function plugin(server, options) {
 				})
 			);
 		} catch (err) {
+			/**
+			 * Retrieve and log errors from Promise.any()'s AggregateError,
+			 * assists in diagnosing connection issues to JWKS endpoints
+			 */
+			if (token.substring(0, 2) === "ey") {
+				err.errors.forEach((element) => {
+					if (
+						element.message !== "No matching JWK found in the set."
+					) {
+						req.log.error({ req, err: element }, element?.message);
+					}
+				});
+			}
+
 			throw new Error("invalid authorization header");
 		}
 	});

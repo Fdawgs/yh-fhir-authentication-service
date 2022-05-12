@@ -5,6 +5,7 @@ const { createVerifier, createDecoder } = require("fast-jwt");
 
 const getJwks = buildGetJwks({
 	providerDiscovery: true, // Automatically obtain jwks_uri from the OpenID Provider Discovery Endpoint
+	ttl: 900000, // Cache for 15 mins
 });
 const jwtDecoder = createDecoder({ complete: true });
 

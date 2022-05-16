@@ -11,7 +11,7 @@ const getConfig = require("./config");
 const expResHeaders = {
 	"cache-control": "no-store, max-age=0, must-revalidate",
 	connection: "keep-alive",
-	"content-length": expect.anything(),
+	"content-length": expect.stringMatching(/\d+/),
 	"content-security-policy": "default-src 'self';frame-ancestors 'none'",
 	"content-type": "application/fhir+json; charset=UTF-8",
 	date: expect.any(String),
@@ -503,7 +503,7 @@ describe("Server Deployment", () => {
 
 							expect(JSON.parse(response.payload)).toEqual({
 								error: "Unauthorized",
-								message: expect.any(String),
+								message: "invalid authorization header",
 								statusCode: 401,
 							});
 							expect(response.headers).toEqual(expResHeadersJson);

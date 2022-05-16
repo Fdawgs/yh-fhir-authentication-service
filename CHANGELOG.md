@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [9.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.0...v9.0.1) (2022-05-16)
+
+
+### Continuous Integration
+
+* check `user.login` is dependabot instead of `actor` ([ae6ee0b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ae6ee0b5e3e08d76f7d628cb3c8b661138d7160b))
+
 ## [9.0.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.4...v9.0.0) (2022-05-12)
 
 

@@ -75,14 +75,13 @@ async function route(server, options) {
 					 * Remove headers set by Mirth Connect that are either inaccurate
 					 * or pose security risks
 					 */
-					reply.removeHeader("etag");
-					reply.removeHeader("server");
-					reply.removeHeader("location");
-					reply.removeHeader("last-modified");
-
 					reply.removeHeader("access-control-allow-headers");
 					reply.removeHeader("access-control-allow-methods");
 					reply.removeHeader("access-control-expose-headers");
+					reply.removeHeader("etag");
+					reply.removeHeader("last-modified");
+					reply.removeHeader("location");
+					reply.removeHeader("server");
 
 					reply.send(targetResponse);
 				},

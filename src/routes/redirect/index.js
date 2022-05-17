@@ -23,9 +23,10 @@ async function route(server, options) {
 
 	await server.register(replyFrom, {
 		base: new URL(options.redirectUrl).href,
+		// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
 		undici: {
-			connections: 100,
-			pipelining: 10,
+			connections: 128,
+			pipelining: 1,
 		},
 	});
 
@@ -74,14 +75,13 @@ async function route(server, options) {
 					 * Remove headers set by Mirth Connect that are either inaccurate
 					 * or pose security risks
 					 */
-					reply.removeHeader("etag");
-					reply.removeHeader("server");
-					reply.removeHeader("location");
-					reply.removeHeader("last-modified");
-
 					reply.removeHeader("access-control-allow-headers");
 					reply.removeHeader("access-control-allow-methods");
 					reply.removeHeader("access-control-expose-headers");
+					reply.removeHeader("etag");
+					reply.removeHeader("last-modified");
+					reply.removeHeader("location");
+					reply.removeHeader("server");
 
 					reply.send(targetResponse);
 				},

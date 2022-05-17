@@ -23,8 +23,9 @@ async function route(server, options) {
 
 	await server.register(replyFrom, {
 		base: new URL(options.redirectUrl).href,
+		// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
 		undici: {
-			connections: 100,
+			connections: 128,
 			pipelining: 10,
 		},
 	});

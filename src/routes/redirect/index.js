@@ -26,7 +26,7 @@ async function route(server, options) {
 		// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
 		undici: {
 			connections: 128,
-			pipelining: 10,
+			pipelining: 1,
 		},
 	});
 

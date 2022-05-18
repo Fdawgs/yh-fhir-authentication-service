@@ -14,7 +14,7 @@
 		"node": ">=16.0.0"
 	},
 	"scripts": {
-		"benchmark": "autocannon -a 1000 \"http://0.0.0.0:8204/admin/healthcheck\"",
+		"benchmark": "autocannon -a 1000 -H \"Authorization:Bearer testtoken\" \"http://0.0.0.0:8204/STU3/Flag/126844-10\"",
 		"jest": "jest",
 		"jest:coverage": "jest --coverage",
 		"lint": "eslint . --cache --ext js,jsx,ts,tsx --ignore-path .gitignore",

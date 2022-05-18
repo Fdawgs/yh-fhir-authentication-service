@@ -31,42 +31,43 @@ async function plugin(server, options) {
 		// Remove 'Bearer' from beginning of token
 		const token = header.replace(/^Bearer/, "").trim();
 
-		try {
-			// Allow through aslong as the JWT is verified by atleast one JWKS public key
-			await Promise.any(
-				options.map(async (element) => {
-					const publicKey = await getJwks.getPublicKey({
-						domain: element.issuerDomain,
-						alg: jwtDecoder(token).header.alg,
-						kid: jwtDecoder(token).header.kid,
-					});
+		// JWT header always starts with "ey", which is "{" base64 encoded
+		if (token.substring(0, 2) === "ey") {
+			try {
+				// Allow through aslong as the JWT is verified by atleast one JWKS public key
+				await Promise.any(
+					options.map(async (element) => {
+						const publicKey = await getJwks.getPublicKey({
+							domain: element.issuerDomain,
+							alg: jwtDecoder(token).header.alg,
+							kid: jwtDecoder(token).header.kid,
+						});
 
-					/**
-					 * Verifier config options explicitly defined as functionality not tested;
-					 * will stop changes to defaults in dependency from impacting auth
-					 */
-					const jwtVerifier = createVerifier({
-						algorithms: element?.allowedAlgorithms,
-						allowedAud: element?.allowedAudiences,
-						allowedIss: element.issuerDomain,
-						allowedSub: element?.allowedSubjects,
-						clockTimestamp: Date.now(),
-						clockTolerance: 0,
-						ignoreExpiration: false,
-						ignoreNotBefore: false,
-						key: publicKey,
-						maxAge: element?.maxAge,
-					});
+						/**
+						 * Verifier config options explicitly defined as functionality not tested;
+						 * will stop changes to defaults in dependency from impacting auth
+						 */
+						const jwtVerifier = createVerifier({
+							algorithms: element?.allowedAlgorithms,
+							allowedAud: element?.allowedAudiences,
+							allowedIss: element.issuerDomain,
+							allowedSub: element?.allowedSubjects,
+							clockTimestamp: Date.now(),
+							clockTolerance: 0,
+							ignoreExpiration: false,
+							ignoreNotBefore: false,
+							key: publicKey,
+							maxAge: element?.maxAge,
+						});
 
-					await jwtVerifier(token);
-				})
-			);
-		} catch (err) {
-			/**
-			 * Retrieve and log errors from Promise.any()'s AggregateError,
-			 * assists in diagnosing connection issues to JWKS endpoints
-			 */
-			if (token.substring(0, 2) === "ey") {
+						await jwtVerifier(token);
+					})
+				);
+			} catch (err) {
+				/**
+				 * Retrieve and log errors from Promise.any()'s AggregateError,
+				 * assists in diagnosing connection issues to JWKS endpoints
+				 */
 				err.errors.forEach((element) => {
 					if (
 						element.message !== "No matching JWK found in the set."
@@ -74,8 +75,10 @@ async function plugin(server, options) {
 						req.log.error({ req, err: element }, element?.message);
 					}
 				});
-			}
 
+				throw new Error("invalid authorization header");
+			}
+		} else {
 			throw new Error("invalid authorization header");
 		}
 	});

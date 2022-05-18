@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+### [9.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.0...v9.0.1) (2022-05-18)
+
+
+### Miscellaneous
+
+* **bug_report:** use node 18 as placeholder for `node-version` ([faceadb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/faceadbe165f36ccd6703e571ee4932ce6d4b90a))
+* **routes/redirect:** group removed headers; sort alphabetically ([4cb18e8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4cb18e8c50e3ab910ea4b15071bfa7c8d3a4ec17))
+
+
+### Continuous Integration
+
+* **automerge:** fix context ([2ce6bd0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2ce6bd0243c1044ff6aff3f9cc68f95811820ed7))
+* check `user.login` is dependabot instead of `actor` ([ae6ee0b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ae6ee0b5e3e08d76f7d628cb3c8b661138d7160b))
+* **ci:** use `lts/*` for node setup in lint job ([2da123a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2da123a04a4ff468cbed5566ec2219b324a5551a))
+* **ci:** use `node-version` for node matrix key ([aad057a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/aad057a1bd655316009f60d899c1af0be9e35c10))
+
+
+### Dependencies
+
+* **deps-dev:** bump @commitlint/cli from 16.2.4 to 17.0.0 ([#628](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/628)) ([71a55d9](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/71a55d9a0965e2e5d98f0797cb07053b134cab35))
+* **deps-dev:** bump @commitlint/config-conventional ([#629](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/629)) ([5b74cac](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5b74cac15f77fa6bdb4f4d2d9ead01c25dab256d))
+* **deps-dev:** bump eslint-plugin-jest from 26.1.5 to 26.2.2 ([#630](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/630)) ([315caeb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/315caeb20062bc57112725dec96be4977237b8e6))
+* **deps-dev:** bump glob from 8.0.1 to 8.0.3 ([#631](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/631)) ([51467a7](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/51467a744d2046bd2fd6ab34c4a5cf1ed709a699))
+* **deps:** bump sub-dependencies ([b5e38e4](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b5e38e4250274ccb6cb7e435d5ef42e6cb4616e8))
+
+
+### Improvements
+
+* access `fs/promises` api via newer route ([cd65027](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/cd65027a5877d9d3b5aecadd3cedb16c1161e351))
+* **routes/redirect:** increase number of undici clients to 128 ([9a478e1](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9a478e17a686d1ab563a2c20f8b443ec6a54a2ff))
+* **routes/redirect:** reduce pipelining to 1 ([f1db550](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f1db550aefd61cfc611c0fceb2fbc39624f94db7))
+
 ## [9.0.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v8.0.4...v9.0.0) (2022-05-12)
 
 

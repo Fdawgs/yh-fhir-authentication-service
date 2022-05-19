@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+### [9.0.2](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.1...v9.0.2) (2022-05-19)
+
+
+### Improvements
+
+* **plugins/jwt-jwks-auth:** skip jwks querying if not jwt token ([f3ed50f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f3ed50f1b1fd2fc301c89e66c3fcd864503b71bd))
+
+
+### Miscellaneous
+
+* **script:** update benchmark script to target test record ([0584ef7](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0584ef73068fcd696d342f96833099bbde4461ee))
+
+
+### Continuous Integration
+
+* remove git credentials after checkout ([#636](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/636)) ([b4a2a65](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b4a2a65f2affe0c57bf8388f739dbfad888931dd))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint-plugin-jsdoc from 39.2.9 to 39.3.0 ([#637](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/637)) ([bb2acfb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/bb2acfb4c0ae8281bff9de728837a08556758f49))
+* **deps:** bump @fastify/rate-limit from 6.0.0 to 6.0.1 ([#638](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/638)) ([f6ed209](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f6ed209834c2c9c5d92ba546c88d900738325715))
+
 ### [9.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.0...v9.0.1) (2022-05-18)
 
 

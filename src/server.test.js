@@ -220,6 +220,70 @@ describe("Server Deployment", () => {
 					},
 				},
 			},
+			{
+				testName: "Cors Enabled and Set to Array of Strings",
+				envVariables: {
+					CORS_ORIGIN: [
+						"https://notreal.ydh.nhs.uk",
+						"https://notreal.sft.nhs.uk",
+					],
+				},
+				request: {
+					headers: {
+						origin: "https://notreal.ydh.nhs.uk",
+					},
+				},
+				expected: {
+					response: {
+						headers: {
+							basic: {
+								...expResHeaders,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+							json: {
+								...expResHeadersJson,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+							text: {
+								...expResHeadersText,
+								"access-control-allow-origin":
+									"https://notreal.ydh.nhs.uk",
+							},
+						},
+					},
+				},
+			},
+			{
+				testName: "Cors Enabled and Set to Wildcard",
+				envVariables: {
+					CORS_ORIGIN: "*",
+				},
+				request: {
+					headers: {
+						origin: "https://notreal.ydh.nhs.uk",
+					},
+				},
+				expected: {
+					response: {
+						headers: {
+							basic: {
+								...expResHeaders,
+								"access-control-allow-origin": "*",
+							},
+							json: {
+								...expResHeadersJson,
+								"access-control-allow-origin": "*",
+							},
+							text: {
+								...expResHeadersText,
+								"access-control-allow-origin": "*",
+							},
+						},
+					},
+				},
+			},
 		];
 		corsTests.forEach((testObject) => {
 			describe(`End-To-End - ${testObject.testName}`, () => {

@@ -1,4 +1,3 @@
-/* eslint-disable promise/prefer-await-to-callbacks */
 const fp = require("fastify-plugin");
 const buildGetJwks = require("get-jwks");
 const { createVerifier, createDecoder } = require("fast-jwt");

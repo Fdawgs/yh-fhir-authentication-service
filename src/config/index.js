@@ -267,7 +267,14 @@ async function getConfig() {
 				],
 			},
 		},
-		redirectUrl: env.SERVICE_REDIRECT_URL,
+		redirect: {
+			base: new URL(env.SERVICE_REDIRECT_URL).href,
+			// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
+			undici: {
+				connections: 128,
+				pipelining: 1,
+			},
+		},
 	};
 
 	if (env.JWT_JWKS_ARRAY) {

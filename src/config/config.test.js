@@ -128,7 +128,13 @@ describe("Configuration", () => {
 			timeWindow: 60000,
 		});
 
-		expect(config.redirectUrl).toBe(SERVICE_REDIRECT_URL);
+		expect(config.redirect).toEqual({
+			base: `${SERVICE_REDIRECT_URL}/`,
+			undici: {
+				connections: 128,
+				pipelining: 1,
+			},
+		});
 
 		expect(config.bearerTokenAuthKeys).toBeUndefined();
 
@@ -234,7 +240,13 @@ describe("Configuration", () => {
 			timeWindow: 60000,
 		});
 
-		expect(config.redirectUrl).toBe(SERVICE_REDIRECT_URL);
+		expect(config.redirect).toEqual({
+			base: `${SERVICE_REDIRECT_URL}/`,
+			undici: {
+				connections: 128,
+				pipelining: 1,
+			},
+		});
 
 		expect(config.bearerTokenAuthKeys).toContain("testtoken");
 

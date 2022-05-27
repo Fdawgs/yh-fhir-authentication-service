@@ -61,7 +61,7 @@ describe("Server Deployment", () => {
 
 	beforeAll(async () => {
 		Object.assign(process.env, {
-			SERVICE_REDIRECT_URL: "http://127.0.0.1:3001",
+			SERVICE_REDIRECT_URL: "http://127.0.0.2:3001",
 		});
 
 		nock.disableNetConnect();
@@ -95,10 +95,14 @@ describe("Server Deployment", () => {
 		);
 		mockJwksServerTwo.start();
 
+		/**
+		 * Undici, used by @fastify/reply-from, does not like Nock's mocks.
+		 * Have to stand up own mock server.
+		 */
 		try {
-			await mockServer.listen(3001);
+			await mockServer.listen(3001, "127.0.0.2");
 			console.log(
-				"Mock Mirth Connect server listening on http://127.0.0.1:3001"
+				"Mock Mirth Connect server listening on http://127.0.0.2:3001"
 			);
 		} catch (err) {
 			console.log("Error starting mock Mirth Connect server:", err);

@@ -19,7 +19,7 @@ mockServer.route({
 			ETag: 'W/"1"',
 			"Last-Modified": "Tue, 10 Oct 2021 08:55:07 GMT",
 			Location: "http://localhost:444/STU3/Patient/5484125/_history/1",
-			Server: "Mirth Connect FHIR Server (3.11.0.b1424)",
+			Server: "Mirth Connect FHIR Server (3.12.0.ydh001)",
 		});
 
 		// Test patient
@@ -199,7 +199,7 @@ mockServer.route({
 			ETag: 'W/"1"',
 			"Last-Modified": "Tue, 10 Oct 2021 08:55:07 GMT",
 			Location: `http://localhost:444/STU3/Patient/${req.identifier}/_history/1`,
-			Server: "Mirth Connect FHIR Server (3.11.0.b1424)",
+			Server: "Mirth Connect FHIR Server (3.12.0.ydh001)",
 		});
 
 		// Test patient

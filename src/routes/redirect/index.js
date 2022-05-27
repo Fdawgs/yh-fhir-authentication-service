@@ -10,7 +10,7 @@ const { redirectGetSchema } = require("./schema");
  * @param {object} server - Fastify instance.
  * @param {object} options - Route config values.
  * @param {object} options.cors - CORS settings.
- * @param {string} options.redirect - @fastify/reply-from plugin options.
+ * @param {object} options.redirect - @fastify/reply-from plugin options.
  */
 async function route(server, options) {
 	// Register plugins

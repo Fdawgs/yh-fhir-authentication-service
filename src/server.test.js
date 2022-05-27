@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
-/* eslint-disable security-node/detect-crlf */
 const Fastify = require("fastify");
 const createJWKSMock = require("mock-jwks").default;
 const nock = require("nock");
-const mockServer = require("../test_resources/mocks/mirth-connect-server.mock");
+const { readPatient, searchPatient } = require("../test_resources/constants");
 const startServer = require("./server");
 const getConfig = require("./config");
 
@@ -17,7 +16,6 @@ const expResHeaders = {
 	date: expect.any(String),
 	"expect-ct": "max-age=0",
 	expires: "0",
-	"keep-alive": "timeout=5",
 	"permissions-policy": "interest-cohort=()",
 	pragma: "no-cache",
 	"referrer-policy": "no-referrer",
@@ -61,7 +59,7 @@ describe("Server Deployment", () => {
 
 	beforeAll(async () => {
 		Object.assign(process.env, {
-			SERVICE_REDIRECT_URL: "http://127.0.0.1:3001",
+			SERVICE_REDIRECT_URL: "http://unsecured-server.ydh.nhs.uk",
 		});
 
 		nock.disableNetConnect();
@@ -71,7 +69,8 @@ describe("Server Deployment", () => {
 			.get("/.well-known/openid-configuration")
 			.reply(200, {
 				jwks_uri: "https://valid-issuer.sft.nhs.uk/jwks",
-			});
+			})
+			.persist();
 		mockJwksServerOne = createJWKSMock(
 			"https://valid-issuer.sft.nhs.uk",
 			"/jwks"
@@ -88,22 +87,40 @@ describe("Server Deployment", () => {
 			.get("/.well-known/openid-configuration")
 			.reply(200, {
 				jwks_uri: "https://invalid-issuer.sft.nhs.uk/jwks",
-			});
+			})
+			.persist();
 		mockJwksServerTwo = createJWKSMock(
 			"https://invalid-issuer.sft.nhs.uk",
 			"/jwks"
 		);
 		mockJwksServerTwo.start();
 
-		try {
-			await mockServer.listen(3001);
-			console.log(
-				"Mock Mirth Connect server listening on http://127.0.0.1:3001"
-			);
-		} catch (err) {
-			console.log("Error starting mock Mirth Connect server:", err);
-			process.exit(1);
-		}
+		// Create FHIR endpoints
+		nock("http://unsecured-server.ydh.nhs.uk")
+			.defaultReplyHeaders({
+				"Access-Control-Allow-Methods":
+					"GET, POST, PUT, DELETE, OPTIONS",
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Expose-Headers": "Content-Location, Location",
+				"Content-Type": "application/fhir+json; charset=UTF-8",
+				ETag: 'W/"1"',
+				"Last-Modified": "Tue, 10 Oct 2021 08:55:07 GMT",
+				Server: "Mirth Connect FHIR Server (3.12.0.ydh001)",
+			})
+			.replyContentLength()
+			.replyDate()
+			.persist()
+			// Read patient
+			.get("/STU3/Patient/5484125")
+			.reply(200, readPatient)
+			// Search patient
+			.persist()
+			.get("/STU3/Patient")
+			.query({
+				identifier: "5484126",
+				birthdate: ["ge2021-01-01", "le2021-05-01"],
+			})
+			.reply(200, searchPatient);
 	});
 
 	afterAll(async () => {
@@ -111,7 +128,6 @@ describe("Server Deployment", () => {
 		nock.enableNetConnect();
 		await mockJwksServerOne.stop();
 		await mockJwksServerTwo.stop();
-		await mockServer.close();
 	});
 
 	describe("CORS", () => {
@@ -290,6 +306,9 @@ describe("Server Deployment", () => {
 				beforeAll(async () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
+					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
+					delete config.redirect.undici;
+					config.redirect.http = true;
 				});
 
 				beforeEach(async () => {
@@ -339,7 +358,7 @@ describe("Server Deployment", () => {
 				});
 
 				describe("/redirect Route", () => {
-					test("Should redirect request to 'redirectUrl'", async () => {
+					test("Should redirect request to 'SERVICE_REDIRECT_URL'", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -359,7 +378,7 @@ describe("Server Deployment", () => {
 						expect(response.statusCode).toBe(200);
 					});
 
-					test("Should redirect request to 'redirectUrl' using search route and query string params", async () => {
+					test("Should redirect request to 'SERVICE_REDIRECT_URL' using search route and query string params", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient",
@@ -522,6 +541,9 @@ describe("Server Deployment", () => {
 				beforeAll(async () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
+					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
+					delete config.redirect.undici;
+					config.redirect.http = true;
 				});
 
 				beforeEach(async () => {
@@ -534,7 +556,7 @@ describe("Server Deployment", () => {
 					if (
 						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
 					) {
-						test("Should redirect request to 'redirectUrl' using bearer token auth", async () => {
+						test("Should redirect request to 'SERVICE_REDIRECT_URL' using bearer token auth", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -555,7 +577,7 @@ describe("Server Deployment", () => {
 					if (
 						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY === ""
 					) {
-						test("Should fail to redirect request to 'redirectUrl' using bearer token auth", async () => {
+						test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using bearer token auth", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -580,7 +602,7 @@ describe("Server Deployment", () => {
 						testObject?.envVariables?.JWT_JWKS_ARRAY !==
 							`[{"issuerDomain": "${invalidIssuerUri}"}]`
 					) {
-						test("Should redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+						test("Should redirect request to 'SERVICE_REDIRECT_URL' using JWKS JWT auth", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -604,7 +626,7 @@ describe("Server Deployment", () => {
 						testObject?.envVariables?.JWT_JWKS_ARRAY ===
 							`[{"issuerDomain": "${invalidIssuerUri}"}]`
 					) {
-						test("Should fail to redirect request to 'redirectUrl' using JWKS JWT auth", async () => {
+						test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using JWKS JWT auth", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",

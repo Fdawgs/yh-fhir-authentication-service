@@ -10,7 +10,7 @@ const { redirectGetSchema } = require("./schema");
  * @param {object} server - Fastify instance.
  * @param {object} options - Route config values.
  * @param {object} options.cors - CORS settings.
- * @param {string} options.redirectUrl - URL and port the Mirth Connect FHIR/HTTP Listener channel is listening on.
+ * @param {object} options.redirect - @fastify/reply-from plugin options.
  */
 async function route(server, options) {
 	// Register plugins
@@ -21,14 +21,7 @@ async function route(server, options) {
 			methods: ["GET"],
 		});
 
-	await server.register(replyFrom, {
-		base: new URL(options.redirectUrl).href,
-		// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
-		undici: {
-			connections: 128,
-			pipelining: 1,
-		},
-	});
+	await server.register(replyFrom, options.redirect);
 
 	const opts = {
 		method: "GET",

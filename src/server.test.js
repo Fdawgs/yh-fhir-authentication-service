@@ -36,19 +36,16 @@ const expResHeadersJson = {
 	...expResHeaders,
 	"content-type": expect.stringContaining("application/json"),
 };
-delete expResHeadersJson["keep-alive"];
 
 const expResHeadersText = {
 	...expResHeaders,
 	"content-type": expect.stringContaining("text/plain"),
 };
-delete expResHeadersText["keep-alive"];
 
 const expResHeaders4xxErrors = {
 	...expResHeadersJson,
 };
 delete expResHeaders4xxErrors.vary;
-delete expResHeaders4xxErrors["keep-alive"];
 
 describe("Server Deployment", () => {
 	const invalidIssuerUri = "https://invalid-issuer.ydh.nhs.uk";

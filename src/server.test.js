@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const Fastify = require("fastify");
 const createJWKSMock = require("mock-jwks").default;
 const nock = require("nock");

@@ -158,20 +158,24 @@ const readPatient = {
 };
 
 const searchPatient = {
-	resourceType: "Patient",
-	id: "5484126",
-	meta: {
-		versionId: "1",
-		lastUpdated: "2021-10-05T08:55:07+00:00",
-		profile: [
-			"https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1",
-		],
-	},
-	language: "English (Great Britain)",
-	text: {
-		status: "generated",
-		div: '<div xmlns="http://www.w3.org/1999/xhtml"><div class="hapiHeaderText">Miss Charlotte <b>ZZZTEST </b></div><table class="hapiPropertyTable"><tbody><tr><td>Identifier</td><td>5484126</td></tr><tr><td>Address</td><td><span>The Venue, Unit 3 </span><br/><span>4 Artillery Road &quot; </span><br/><span>Yeovil </span></td></tr><tr><td>Date of birth</td><td><span>29 September 1954</span></td></tr></tbody></table></div>',
-	},
+	resourceType: "Bundle",
+	type: "searchset",
+	total: 1,
+	link: [
+		{
+			relation: "self",
+			url: "http://unsecured-server.ydh.nhs.uk/STU3/Patient?identifier=5484125",
+		},
+	],
+	entry: [
+		{
+			fullUrl: "http://unsecured-server.ydh.nhs.uk/STU3/Patient/5484125",
+			resource: { ...readPatient },
+		},
+	],
 };
 
-module.exports = { searchPatient, readPatient };
+module.exports = {
+	readPatient,
+	searchPatient,
+};

@@ -141,7 +141,6 @@ describe("Server Deployment", () => {
 
 		afterEach(async () => {
 			// Reset the process.env to default after each test
-			jest.resetModules();
 			Object.assign(process.env, currentEnv);
 
 			await server.close();
@@ -482,7 +481,6 @@ describe("Server Deployment", () => {
 
 		afterEach(async () => {
 			// Reset the process.env to default after each test
-			jest.resetModules();
 			Object.assign(process.env, currentEnv);
 
 			await server.close();

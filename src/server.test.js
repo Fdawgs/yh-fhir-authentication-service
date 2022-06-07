@@ -390,7 +390,7 @@ describe("Server Deployment", () => {
 
 						expect(JSON.parse(response.payload)).toHaveProperty(
 							"resourceType",
-							"Patient"
+							"Bundle"
 						);
 						expect(response.headers).toEqual(
 							testObject.expected.response.headers.basic

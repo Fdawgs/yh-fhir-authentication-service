@@ -100,7 +100,7 @@ async function plugin(server, config) {
 					addHook: false,
 					keys: config.bearerTokenAuthKeys,
 					errorResponse:
-						/* istanbul ignore next */
+						/* istanbul ignore next: @fastify/auth handles errors, response set for posterity */
 						(err) => ({
 							statusCode: 401,
 							error: "Unauthorized",

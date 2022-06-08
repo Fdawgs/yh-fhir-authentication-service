@@ -514,6 +514,14 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
+					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint with different aud",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`,
+				},
+			},
+			{
+				testName:
 					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With Two Jwks Endpoints (With Valid Key for One)",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
@@ -568,35 +576,52 @@ describe("Server Deployment", () => {
 							expect(response.statusCode).toBe(200);
 						});
 					}
-					if (
-						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY === ""
-					) {
-						test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using bearer token auth", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: "Bearer testtoken",
-								},
-							});
 
-							expect(JSON.parse(response.payload)).toEqual({
-								error: "Unauthorized",
-								message: "invalid authorization header",
-								statusCode: 401,
-							});
-							expect(response.headers).toEqual(expResHeadersJson);
-							expect(response.statusCode).toBe(401);
+					test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using an invalid bearer token/JWT", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								authorization: "Bearer invalidtoken",
+							},
 						});
-					}
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Unauthorized",
+							message: "invalid authorization header",
+							statusCode: 401,
+						});
+						expect(response.headers).toEqual(expResHeadersJson);
+						expect(response.statusCode).toBe(401);
+					});
+
+					test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' Resource if bearer token/JWT is missing", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Flag/126844-10",
+							headers: {
+								accept: "application/fhir+json",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Unauthorized",
+							message: "missing authorization header",
+							statusCode: 401,
+						});
+						expect(response.headers).toEqual(expResHeadersJson);
+						expect(response.statusCode).toBe(401);
+					});
 
 					if (
 						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
 						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${invalidIssuerUri}"}]`
+							`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
+						testObject?.envVariables?.JWT_JWKS_ARRAY !==
+							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 					) {
-						test("Should redirect request to 'SERVICE_REDIRECT_URL' using JWKS JWT auth", async () => {
+						test("Should redirect request to 'SERVICE_REDIRECT_URL' using valid JWT against a valid Issuer", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -618,9 +643,11 @@ describe("Server Deployment", () => {
 					if (
 						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
 						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${invalidIssuerUri}"}]`
+							`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
+						testObject?.envVariables?.JWT_JWKS_ARRAY ===
+							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 					) {
-						test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using JWKS JWT auth", async () => {
+						test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using valid JWT against a invalid Issuer", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",

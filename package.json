@@ -90,7 +90,7 @@
 		"@fastify/autoload": "^4.0.1",
 		"@fastify/bearer-auth": "^7.0.1",
 		"@fastify/cors": "^7.0.0",
-		"@fastify/helmet": "^8.1.0",
+		"@fastify/helmet": "^9.1.0",
 		"@fastify/rate-limit": "^6.0.1",
 		"@fastify/reply-from": "^7.0.1",
 		"@fastify/sensible": "^4.1.0",

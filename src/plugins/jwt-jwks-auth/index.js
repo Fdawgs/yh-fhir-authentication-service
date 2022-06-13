@@ -40,7 +40,7 @@ async function plugin(server, options) {
 						 * Verifier config options explicitly defined as functionality not tested;
 						 * will stop changes to defaults in dependency from impacting auth
 						 */
-						const jwtVerifier = createVerifier({
+						createVerifier({
 							algorithms: element?.allowedAlgorithms,
 							allowedAud: element?.allowedAudiences,
 							allowedIss: element.issuerDomain,
@@ -55,9 +55,7 @@ async function plugin(server, options) {
 								kid: jwtDecoder(token).header.kid,
 							}),
 							maxAge: element?.maxAge,
-						});
-
-						jwtVerifier(token);
+						})(token);
 					})
 				);
 			} catch (err) {

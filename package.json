@@ -86,7 +86,7 @@
 	},
 	"dependencies": {
 		"@fastify/accepts": "^3.0.0",
-		"@fastify/auth": "^2.0.0",
+		"@fastify/auth": "^3.0.1",
 		"@fastify/autoload": "^4.0.1",
 		"@fastify/bearer-auth": "^7.0.1",
 		"@fastify/cors": "^7.0.0",

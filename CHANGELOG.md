@@ -2,6 +2,49 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.0.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.3...v9.0.4) (2022-06-15)
+
+
+### Bug Fixes
+
+* **plugins/jwt-jwks-auth:** respond with 401 error on missing header ([d2c7f97](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d2c7f974c0d41747622107dc259d336484e20b49))
+
+
+### Documentation
+
+* **readme:** grammar fixes ([fd9d318](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/fd9d318073676d5518027de940ec36f9d8ebe854))
+
+
+### Dependencies
+
+* **deps-dev:** bump @faker-js/faker from 7.1.0 to 7.2.0 ([#669](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/669)) ([dba5f97](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/dba5f975bf82118a6d5d74a0f976c885da13c868))
+* **deps-dev:** bump eslint from 8.16.0 to 8.17.0 ([#675](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/675)) ([a4b4084](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a4b408484245d26b9b12ec3e8440b7723182ca02))
+* **deps-dev:** bump eslint-plugin-jest from 26.4.6 to 26.5.3 ([#664](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/664)) ([fc85745](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/fc85745abaeb8503ec72f9b9410a365adb1a1da6))
+* **deps-dev:** bump jest from 28.1.0 to 28.1.1 ([#662](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/662)) ([93c9c50](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/93c9c505f3b2a5ac67fdfc83cd09a21e51e5f8da))
+* **deps-dev:** bump nock from 13.2.4 to 13.2.6 ([#674](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/674)) ([ec67bf0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ec67bf008af8ad6e8a467ff8e5db1b35894d6942))
+* **deps-dev:** bump prettier from 2.6.2 to 2.7.0 ([#680](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/680)) ([2d904f2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2d904f25ef1d64fec8222d6426a15fa8797c04ff))
+* **deps:** bump pino from 7.11.0 to 8.0.0 ([#655](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/655)) ([edaf4be](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/edaf4be912e2c0a0e786756987ba2353efa194af))
+* **deps:** bump pino-pretty from 7.6.1 to 8.0.0 ([#656](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/656)) ([060a4b3](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/060a4b3428231e461538522d49142c28339d7424))
+* **deps:** bump sub-dependencies ([15bb7d0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/15bb7d0f1391925c95f11f706adba8251bbf3693))
+* **deps:** move pino-pretty to dev dependencies ([18dbd92](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/18dbd9219d8311fd475b3d449829898326962f58))
+
+
+### Miscellaneous
+
+* **.github/funding:** remove comments ([b98c57b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b98c57b2fa3f3488c83767f3aaf168370ce17887))
+* **.github:** add `FUNDING.yml` ([19428e8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/19428e8d6efba64d8b17a9ca64ab089a56f403d9))
+* **.github:** tidy files ([658ebad](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/658ebad0866022359d60a49291947761027dd93b))
+* **.gitignore:** use latest github ignore template ([dcd8510](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/dcd8510e870f56abe374173e96bbe76bd8a19d7a))
+* **.prettierignore:** add new paths from `.gitignore` ([2b56269](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2b56269d963ebfb64aa043b41a43bf25dbdd1d62))
+* **package:** add pino-pretty to `start:dev` script ([e976c58](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e976c58145a5f4795fcd12160062109270a5fefb))
+
+
+### Improvements
+
+* **plugins/jwt-jwks-auth:** `createVerifier()` without var assign ([36994b2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/36994b228143886e775c0fb04bf42b5958e7e4b6))
+* **plugins/jwt-jwks-auth:** remove `await` in `Promise.any()` ([30036a0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/30036a0a2dc9a00814d7fedb72e116a2402828f4))
+* **plugins/jwt-jwks-auth:** return promise ([#682](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/682)) ([b5ef02b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b5ef02b2264ed5664aac14221a46df080eeb7ef7))
+
 ### [9.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.2...v9.0.3) (2022-06-01)
 
 

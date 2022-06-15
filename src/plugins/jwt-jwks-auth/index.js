@@ -35,7 +35,7 @@ async function plugin(server, options) {
 			try {
 				// Allow through aslong as the JWT is verified by atleast one JWKS public key
 				await Promise.any(
-					options.map(async (element) => {
+					options.map(async (element) =>
 						/**
 						 * Verifier config options explicitly defined as functionality not tested;
 						 * will stop changes to defaults in dependency from impacting auth
@@ -55,8 +55,8 @@ async function plugin(server, options) {
 								kid: jwtDecoder(token).header.kid,
 							}),
 							maxAge: element?.maxAge,
-						})(token);
-					})
+						})(token)
+					)
 				);
 			} catch (err) {
 				/**

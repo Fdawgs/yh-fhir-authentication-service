@@ -23,7 +23,7 @@
 		"lint:prettier:ci": "prettier . -c -u",
 		"prepare": "husky install",
 		"start": "node .",
-		"start:dev": "nodemon",
+		"start:dev": "nodemon | pino-pretty",
 		"test": "npm run lint && npm run jest"
 	},
 	"commitlint": {

@@ -81,7 +81,7 @@
 		"mock-jwks": "^1.0.3",
 		"nock": "^13.2.7",
 		"nodemon": "^2.0.16",
-		"pino-pretty": "^8.0.0",
+		"pino-pretty": "^8.1.0",
 		"prettier": "^2.7.0"
 	},
 	"dependencies": {

@@ -97,7 +97,7 @@
 		"ajv-formats": "^2.1.1",
 		"dotenv": "^16.0.1",
 		"env-schema": "^5.0.0",
-		"fast-jwt": "^1.5.4",
+		"fast-jwt": "^1.6.1",
 		"fastify": "^3.29.0",
 		"fastify-disablecache": "^2.0.8",
 		"fastify-floc-off": "^1.0.7",

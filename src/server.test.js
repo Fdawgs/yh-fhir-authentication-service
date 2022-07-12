@@ -122,8 +122,7 @@ describe("Server Deployment", () => {
 	afterAll(async () => {
 		nock.cleanAll();
 		nock.enableNetConnect();
-		await mockJwksServerOne.stop();
-		await mockJwksServerTwo.stop();
+		await Promise.all([mockJwksServerOne.stop(), mockJwksServerTwo.stop()]);
 	});
 
 	describe("CORS", () => {

@@ -53,7 +53,7 @@ describe("Server Deployment", () => {
 	let mockJwksServerTwo;
 	let token;
 
-	beforeAll(async () => {
+	beforeAll(() => {
 		Object.assign(process.env, {
 			SERVICE_REDIRECT_URL: "http://unsecured-server.ydh.nhs.uk",
 		});
@@ -130,7 +130,7 @@ describe("Server Deployment", () => {
 		let server;
 		let currentEnv;
 
-		beforeAll(async () => {
+		beforeAll(() => {
 			Object.assign(process.env, {
 				AUTH_BEARER_TOKEN_ARRAY: "",
 				JWT_JWKS_ARRAY: "",
@@ -471,7 +471,7 @@ describe("Server Deployment", () => {
 		let server;
 		let currentEnv;
 
-		beforeAll(async () => {
+		beforeAll(() => {
 			Object.assign(process.env, {
 				JWT_JWKS_ARRAY: "",
 			});

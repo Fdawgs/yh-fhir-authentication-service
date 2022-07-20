@@ -307,8 +307,7 @@ describe("Server Deployment", () => {
 
 				beforeEach(async () => {
 					server = Fastify();
-					server.register(startServer, config);
-					await server.ready();
+					await server.register(startServer, config).ready();
 				});
 
 				describe("/admin/healthcheck Route", () => {
@@ -549,8 +548,7 @@ describe("Server Deployment", () => {
 
 				beforeEach(async () => {
 					server = Fastify();
-					server.register(startServer, config);
-					await server.ready();
+					await server.register(startServer, config).ready();
 				});
 
 				describe("/redirect Route", () => {

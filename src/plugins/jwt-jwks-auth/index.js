@@ -24,7 +24,7 @@ async function plugin(server, options) {
 	server.decorate("verifyJWT", async (req, res) => {
 		const header = req.headers.authorization;
 		if (!header) {
-			res.unauthorized("missing authorization header");
+			throw res.unauthorized("missing authorization header");
 		}
 
 		// Remove 'Bearer' from beginning of token
@@ -80,7 +80,7 @@ async function plugin(server, options) {
 }
 
 module.exports = fp(plugin, {
-	fastify: "3.x",
+	fastify: "4.x",
 	name: "jwt-jwks-auth",
-	dependencies: ["fastify-sensible"],
+	dependencies: ["@fastify/sensible"],
 });

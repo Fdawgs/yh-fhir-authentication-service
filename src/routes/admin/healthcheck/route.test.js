@@ -16,13 +16,13 @@ describe("Healthcheck Route", () => {
 			});
 			config = await getConfig();
 
-			server = Fastify()
+			server = Fastify();
+			await server
 				.register(accepts)
 				.register(sensible)
 				.register(sharedSchemas)
-				.register(route, config);
-
-			await server.ready();
+				.register(route, config)
+				.ready();
 		});
 
 		afterAll(async () => {

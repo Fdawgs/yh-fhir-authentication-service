@@ -57,8 +57,7 @@ async function plugin(server, config) {
 		 * is of use to other content is "frame-ancestors 'none'" to stop responses
 		 * from being wrapped in iframes and used for clickjacking attacks.
 		 */
-		.addHook("onSend", async (req, res) => {
-			/* istanbul ignore else */
+		.addHook("onSend", (req, res, payload, next) => {
 			if (
 				res.getHeader("content-type") !== undefined &&
 				!res.getHeader("content-type")?.includes("html") &&
@@ -70,7 +69,8 @@ async function plugin(server, config) {
 				);
 				res.raw.removeHeader("x-xss-protection");
 			}
-			return res;
+
+			next();
 		})
 
 		// Import and register admin routes

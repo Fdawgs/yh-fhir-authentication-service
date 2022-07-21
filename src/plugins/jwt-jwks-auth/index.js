@@ -21,10 +21,12 @@ const jwtDecoder = createDecoder({ complete: true });
  * @param {string=} options[].maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
-	server.decorate("verifyJWT", async (req, res) => {
+	server.decorate("verifyJWT", async (req) => {
 		const header = req.headers.authorization;
 		if (!header) {
-			throw res.unauthorized("missing authorization header");
+			throw server.httpErrors.unauthorized(
+				"missing authorization header"
+			);
 		}
 
 		// Remove 'Bearer' from beginning of token

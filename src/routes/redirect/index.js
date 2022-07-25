@@ -14,14 +14,13 @@ const { redirectGetSchema } = require("./schema");
  */
 async function route(server, options) {
 	// Register plugins
-	server
+	await server
 		// Enable CORS if options passed
 		.register(cors, {
 			...options.cors,
 			methods: ["GET"],
-		});
-
-	await server.register(replyFrom, options.redirect);
+		})
+		.register(replyFrom, options.redirect);
 
 	const opts = {
 		method: "GET",
@@ -31,10 +30,12 @@ async function route(server, options) {
 				// Catch unsupported Accept header media types
 				!req.accepts().type(redirectGetSchema.produces)
 			) {
-				throw res.notAcceptable();
+				return res.notAcceptable();
 			}
+
+			return req;
 		},
-		handler: (req, res) => {
+		handler: async (req, res) =>
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
 					// Remove CORS origin set by Mirth Connect
@@ -80,8 +81,7 @@ async function route(server, options) {
 
 					reply.send(targetResponse);
 				},
-			});
-		},
+			}),
 	};
 
 	// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars

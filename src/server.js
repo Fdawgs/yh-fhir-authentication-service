@@ -57,6 +57,7 @@ async function plugin(server, config) {
 		 * from being wrapped in iframes and used for clickjacking attacks.
 		 */
 		.addHook("onSend", async (req, res, payload) => {
+			/* istanbul ignore else: API does not currently return HTML/XML content */
 			if (
 				res.getHeader("content-type") !== undefined &&
 				!res.getHeader("content-type")?.includes("html") &&

@@ -667,4 +667,60 @@ describe("Server Deployment", () => {
 			});
 		});
 	});
+
+	describe("Error Handling", () => {
+		let config;
+		let server;
+		let currentEnv;
+
+		beforeAll(() => {
+			Object.assign(process.env, {
+				JWT_JWKS_ARRAY: "",
+				AUTH_BEARER_TOKEN_ARRAY: "",
+			});
+			currentEnv = { ...process.env };
+		});
+
+		afterEach(async () => {
+			// Reset the process.env to default after each test
+			Object.assign(process.env, currentEnv);
+
+			await server.close();
+		});
+
+		describe("/redirect Route", () => {
+			beforeAll(async () => {
+				Object.assign(process.env, {
+					SERVICE_REDIRECT_URL: "http://0.0.0.125",
+				});
+				config = await getConfig();
+				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
+				delete config.redirect.undici;
+				config.redirect.http = true;
+			});
+
+			beforeEach(async () => {
+				server = Fastify();
+				await server.register(startServer, config).ready();
+			});
+
+			test("Should return HTTP status code 500 if 'SERVICE_REDIRECT_URL' is invalid", async () => {
+				const response = await server.inject({
+					method: "GET",
+					url: "/STU3/Patient/5484125",
+					headers: {
+						accept: "application/fhir+json",
+					},
+				});
+
+				expect(JSON.parse(response.payload)).toEqual({
+					error: "Internal Server Error",
+					message: "Internal Server Error",
+					statusCode: 500,
+				});
+				expect(response.headers).toEqual(expResHeadersJson);
+				expect(response.statusCode).toBe(500);
+			});
+		});
+	});
 });

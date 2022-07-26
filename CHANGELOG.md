@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.0.6](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.5...v9.0.6) (2022-07-26)
+
+
+### Dependencies
+
+* **deps:** bump undici from 5.7.0 to 5.8.0 ([#715](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/715)) ([a79ef9d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a79ef9dd5ef42f92119899690c3df07197e80dcd))
+
+
+### Improvements
+
+* **config:** disable superfluous logging from redirect ([#717](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/717)) ([2b71ea0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2b71ea07da9224b1490b42cc0959910391b974cc))
+* migrate from fastify v3 to v4 ([#714](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/714)) ([06af634](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/06af634e96b8b53bc75f6107a5d336e9d6cea756))
+
 ## [9.0.5](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.4...v9.0.5) (2022-07-14)
 
 

@@ -261,6 +261,8 @@ async function getConfig() {
 		},
 		redirect: {
 			base: new URL(env.SERVICE_REDIRECT_URL).href,
+			// Disable logging of "fetching from remote server" and "response received" from remote server
+			disableRequestLogging: true,
 			// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
 			undici: {
 				connections: 128,

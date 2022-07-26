@@ -122,6 +122,7 @@ describe("Configuration", () => {
 
 		expect(config.redirect).toEqual({
 			base: `${SERVICE_REDIRECT_URL}/`,
+			disableRequestLogging: true,
 			undici: {
 				connections: 128,
 				pipelining: 1,
@@ -233,6 +234,7 @@ describe("Configuration", () => {
 
 		expect(config.redirect).toEqual({
 			base: `${SERVICE_REDIRECT_URL}/`,
+			disableRequestLogging: true,
 			undici: {
 				connections: 128,
 				pipelining: 1,

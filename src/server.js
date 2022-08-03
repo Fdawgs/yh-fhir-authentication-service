@@ -59,7 +59,6 @@ async function plugin(server, config) {
 		.addHook("onSend", async (req, res, payload) => {
 			/* istanbul ignore else: API does not currently return HTML/XML content */
 			if (
-				res.getHeader("content-type") !== undefined &&
 				!res.getHeader("content-type")?.includes("html") &&
 				!res.getHeader("content-type")?.includes("xml")
 			) {

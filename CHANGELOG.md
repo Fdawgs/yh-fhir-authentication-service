@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.0.8](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.7...v9.0.8) (2022-08-04)
+
+
+### Bug Fixes
+
+* **routes:** invalid openapi shared schema definitions ([#730](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/730)) ([c13efbb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c13efbb991c504628a12f61b17085c12b29925a6))
+* **server:** reduce `content-security-policy` for options routes ([#732](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/732)) ([9d42540](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9d4254001f0808abf23e116e6e1c15c90da2c3c4))
+
+
+### Dependencies
+
+* **deps:** bump @fastify/cors from 8.0.0 to 8.1.0 ([#733](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/733)) ([9c5d7bc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9c5d7bca293bf98b9c457a088e98d5bfac1dee4d))
+* **deps:** bump fast-jwt from 1.6.1 to 1.7.0 ([#729](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/729)) ([fe3e95b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/fe3e95b7b6c247b4234a63e5a28bc55176e22bbe))
+
 ## [9.0.7](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.6...v9.0.7) (2022-08-01)
 
 

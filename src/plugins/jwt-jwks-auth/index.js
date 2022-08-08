@@ -37,12 +37,14 @@ async function plugin(server, options) {
 			try {
 				// Allow through aslong as the JWT is verified by atleast one JWKS public key
 				await Promise.any(
-					options.map(async (element) =>
+					options.map(async (element) => {
+						const jwtHeader = jwtDecoder(token).header;
+
 						/**
 						 * Verifier config options explicitly defined as functionality not tested;
 						 * will stop changes to defaults in dependency from impacting auth
 						 */
-						createVerifier({
+						return createVerifier({
 							algorithms: element?.allowedAlgorithms,
 							allowedAud: element?.allowedAudiences,
 							allowedIss: element.issuerDomain,
@@ -53,12 +55,12 @@ async function plugin(server, options) {
 							ignoreNotBefore: false,
 							key: await getJwks.getPublicKey({
 								domain: element.issuerDomain,
-								alg: jwtDecoder(token).header?.alg,
-								kid: jwtDecoder(token).header.kid,
+								alg: jwtHeader?.alg,
+								kid: jwtHeader.kid,
 							}),
 							maxAge: element?.maxAge,
-						})(token)
-					)
+						})(token);
+					})
 				);
 			} catch (err) {
 				/**

@@ -53,7 +53,7 @@ async function plugin(server, options) {
 							ignoreNotBefore: false,
 							key: await getJwks.getPublicKey({
 								domain: element.issuerDomain,
-								alg: jwtDecoder(token).header.alg,
+								alg: jwtDecoder(token).header?.alg,
 								kid: jwtDecoder(token).header.kid,
 							}),
 							maxAge: element?.maxAge,

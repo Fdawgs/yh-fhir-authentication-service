@@ -43,8 +43,8 @@ const expResHeadersText = {
 
 const expResHeaders4xxErrors = {
 	...expResHeadersJson,
+	vary: undefined,
 };
-delete expResHeaders4xxErrors.vary;
 
 describe("Server Deployment", () => {
 	const invalidIssuerUri = "https://invalid-issuer.ydh.nhs.uk";
@@ -301,7 +301,7 @@ describe("Server Deployment", () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					delete config.redirect.undici;
+					config.redirect.undici = undefined;
 					config.redirect.http = true;
 				});
 
@@ -542,7 +542,7 @@ describe("Server Deployment", () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					delete config.redirect.undici;
+					config.redirect.undici = undefined;
 					config.redirect.http = true;
 				});
 
@@ -695,7 +695,7 @@ describe("Server Deployment", () => {
 				});
 				config = await getConfig();
 				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-				delete config.redirect.undici;
+				config.redirect.undici = undefined;
 				config.redirect.http = true;
 			});
 

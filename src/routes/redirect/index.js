@@ -33,7 +33,7 @@ async function route(server, options) {
 				throw server.httpErrors.notAcceptable();
 			}
 		},
-		handler: async (req, res) =>
+		handler: (req, res) => {
 			res.from(req.url, {
 				onResponse: (request, reply, targetResponse) => {
 					// Remove CORS origin set by Mirth Connect
@@ -79,7 +79,8 @@ async function route(server, options) {
 
 					reply.send(targetResponse);
 				},
-			}),
+			});
+		},
 	};
 
 	// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars

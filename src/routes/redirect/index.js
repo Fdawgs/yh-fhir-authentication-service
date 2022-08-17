@@ -25,15 +25,13 @@ async function route(server, options) {
 	const opts = {
 		method: "GET",
 		schema: redirectGetSchema,
-		onRequest: async (req, res) => {
+		onRequest: async (req) => {
 			if (
 				// Catch unsupported Accept header media types
 				!req.accepts().type(redirectGetSchema.produces)
 			) {
-				return res.notAcceptable();
+				throw server.httpErrors.notAcceptable();
 			}
-
-			return req;
 		},
 		handler: async (req, res) =>
 			res.from(req.url, {

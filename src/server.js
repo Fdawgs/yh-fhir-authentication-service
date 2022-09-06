@@ -6,6 +6,7 @@ const path = require("upath");
 const accepts = require("@fastify/accepts");
 const auth = require("@fastify/auth");
 const bearer = require("@fastify/bearer-auth");
+const compress = require("@fastify/compress");
 const disableCache = require("fastify-disablecache");
 const flocOff = require("fastify-floc-off");
 const helmet = require("@fastify/helmet");
@@ -26,6 +27,9 @@ async function plugin(server, config) {
 	await server
 		// Accept header handler
 		.register(accepts)
+
+		// Support Content-Encoding
+		.register(compress, { inflateIfDeflated: true })
 
 		// Set response headers to disable client-side caching
 		.register(disableCache)

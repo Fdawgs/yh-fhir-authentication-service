@@ -24,7 +24,7 @@ describe("Configuration", () => {
 		const NODE_ENV = "development";
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
+		const REDIRECT_URL = "https://www.nhs.uk";
 		const CORS_ORIGIN = "";
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
@@ -50,7 +50,7 @@ describe("Configuration", () => {
 			NODE_ENV,
 			HOST,
 			PORT,
-			SERVICE_REDIRECT_URL,
+			REDIRECT_URL,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
@@ -123,7 +123,7 @@ describe("Configuration", () => {
 		});
 
 		expect(config.redirect).toEqual({
-			base: `${SERVICE_REDIRECT_URL}/`,
+			base: `${REDIRECT_URL}/`,
 			disableRequestLogging: true,
 			undici: {
 				connections: 128,
@@ -140,7 +140,7 @@ describe("Configuration", () => {
 		const NODE_ENV = "development";
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
+		const REDIRECT_URL = "https://www.nhs.uk";
 		const HTTPS_SSL_CERT_PATH =
 			"./test_resources/test_ssl_cert/server.cert";
 		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
@@ -170,7 +170,7 @@ describe("Configuration", () => {
 			NODE_ENV,
 			HOST,
 			PORT,
-			SERVICE_REDIRECT_URL,
+			REDIRECT_URL,
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
 			HTTPS_HTTP2_ENABLED,
@@ -239,7 +239,7 @@ describe("Configuration", () => {
 		});
 
 		expect(config.redirect).toEqual({
-			base: `${SERVICE_REDIRECT_URL}/`,
+			base: `${REDIRECT_URL}/`,
 			disableRequestLogging: true,
 			undici: {
 				connections: 128,
@@ -255,7 +255,7 @@ describe("Configuration", () => {
 	test("Should return values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
+		const REDIRECT_URL = "https://www.nhs.uk";
 		const HTTPS_PFX_FILE_PATH =
 			"./test_resources/test_ssl_cert/server.cert"; // Not an actual PFX file
 		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
@@ -269,7 +269,7 @@ describe("Configuration", () => {
 		Object.assign(process.env, {
 			HOST,
 			PORT,
-			SERVICE_REDIRECT_URL,
+			REDIRECT_URL,
 			HTTPS_PFX_FILE_PATH,
 			HTTPS_PFX_PASSPHRASE,
 			HTTPS_HTTP2_ENABLED,
@@ -340,7 +340,7 @@ describe("Configuration", () => {
 		async ({ envVariables, expected }) => {
 			const HOST = faker.internet.ip();
 			const PORT = faker.datatype.number();
-			const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
+			const REDIRECT_URL = "https://www.nhs.uk";
 			const CORS_ORIGIN = envVariables.CORS_ORIGIN;
 			const CORS_ALLOWED_HEADERS =
 				"Accept, Authorization, Content-Type, Origin, X-Requested-With";
@@ -357,7 +357,7 @@ describe("Configuration", () => {
 			Object.assign(process.env, {
 				HOST,
 				PORT,
-				SERVICE_REDIRECT_URL,
+				REDIRECT_URL,
 				CORS_ORIGIN,
 				CORS_ALLOWED_HEADERS,
 				CORS_ALLOW_CREDENTIALS,
@@ -404,7 +404,7 @@ describe("Configuration", () => {
 	])("Should throw error if $testName", async ({ envVariables }) => {
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
+		const REDIRECT_URL = "https://www.nhs.uk";
 		const HTTPS_SSL_KEY_PATH = envVariables?.HTTPS_SSL_KEY_PATH || "";
 		const HTTPS_SSL_CERT_PATH = envVariables?.HTTPS_SSL_CERT_PATH || "";
 		const HTTPS_PFX_FILE_PATH = envVariables?.HTTPS_PFX_FILE_PATH || "";
@@ -418,7 +418,7 @@ describe("Configuration", () => {
 		Object.assign(process.env, {
 			HOST,
 			PORT,
-			SERVICE_REDIRECT_URL,
+			REDIRECT_URL,
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
 			HTTPS_PFX_FILE_PATH,

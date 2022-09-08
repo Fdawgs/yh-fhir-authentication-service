@@ -58,7 +58,7 @@ async function getConfig() {
 			// Service
 			.prop("HOST", S.string())
 			.prop("PORT", S.number())
-			.prop("SERVICE_REDIRECT_URL", S.string().format("uri"))
+			.prop("REDIRECT_URL", S.string().format("uri"))
 
 			// CORS
 			.prop("CORS_ORIGIN", S.anyOf([S.string(), S.null()]))
@@ -129,7 +129,7 @@ async function getConfig() {
 
 			// JWT Validation
 			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
-			.required(["NODE_ENV", "HOST", "PORT", "SERVICE_REDIRECT_URL"]),
+			.required(["NODE_ENV", "HOST", "PORT", "REDIRECT_URL"]),
 	});
 
 	const isProduction = env.NODE_ENV.toLowerCase() === "production";
@@ -244,7 +244,7 @@ async function getConfig() {
 			},
 		},
 		redirect: {
-			base: new URL(env.SERVICE_REDIRECT_URL).href,
+			base: new URL(env.REDIRECT_URL).href,
 			// Disable logging of "fetching from remote server" and "response received" from remote server
 			disableRequestLogging: true,
 			// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions

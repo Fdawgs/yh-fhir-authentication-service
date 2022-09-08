@@ -12,7 +12,7 @@ const redirectGetSchema = {
 	tags,
 	summary: "Redirect route",
 	description:
-		"Redirects to the URL set with the `SERVICE_REDIRECT_URL` environment variable.",
+		"Redirects to the URL set with the `REDIRECT_URL` environment variable.",
 	produces: ["application/fhir+json", "application/fhir+xml"],
 	params: S.object()
 		/**

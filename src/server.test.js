@@ -54,7 +54,7 @@ describe("Server Deployment", () => {
 
 	beforeAll(() => {
 		Object.assign(process.env, {
-			SERVICE_REDIRECT_URL: "http://unsecured-server.ydh.nhs.uk",
+			REDIRECT_URL: "http://unsecured-server.ydh.nhs.uk",
 		});
 
 		nock.disableNetConnect();
@@ -350,7 +350,7 @@ describe("Server Deployment", () => {
 				});
 
 				describe("/redirect Route", () => {
-					test("Should redirect request to 'SERVICE_REDIRECT_URL'", async () => {
+					test("Should redirect request to 'REDIRECT_URL'", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -370,7 +370,7 @@ describe("Server Deployment", () => {
 						expect(response.statusCode).toBe(200);
 					});
 
-					test("Should redirect request to 'SERVICE_REDIRECT_URL' using search route and query string params", async () => {
+					test("Should redirect request to 'REDIRECT_URL' using search route and query string params", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient",
@@ -554,7 +554,7 @@ describe("Server Deployment", () => {
 					if (
 						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
 					) {
-						test("Should redirect request to 'SERVICE_REDIRECT_URL' using bearer token auth", async () => {
+						test("Should redirect request to 'REDIRECT_URL' using bearer token auth", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -573,7 +573,7 @@ describe("Server Deployment", () => {
 						});
 					}
 
-					test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using an invalid bearer token/JWT", async () => {
+					test("Should fail to redirect request to 'REDIRECT_URL' using an invalid bearer token/JWT", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -592,7 +592,7 @@ describe("Server Deployment", () => {
 						expect(response.statusCode).toBe(401);
 					});
 
-					test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' Resource if bearer token/JWT is missing", async () => {
+					test("Should fail to redirect request to 'REDIRECT_URL' Resource if bearer token/JWT is missing", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Flag/126844-10",
@@ -617,7 +617,7 @@ describe("Server Deployment", () => {
 						testObject?.envVariables?.JWT_JWKS_ARRAY !==
 							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 					) {
-						test("Should redirect request to 'SERVICE_REDIRECT_URL' using valid JWT against a valid Issuer", async () => {
+						test("Should redirect request to 'REDIRECT_URL' using valid JWT against a valid Issuer", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -643,7 +643,7 @@ describe("Server Deployment", () => {
 						testObject?.envVariables?.JWT_JWKS_ARRAY ===
 							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 					) {
-						test("Should fail to redirect request to 'SERVICE_REDIRECT_URL' using valid JWT against a invalid Issuer", async () => {
+						test("Should fail to redirect request to 'REDIRECT_URL' using valid JWT against a invalid Issuer", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -690,7 +690,7 @@ describe("Server Deployment", () => {
 		describe("/redirect Route", () => {
 			beforeAll(async () => {
 				Object.assign(process.env, {
-					SERVICE_REDIRECT_URL: "http://0.0.0.125",
+					REDIRECT_URL: "http://0.0.0.125",
 				});
 				config = await getConfig();
 				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
@@ -703,7 +703,7 @@ describe("Server Deployment", () => {
 				await server.register(startServer, config).ready();
 			});
 
-			test("Should return HTTP status code 500 if 'SERVICE_REDIRECT_URL' is invalid", async () => {
+			test("Should return HTTP status code 500 if 'REDIRECT_URL' is invalid", async () => {
 				const response = await server.inject({
 					method: "GET",
 					url: "/STU3/Patient/5484125",

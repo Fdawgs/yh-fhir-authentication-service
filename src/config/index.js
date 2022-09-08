@@ -56,9 +56,9 @@ async function getConfig() {
 			.prop("NODE_ENV", S.string())
 
 			// Service
-			.prop("SERVICE_HOST", S.string())
-			.prop("SERVICE_PORT", S.number())
-			.prop("SERVICE_REDIRECT_URL", S.string().format("uri"))
+			.prop("HOST", S.string())
+			.prop("PORT", S.number())
+			.prop("REDIRECT_URL", S.string().format("uri"))
 
 			// CORS
 			.prop("CORS_ORIGIN", S.anyOf([S.string(), S.null()]))
@@ -129,12 +129,7 @@ async function getConfig() {
 
 			// JWT Validation
 			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
-			.required([
-				"NODE_ENV",
-				"SERVICE_HOST",
-				"SERVICE_PORT",
-				"SERVICE_REDIRECT_URL",
-			]),
+			.required(["NODE_ENV", "HOST", "PORT", "REDIRECT_URL"]),
 	});
 
 	const isProduction = env.NODE_ENV.toLowerCase() === "production";
@@ -142,7 +137,7 @@ async function getConfig() {
 	const config = {
 		isProduction,
 		fastify: {
-			port: env.SERVICE_PORT,
+			port: env.PORT,
 		},
 		fastifyInit: {
 			/**
@@ -249,7 +244,7 @@ async function getConfig() {
 			},
 		},
 		redirect: {
-			base: new URL(env.SERVICE_REDIRECT_URL).href,
+			base: new URL(env.REDIRECT_URL).href,
 			// Disable logging of "fetching from remote server" and "response received" from remote server
 			disableRequestLogging: true,
 			// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
@@ -261,8 +256,8 @@ async function getConfig() {
 	};
 
 	// Ensure API listens on both IPv4 and IPv6 addresses
-	if (env.SERVICE_HOST) {
-		config.fastify.host = env.SERVICE_HOST;
+	if (env.HOST) {
+		config.fastify.host = env.HOST;
 	}
 
 	if (env.JWT_JWKS_ARRAY) {

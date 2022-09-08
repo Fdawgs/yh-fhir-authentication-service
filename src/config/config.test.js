@@ -22,8 +22,8 @@ describe("Configuration", () => {
 
 	test("Should use defaults if values missing and return values according to environment variables", async () => {
 		const NODE_ENV = "development";
-		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.datatype.number();
+		const HOST = faker.internet.ip();
+		const PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
 		const CORS_ORIGIN = "";
 		const CORS_ALLOWED_HEADERS = "";
@@ -48,8 +48,8 @@ describe("Configuration", () => {
 
 		Object.assign(process.env, {
 			NODE_ENV,
-			SERVICE_HOST,
-			SERVICE_PORT,
+			HOST,
+			PORT,
 			SERVICE_REDIRECT_URL,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
@@ -78,8 +78,8 @@ describe("Configuration", () => {
 		expect(config.isProduction).toBe(false);
 
 		expect(config.fastify).toEqual({
-			host: SERVICE_HOST,
-			port: SERVICE_PORT,
+			host: HOST,
+			port: PORT,
 		});
 
 		expect(config.fastifyInit.logger).toEqual({
@@ -138,8 +138,8 @@ describe("Configuration", () => {
 
 	test("Should return values according to environment variables - HTTPS (SSL cert) enabled, HTTP2 enabled, bearer token auth enabled, and JWKS JWT auth enabled", async () => {
 		const NODE_ENV = "development";
-		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.datatype.number();
+		const HOST = faker.internet.ip();
+		const PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
 		const HTTPS_SSL_CERT_PATH =
 			"./test_resources/test_ssl_cert/server.cert";
@@ -168,8 +168,8 @@ describe("Configuration", () => {
 
 		Object.assign(process.env, {
 			NODE_ENV,
-			SERVICE_HOST,
-			SERVICE_PORT,
+			HOST,
+			PORT,
 			SERVICE_REDIRECT_URL,
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
@@ -195,8 +195,8 @@ describe("Configuration", () => {
 		expect(config.isProduction).toBe(false);
 
 		expect(config.fastify).toEqual({
-			host: SERVICE_HOST,
-			port: SERVICE_PORT,
+			host: HOST,
+			port: PORT,
 		});
 
 		expect(config.fastifyInit.logger).toEqual({
@@ -253,8 +253,8 @@ describe("Configuration", () => {
 	});
 
 	test("Should return values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {
-		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.datatype.number();
+		const HOST = faker.internet.ip();
+		const PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
 		const HTTPS_PFX_FILE_PATH =
 			"./test_resources/test_ssl_cert/server.cert"; // Not an actual PFX file
@@ -267,8 +267,8 @@ describe("Configuration", () => {
 		]);
 
 		Object.assign(process.env, {
-			SERVICE_HOST,
-			SERVICE_PORT,
+			HOST,
+			PORT,
 			SERVICE_REDIRECT_URL,
 			HTTPS_PFX_FILE_PATH,
 			HTTPS_PFX_PASSPHRASE,
@@ -279,8 +279,8 @@ describe("Configuration", () => {
 		const config = await getConfig();
 
 		expect(config.fastify).toEqual({
-			host: SERVICE_HOST,
-			port: SERVICE_PORT,
+			host: HOST,
+			port: PORT,
 		});
 
 		expect(config.fastifyInit.https).toEqual({
@@ -338,8 +338,8 @@ describe("Configuration", () => {
 	])(
 		"Should return values according to environment variables - $testName",
 		async ({ envVariables, expected }) => {
-			const SERVICE_HOST = faker.internet.ip();
-			const SERVICE_PORT = faker.datatype.number();
+			const HOST = faker.internet.ip();
+			const PORT = faker.datatype.number();
 			const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
 			const CORS_ORIGIN = envVariables.CORS_ORIGIN;
 			const CORS_ALLOWED_HEADERS =
@@ -355,8 +355,8 @@ describe("Configuration", () => {
 			]);
 
 			Object.assign(process.env, {
-				SERVICE_HOST,
-				SERVICE_PORT,
+				HOST,
+				PORT,
 				SERVICE_REDIRECT_URL,
 				CORS_ORIGIN,
 				CORS_ALLOWED_HEADERS,
@@ -369,8 +369,8 @@ describe("Configuration", () => {
 			const config = await getConfig();
 
 			expect(config.fastify).toEqual({
-				host: SERVICE_HOST,
-				port: SERVICE_PORT,
+				host: HOST,
+				port: PORT,
 			});
 
 			expect(config.cors).toEqual({
@@ -402,8 +402,8 @@ describe("Configuration", () => {
 			},
 		},
 	])("Should throw error if $testName", async ({ envVariables }) => {
-		const SERVICE_HOST = faker.internet.ip();
-		const SERVICE_PORT = faker.datatype.number();
+		const HOST = faker.internet.ip();
+		const PORT = faker.datatype.number();
 		const SERVICE_REDIRECT_URL = "https://www.nhs.uk";
 		const HTTPS_SSL_KEY_PATH = envVariables?.HTTPS_SSL_KEY_PATH || "";
 		const HTTPS_SSL_CERT_PATH = envVariables?.HTTPS_SSL_CERT_PATH || "";
@@ -416,8 +416,8 @@ describe("Configuration", () => {
 		]);
 
 		Object.assign(process.env, {
-			SERVICE_HOST,
-			SERVICE_PORT,
+			HOST,
+			PORT,
 			SERVICE_REDIRECT_URL,
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,

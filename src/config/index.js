@@ -56,8 +56,8 @@ async function getConfig() {
 			.prop("NODE_ENV", S.string())
 
 			// Service
-			.prop("SERVICE_HOST", S.string())
-			.prop("SERVICE_PORT", S.number())
+			.prop("HOST", S.string())
+			.prop("PORT", S.number())
 			.prop("SERVICE_REDIRECT_URL", S.string().format("uri"))
 
 			// CORS
@@ -129,12 +129,7 @@ async function getConfig() {
 
 			// JWT Validation
 			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
-			.required([
-				"NODE_ENV",
-				"SERVICE_HOST",
-				"SERVICE_PORT",
-				"SERVICE_REDIRECT_URL",
-			]),
+			.required(["NODE_ENV", "HOST", "PORT", "SERVICE_REDIRECT_URL"]),
 	});
 
 	const isProduction = env.NODE_ENV.toLowerCase() === "production";
@@ -142,7 +137,7 @@ async function getConfig() {
 	const config = {
 		isProduction,
 		fastify: {
-			port: env.SERVICE_PORT,
+			port: env.PORT,
 		},
 		fastifyInit: {
 			/**
@@ -261,8 +256,8 @@ async function getConfig() {
 	};
 
 	// Ensure API listens on both IPv4 and IPv6 addresses
-	if (env.SERVICE_HOST) {
-		config.fastify.host = env.SERVICE_HOST;
+	if (env.HOST) {
+		config.fastify.host = env.HOST;
 	}
 
 	if (env.JWT_JWKS_ARRAY) {

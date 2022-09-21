@@ -89,7 +89,7 @@ async function plugin(server, config) {
 		/**
 		 * Encapsulate plugins and routes into secured child context, so that admin
 		 * routes do not inherit auth plugins.
-		 * See https://www.fastify.io/docs/latest/Encapsulation/ for more info
+		 * See https://fastify.io/docs/latest/Reference/Encapsulation/ for more info
 		 */
 		.register(async (securedContext) => {
 			const authFunctions = [];

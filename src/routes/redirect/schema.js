@@ -4,7 +4,7 @@ const tags = ["Redirect"];
 
 /**
  * Fastify uses AJV for JSON Schema Validation,
- * see https://www.fastify.io/docs/latest/Validation-and-Serialization/
+ * see https://fastify.io/docs/latest/Reference/Validation-and-Serialization/
  *
  * Input validation protects against XSS, HPP, and most injection attacks.
  */
@@ -17,13 +17,13 @@ const redirectGetSchema = {
 	params: S.object()
 		/**
 		 * Longest STU3 FHIR resource name is "ImmunizationRecommendation" at 26 chars:
-		 * https://www.hl7.org/fhir/STU3/resourcelist.html
+		 * https://hl7.org/fhir/STU3/resourcelist.html
 		 */
 		.prop("resource", S.string().pattern(/^[a-zA-Z]{1,26}$/m))
 		.prop("id", S.string().pattern(/^[\w-]+$/m))
 		.required(["resource"]),
 
-	// Querystring search parameters from https://www.hl7.org/fhir/STU3/search.html
+	// Querystring search parameters from https://hl7.org/fhir/STU3/search.html
 	query: S.object()
 		.patternProperties({
 			"^[a-zA-Z-._:]+$": S.anyOf([

@@ -13,7 +13,7 @@
 
 ## Intro
 
-This is [Yeovil District Hospital NHSFT](https://yeovilhospital.co.uk/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://www.fastify.io/) web framework.
+This is [Yeovil District Hospital NHSFT](https://yeovilhospital.co.uk/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://fastify.io/) web framework.
 
 Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines that, whilst a versatile system, does not provide the following:
 
@@ -67,7 +67,7 @@ To quickly test it, use a request builder (i.e. [Insomnia](https://insomnia.rest
 
 ### Deploying Using Docker
 
-This requires [Docker](https://www.docker.com) installed.
+This requires [Docker](https://docker.com) installed.
 
 1. Run `docker compose up` (or `docker compose up -d` to run in the background)
 

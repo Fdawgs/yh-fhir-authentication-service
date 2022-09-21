@@ -141,7 +141,7 @@ async function getConfig() {
 		},
 		fastifyInit: {
 			/**
-			 * See https://www.fastify.io/docs/v3.8.x/Logging/
+			 * See https://fastify.io/docs/latest/Reference/Logging/
 			 * and https://getpino.io/#/docs/api for logger options
 			 */
 			logger: {

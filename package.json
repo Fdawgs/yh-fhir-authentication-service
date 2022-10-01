@@ -80,7 +80,7 @@
 		"license-checker": "^25.0.1",
 		"mock-jwks": "^1.0.3",
 		"nock": "^13.2.9",
-		"nodemon": "^2.0.19",
+		"nodemon": "^2.0.20",
 		"pino-pretty": "^9.1.0",
 		"prettier": "^2.7.1"
 	},

@@ -102,7 +102,7 @@
 		"fast-jwt": "^1.7.1",
 		"fastify": "^4.7.0",
 		"fastify-disablecache": "^3.0.2",
-		"fastify-floc-off": "^2.0.2",
+		"fastify-floc-off": "^2.0.3",
 		"fastify-plugin": "^4.2.1",
 		"file-stream-rotator": "^0.6.1",
 		"fluent-json-schema": "^3.1.0",

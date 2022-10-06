@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [10.1.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v10.0.0...v10.1.0) (2022-10-06)
+
+
+### Features
+
+* **config:** use first available open port if `PORT` env variable unset ([#809](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/809)) ([95860da](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/95860da8ee66d71ddeebbacd787221c25cb65548))
+
+
+### Continuous Integration
+
+* **cd:** create release asset ([516ee83](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/516ee832a99f272b54e240d3dcf80c074a2763d1))
+
+
+### Dependencies
+
+* **.dockerignore:** add `SECURITY.md` ([d8a0b26](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d8a0b261a4d4ee12a790d621ad6405043336f95e))
+* **.dockerignore:** fix `CODE_OF_CONDUCT` entry ([#811](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/811)) ([7e55cfe](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7e55cfe9b9a1bde97e1bd57a6fe7fafa6e2a30f7))
+* **deps-dev:** bump eslint-plugin-jest from 27.0.4 to 27.1.1 ([#814](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/814)) ([e753a6e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e753a6ebb2dffb6b9c63594565bc70dba3602c7f))
+* **deps-dev:** bump pino-pretty from 9.1.0 to 9.1.1 ([#813](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/813)) ([c0052a2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c0052a2edb5f5b672e2e0c987cd8a62d8bccde92))
+* **deps:** bump fluent-json-schema from 3.1.0 to 4.0.0 ([#815](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/815)) ([8351b35](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8351b3501b6de995b5e088a9d2cce8ae6b5d6b8e))
+
 ## [10.0.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.11...v10.0.0) (2022-10-03)
 
 

@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [10.1.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v10.1.0...v10.1.1) (2022-10-18)
+
+
+### Dependencies
+
+* **deps-dev:** bump @faker-js/faker from 7.5.0 to 7.6.0 ([#822](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/822)) ([0b04001](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0b040017999feddd36a8b19c72832f8e82aeb2a9))
+* **deps-dev:** bump eslint from 8.24.0 to 8.25.0 ([#827](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/827)) ([da820f2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/da820f22c576d00d5d616522f18392abd42b0018))
+* **deps-dev:** bump eslint-plugin-jest from 27.1.1 to 27.1.2 ([#826](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/826)) ([b8cfda9](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b8cfda9df1063fcc136161647446eb1ed01ae097))
+* **deps-dev:** bump eslint-plugin-jsdoc from 39.3.6 to 39.3.13 ([#831](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/831)) ([d66c93e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d66c93e6d74de0d9d4e1b779c5ac0b398f4d908e))
+* **deps-dev:** bump eslint-plugin-promise from 6.0.1 to 6.1.0 ([#825](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/825)) ([f67b71f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f67b71fbda378bc6a3d1274814dc1c18b6bc5a41))
+* **deps-dev:** bump jest from 29.1.2 to 29.2.0 ([#823](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/823)) ([5ec88b6](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5ec88b69d45b34a3da2fa0eae0a8898c58321cfc))
+* **deps-dev:** bump mock-jwks from 1.0.3 to 1.0.5 ([#828](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/828)) ([31dc6df](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/31dc6df4646e4048f43f77640cb4589b31fc7cda))
+* **deps-dev:** bump mock-jwks from 1.0.5 to 1.0.6 ([#830](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/830)) ([3f9b361](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/3f9b3617344d42b116b6bf79dd4478ad565f9abd))
+* **deps:** bump @fastify/autoload from 5.4.0 to 5.4.1 ([#820](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/820)) ([93c0d57](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/93c0d5731a8ef2b991e8db8ff8593b4df0f4977a))
+* **deps:** bump @fastify/helmet from 10.0.1 to 10.0.2 ([#819](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/819)) ([d42fd2f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d42fd2f77e17b77d70e6b79cceecfba339de4655))
+* **deps:** bump @fastify/rate-limit from 7.4.0 to 7.5.0 ([#821](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/821)) ([def8e0c](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/def8e0c2d260569714e72090cb27975b6de68234))
+* **deps:** bump fastify from 4.7.0 to 4.8.1 ([#816](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/816)) ([1b5ab7a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1b5ab7a713ba8b585359b261a44a66ba6564585b))
+* **deps:** bump fastify from 4.8.1 to 4.9.1 ([#824](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/824)) ([d01e9ef](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d01e9ef27db6502c9c1a50dd2e779acdde7ba282))
+* **deps:** bump fastify-plugin from 4.2.1 to 4.3.0 ([#829](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/829)) ([7fc308d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7fc308d2f0127bef779d329d510e2e0f69833bf2))
+
+
+### Continuous Integration
+
+* **cd:** remove test files from release asset ([#832](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/832)) ([4e544ec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4e544ec8087b003dfbacf198b068f16bd6649111))
+
 ## [10.1.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v10.0.0...v10.1.0) (2022-10-06)
 
 

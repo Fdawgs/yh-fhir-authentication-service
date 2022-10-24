@@ -38,7 +38,7 @@ Perform the following steps before deployment:
 4. Configure the application using the environment variables in `.env`
 
 > **Note**
-> Set the following environment variables in `.env` to meet NHS Digital's recommendation to retain 6 months' worth of logs:
+> Set the following environment variables in `.env` to meet NHS Digital's recommendation to retain six months' worth of logs:
 >
 > -   `LOG_ROTATION_DATE_FORMAT="YYYY-MM-DD"`
 > -   `LOG_ROTATION_FREQUENCY="daily"`
@@ -97,7 +97,7 @@ Please adhere to this project's [Code of Conduct](./CODE_OF_CONDUCT.md) when con
 ## Acknowledgements
 
 -   [**Mark Hunt**](https://github.com/nhsbandit) - JWT and JWKS integration and testing
--   [**Will Jehring**](https://github.com/wjehring) - Redirect testing, and JWT testing
+-   [**Will Jehring**](https://github.com/wjehring) - Redirect and JWT testing
 
 ## License
 

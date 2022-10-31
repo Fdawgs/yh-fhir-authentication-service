@@ -97,7 +97,7 @@ Please adhere to this project's [Code of Conduct](./CODE_OF_CONDUCT.md) when con
 ## Acknowledgements
 
 -   [**Mark Hunt**](https://github.com/nhsbandit) - JWT and JWKS integration and testing
--   [**Will Jehring**](https://github.com/wjehring) - Redirect and JWT testing
+-   [**Will Jehring**](https://github.com/wjehring) - Forwarding and JWT testing
 
 ## License
 

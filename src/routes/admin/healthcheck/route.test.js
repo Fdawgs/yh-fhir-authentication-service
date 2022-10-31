@@ -12,7 +12,7 @@ describe("Healthcheck Route", () => {
 
 		beforeAll(async () => {
 			Object.assign(process.env, {
-				REDIRECT_URL: "https://nhs.uk",
+				FORWARD_URL: "https://nhs.uk",
 			});
 			config = await getConfig();
 

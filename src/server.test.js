@@ -54,7 +54,7 @@ describe("Server Deployment", () => {
 
 	beforeAll(() => {
 		Object.assign(process.env, {
-			REDIRECT_URL: "http://unsecured-server.ydh.nhs.uk",
+			FORWARD_URL: "http://unsecured-server.ydh.nhs.uk",
 		});
 
 		nock.disableNetConnect();
@@ -300,8 +300,8 @@ describe("Server Deployment", () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					config.redirect.undici = undefined;
-					config.redirect.http = true;
+					config.forward.undici = undefined;
+					config.forward.http = true;
 				});
 
 				beforeEach(async () => {
@@ -349,8 +349,8 @@ describe("Server Deployment", () => {
 					});
 				});
 
-				describe("/redirect Route", () => {
-					test("Should redirect request to 'REDIRECT_URL'", async () => {
+				describe("/forward Route", () => {
+					test("Should forward request to 'FORWARD_URL'", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -370,7 +370,7 @@ describe("Server Deployment", () => {
 						expect(response.statusCode).toBe(200);
 					});
 
-					test("Should redirect request to 'REDIRECT_URL' using search route and query string params", async () => {
+					test("Should forward request to 'FORWARD_URL' using search route and query string params", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient",
@@ -541,8 +541,8 @@ describe("Server Deployment", () => {
 					Object.assign(process.env, testObject.envVariables);
 					config = await getConfig();
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					config.redirect.undici = undefined;
-					config.redirect.http = true;
+					config.forward.undici = undefined;
+					config.forward.http = true;
 				});
 
 				beforeEach(async () => {
@@ -550,11 +550,11 @@ describe("Server Deployment", () => {
 					await server.register(startServer, config).ready();
 				});
 
-				describe("/redirect Route", () => {
+				describe("/forward Route", () => {
 					if (
 						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
 					) {
-						test("Should redirect request to 'REDIRECT_URL' using bearer token auth", async () => {
+						test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -573,7 +573,7 @@ describe("Server Deployment", () => {
 						});
 					}
 
-					test("Should fail to redirect request to 'REDIRECT_URL' using an invalid bearer token/JWT", async () => {
+					test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -592,7 +592,7 @@ describe("Server Deployment", () => {
 						expect(response.statusCode).toBe(401);
 					});
 
-					test("Should fail to redirect request to 'REDIRECT_URL' Resource if bearer token/JWT is missing", async () => {
+					test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Flag/126844-10",
@@ -617,7 +617,7 @@ describe("Server Deployment", () => {
 						testObject?.envVariables?.JWT_JWKS_ARRAY !==
 							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 					) {
-						test("Should redirect request to 'REDIRECT_URL' using valid JWT against a valid Issuer", async () => {
+						test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -643,7 +643,7 @@ describe("Server Deployment", () => {
 						testObject?.envVariables?.JWT_JWKS_ARRAY ===
 							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 					) {
-						test("Should fail to redirect request to 'REDIRECT_URL' using valid JWT against a invalid Issuer", async () => {
+						test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -687,15 +687,15 @@ describe("Server Deployment", () => {
 			await server.close();
 		});
 
-		describe("/redirect Route", () => {
+		describe("/forward Route", () => {
 			beforeAll(async () => {
 				Object.assign(process.env, {
-					REDIRECT_URL: "http://0.0.0.125",
+					FORWARD_URL: "http://0.0.0.125",
 				});
 				config = await getConfig();
 				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-				config.redirect.undici = undefined;
-				config.redirect.http = true;
+				config.forward.undici = undefined;
+				config.forward.http = true;
 			});
 
 			beforeEach(async () => {
@@ -703,7 +703,7 @@ describe("Server Deployment", () => {
 				await server.register(startServer, config).ready();
 			});
 
-			test("Should return HTTP status code 500 if 'REDIRECT_URL' is invalid", async () => {
+			test("Should return HTTP status code 500 if 'FORWARD_URL' is invalid", async () => {
 				const response = await server.inject({
 					method: "GET",
 					url: "/STU3/Patient/5484125",

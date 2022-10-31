@@ -58,7 +58,7 @@ async function getConfig() {
 			// Service
 			.prop("HOST", S.string())
 			.prop("PORT", S.anyOf([S.number(), S.null()]))
-			.prop("REDIRECT_URL", S.string().format("uri"))
+			.prop("FORWARD_URL", S.string().format("uri"))
 
 			// CORS
 			.prop("CORS_ORIGIN", S.anyOf([S.string(), S.null()]))
@@ -129,7 +129,7 @@ async function getConfig() {
 
 			// JWT Validation
 			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
-			.required(["NODE_ENV", "HOST", "REDIRECT_URL"]),
+			.required(["NODE_ENV", "HOST", "FORWARD_URL"]),
 	});
 
 	const isProduction = env.NODE_ENV.toLowerCase() === "production";
@@ -233,9 +233,9 @@ async function getConfig() {
 				components: {},
 				tags: [
 					{
-						name: "Redirects",
+						name: "Forwards",
 						description:
-							"Endpoints relating to redirection to FHIR listener",
+							"Endpoints relating to forwarding to FHIR listener",
 					},
 					{
 						name: "System Administration",
@@ -244,8 +244,8 @@ async function getConfig() {
 				],
 			},
 		},
-		redirect: {
-			base: new URL(env.REDIRECT_URL).href,
+		forward: {
+			base: new URL(env.FORWARD_URL).href,
 			// Disable logging of "fetching from remote server" and "response received" from remote server
 			disableRequestLogging: true,
 			// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions

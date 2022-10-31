@@ -132,10 +132,7 @@ async function getConfig() {
 			.required(["NODE_ENV", "HOST", "FORWARD_URL"]),
 	});
 
-	const isProduction = env.NODE_ENV.toLowerCase() === "production";
-
 	const config = {
-		isProduction,
 		fastify: {
 			// 0 picks the first available open port
 			port: env.PORT || 0,

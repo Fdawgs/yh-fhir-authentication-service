@@ -75,8 +75,6 @@ describe("Configuration", () => {
 
 		const config = await getConfig();
 
-		expect(config.isProduction).toBe(false);
-
 		expect(config.fastify).toEqual({
 			host: HOST,
 			port: 0,
@@ -191,8 +189,6 @@ describe("Configuration", () => {
 		});
 
 		const config = await getConfig();
-
-		expect(config.isProduction).toBe(false);
 
 		expect(config.fastify).toEqual({
 			host: HOST,

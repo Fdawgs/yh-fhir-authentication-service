@@ -129,7 +129,7 @@ async function getConfig() {
 
 			// JWT Validation
 			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
-			.required(["NODE_ENV", "HOST", "FORWARD_URL"]),
+			.required(["FORWARD_URL"]),
 	});
 
 	const config = {

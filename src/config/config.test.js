@@ -4,7 +4,7 @@ const glob = require("glob");
 const getConfig = require(".");
 
 describe("Configuration", () => {
-	const currentEnv = { ...process.env };
+	const currentEnv = { ...process.env, NODE_ENV: "development" };
 
 	afterAll(async () => {
 		const files = glob.sync("./test_resources/+(test-log*|.audit.json)", {
@@ -21,8 +21,7 @@ describe("Configuration", () => {
 	});
 
 	test("Should use defaults if values missing and return values according to environment variables", async () => {
-		const NODE_ENV = "development";
-		const HOST = faker.internet.ip();
+		const HOST = "";
 		const PORT = "";
 		const FORWARD_URL = "https://nhs.uk";
 		const CORS_ORIGIN = "";
@@ -47,7 +46,6 @@ describe("Configuration", () => {
 		const JWT_JWKS_ARRAY = "";
 
 		Object.assign(process.env, {
-			NODE_ENV,
 			HOST,
 			PORT,
 			FORWARD_URL,
@@ -76,7 +74,6 @@ describe("Configuration", () => {
 		const config = await getConfig();
 
 		expect(config.fastify).toEqual({
-			host: HOST,
 			port: 0,
 		});
 
@@ -135,7 +132,6 @@ describe("Configuration", () => {
 	});
 
 	test("Should return values according to environment variables - HTTPS (SSL cert) enabled, HTTP2 enabled, bearer token auth enabled, and JWKS JWT auth enabled", async () => {
-		const NODE_ENV = "development";
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
 		const FORWARD_URL = "https://nhs.uk";
@@ -165,7 +161,6 @@ describe("Configuration", () => {
 			'[{"issuerDomain": "https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "maxAge": 90000}]';
 
 		Object.assign(process.env, {
-			NODE_ENV,
 			HOST,
 			PORT,
 			FORWARD_URL,

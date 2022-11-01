@@ -2,9 +2,9 @@
 const replyFrom = require("@fastify/reply-from");
 const cors = require("@fastify/cors");
 
-const { redirectGetSchema } = require("./schema");
+const { forwardGetSchema } = require("./schema");
 
-const accepts = redirectGetSchema.produces;
+const accepts = forwardGetSchema.produces;
 
 /**
  * @author Frazer Smith
@@ -12,7 +12,7 @@ const accepts = redirectGetSchema.produces;
  * @param {object} server - Fastify instance.
  * @param {object} options - Route config values.
  * @param {object} options.cors - CORS settings.
- * @param {object} options.redirect - @fastify/reply-from plugin options.
+ * @param {object} options.forward - @fastify/reply-from plugin options.
  */
 async function route(server, options) {
 	// Register plugins
@@ -22,11 +22,11 @@ async function route(server, options) {
 			...options.cors,
 			methods: ["GET"],
 		})
-		.register(replyFrom, options.redirect);
+		.register(replyFrom, options.forward);
 
 	const opts = {
 		method: "GET",
-		schema: redirectGetSchema,
+		schema: forwardGetSchema,
 		onRequest: async (req) => {
 			if (
 				// Catch unsupported Accept header media types

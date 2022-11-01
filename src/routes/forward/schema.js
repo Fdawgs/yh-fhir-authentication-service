@@ -1,6 +1,6 @@
 const S = require("fluent-json-schema");
 
-const tags = ["Redirect"];
+const tags = ["Forward"];
 
 /**
  * Fastify uses AJV for JSON Schema Validation,
@@ -8,11 +8,11 @@ const tags = ["Redirect"];
  *
  * Input validation protects against XSS, HPP, and most injection attacks.
  */
-const redirectGetSchema = {
+const forwardGetSchema = {
 	tags,
-	summary: "Redirect route",
+	summary: "Forward route",
 	description:
-		"Redirects to the URL set with the `REDIRECT_URL` environment variable.",
+		"Forwards to the URL set with the `FORWARD_URL` environment variable.",
 	produces: ["application/fhir+json", "application/fhir+xml"],
 	params: S.object()
 		/**
@@ -79,4 +79,4 @@ const redirectGetSchema = {
 	},
 };
 
-module.exports = { redirectGetSchema };
+module.exports = { forwardGetSchema };

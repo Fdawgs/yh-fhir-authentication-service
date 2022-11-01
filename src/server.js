@@ -123,7 +123,7 @@ async function plugin(server, config) {
 			await securedContext
 				// Import and register service routes
 				.register(autoLoad, {
-					dir: path.joinSafe(__dirname, "routes", "redirect"),
+					dir: path.joinSafe(__dirname, "routes", "forward"),
 					dirNameRoutePrefix: false,
 					options: config,
 				});

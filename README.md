@@ -21,7 +21,7 @@ Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhe
 -   Easily configurable authentication on HTTP/FHIR listeners
 -   Easily configurable CORS
 
-This service was created to provide that functionality, acting as middleware between the firewall and the targeted FHIR/HTTP listener channel.
+This service was created to provide that functionality, acting as a proxy and middleware between the firewall and the targeted FHIR/HTTP listener channel.
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ Please adhere to this project's [Code of Conduct](./CODE_OF_CONDUCT.md) when con
 ## Acknowledgements
 
 -   [**Mark Hunt**](https://github.com/nhsbandit) - JWT and JWKS integration and testing
--   [**Will Jehring**](https://github.com/wjehring) - Redirect and JWT testing
+-   [**Will Jehring**](https://github.com/wjehring) - Forwarding and JWT testing
 
 ## License
 

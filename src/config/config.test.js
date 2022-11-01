@@ -4,7 +4,7 @@ const glob = require("glob");
 const getConfig = require(".");
 
 describe("Configuration", () => {
-	const currentEnv = { ...process.env };
+	const currentEnv = { ...process.env, NODE_ENV: "development" };
 
 	afterAll(async () => {
 		const files = glob.sync("./test_resources/+(test-log*|.audit.json)", {
@@ -21,10 +21,9 @@ describe("Configuration", () => {
 	});
 
 	test("Should use defaults if values missing and return values according to environment variables", async () => {
-		const NODE_ENV = "development";
-		const HOST = faker.internet.ip();
+		const HOST = "";
 		const PORT = "";
-		const REDIRECT_URL = "https://nhs.uk";
+		const FORWARD_URL = "https://nhs.uk";
 		const CORS_ORIGIN = "";
 		const CORS_ALLOWED_HEADERS = "";
 		const CORS_ALLOW_CREDENTIALS = "";
@@ -47,10 +46,9 @@ describe("Configuration", () => {
 		const JWT_JWKS_ARRAY = "";
 
 		Object.assign(process.env, {
-			NODE_ENV,
 			HOST,
 			PORT,
-			REDIRECT_URL,
+			FORWARD_URL,
 			CORS_ORIGIN,
 			CORS_ALLOWED_HEADERS,
 			CORS_ALLOW_CREDENTIALS,
@@ -75,10 +73,7 @@ describe("Configuration", () => {
 
 		const config = await getConfig();
 
-		expect(config.isProduction).toBe(false);
-
 		expect(config.fastify).toEqual({
-			host: HOST,
 			port: 0,
 		});
 
@@ -122,8 +117,8 @@ describe("Configuration", () => {
 			timeWindow: 60000,
 		});
 
-		expect(config.redirect).toEqual({
-			base: `${REDIRECT_URL}/`,
+		expect(config.forward).toEqual({
+			base: `${FORWARD_URL}/`,
 			disableRequestLogging: true,
 			undici: {
 				connections: 128,
@@ -137,10 +132,9 @@ describe("Configuration", () => {
 	});
 
 	test("Should return values according to environment variables - HTTPS (SSL cert) enabled, HTTP2 enabled, bearer token auth enabled, and JWKS JWT auth enabled", async () => {
-		const NODE_ENV = "development";
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const REDIRECT_URL = "https://nhs.uk";
+		const FORWARD_URL = "https://nhs.uk";
 		const HTTPS_SSL_CERT_PATH =
 			"./test_resources/test_ssl_cert/server.cert";
 		const HTTPS_SSL_KEY_PATH = "./test_resources/test_ssl_cert/server.key";
@@ -167,10 +161,9 @@ describe("Configuration", () => {
 			'[{"issuerDomain": "https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "maxAge": 90000}]';
 
 		Object.assign(process.env, {
-			NODE_ENV,
 			HOST,
 			PORT,
-			REDIRECT_URL,
+			FORWARD_URL,
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
 			HTTPS_HTTP2_ENABLED,
@@ -191,8 +184,6 @@ describe("Configuration", () => {
 		});
 
 		const config = await getConfig();
-
-		expect(config.isProduction).toBe(false);
 
 		expect(config.fastify).toEqual({
 			host: HOST,
@@ -238,8 +229,8 @@ describe("Configuration", () => {
 			timeWindow: 60000,
 		});
 
-		expect(config.redirect).toEqual({
-			base: `${REDIRECT_URL}/`,
+		expect(config.forward).toEqual({
+			base: `${FORWARD_URL}/`,
 			disableRequestLogging: true,
 			undici: {
 				connections: 128,
@@ -255,7 +246,7 @@ describe("Configuration", () => {
 	test("Should return values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const REDIRECT_URL = "https://nhs.uk";
+		const FORWARD_URL = "https://nhs.uk";
 		const HTTPS_PFX_FILE_PATH =
 			"./test_resources/test_ssl_cert/server.cert"; // Not an actual PFX file
 		const HTTPS_PFX_PASSPHRASE = faker.lorem.word();
@@ -269,7 +260,7 @@ describe("Configuration", () => {
 		Object.assign(process.env, {
 			HOST,
 			PORT,
-			REDIRECT_URL,
+			FORWARD_URL,
 			HTTPS_PFX_FILE_PATH,
 			HTTPS_PFX_PASSPHRASE,
 			HTTPS_HTTP2_ENABLED,
@@ -340,7 +331,7 @@ describe("Configuration", () => {
 		async ({ envVariables, expected }) => {
 			const HOST = faker.internet.ip();
 			const PORT = faker.datatype.number();
-			const REDIRECT_URL = "https://nhs.uk";
+			const FORWARD_URL = "https://nhs.uk";
 			const { CORS_ORIGIN } = envVariables;
 			const CORS_ALLOWED_HEADERS =
 				"Accept, Authorization, Content-Type, Origin, X-Requested-With";
@@ -357,7 +348,7 @@ describe("Configuration", () => {
 			Object.assign(process.env, {
 				HOST,
 				PORT,
-				REDIRECT_URL,
+				FORWARD_URL,
 				CORS_ORIGIN,
 				CORS_ALLOWED_HEADERS,
 				CORS_ALLOW_CREDENTIALS,
@@ -404,7 +395,7 @@ describe("Configuration", () => {
 	])("Should throw error if $testName", async ({ envVariables }) => {
 		const HOST = faker.internet.ip();
 		const PORT = faker.datatype.number();
-		const REDIRECT_URL = "https://nhs.uk";
+		const FORWARD_URL = "https://nhs.uk";
 		const HTTPS_SSL_KEY_PATH = envVariables?.HTTPS_SSL_KEY_PATH || "";
 		const HTTPS_SSL_CERT_PATH = envVariables?.HTTPS_SSL_CERT_PATH || "";
 		const HTTPS_PFX_FILE_PATH = envVariables?.HTTPS_PFX_FILE_PATH || "";
@@ -418,7 +409,7 @@ describe("Configuration", () => {
 		Object.assign(process.env, {
 			HOST,
 			PORT,
-			REDIRECT_URL,
+			FORWARD_URL,
 			HTTPS_SSL_CERT_PATH,
 			HTTPS_SSL_KEY_PATH,
 			HTTPS_PFX_FILE_PATH,

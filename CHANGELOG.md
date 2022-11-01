@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file.
 
+## [11.0.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v10.1.1...v11.0.0) (2022-11-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **routes:** `REDIRECT_URL` env variable renamed to `FORWARD_URL`
+
+### Bug Fixes
+
+* **routes/admin/healthcheck:** accept header handling ([896ccd6](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/896ccd69dff5acc813a88a81a350fa5932438d9a))
+* **routes/admin/healthcheck:** openapi schema content types ([2295b14](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2295b14da6cf9e123896f11146a65e2cebd8d3c9))
+* **routes/forward:** openapi schema tag ([c034e5c](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c034e5cf388c7667c6d80aeac6b3a485bb42559d))
+
+
+### Miscellaneous
+
+* **.env.template:** remove `PORT` value ([b2a930d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b2a930df4f8ca232fde237d753caa2e0f85b3768))
+
+
+### Documentation
+
+* content and grammar fixes ([#835](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/835)) ([c54bde3](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c54bde3e52ebcfdf10a8a13435f196060c7813f5))
+* **readme:** update definition ([1203750](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1203750f3f04bb20b75e419891744ecbbf8bdc6e))
+* **readme:** update example log ([5831d29](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5831d2929bad366c4326b643b5db49ea83e64f70))
+
+
+### Improvements
+
+* **config:** remove leftover pretty print variable ([e40103d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e40103dfa4dfab59f9e175c5bd7c647df3a3b1c9))
+* **config:** remove redundant required props ([cf54201](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/cf54201f0d737968c4f0fb28446733b7f9585de4))
+* **routes:** rename `/redirect` route to `/forward` ([b00f06d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b00f06de8c6fcba67cbf642cfa5bd6fd1a10b643))
+
+
+### Dependencies
+
+* **deps-dev:** bump @commitlint/cli from 17.1.2 to 17.2.0 ([#849](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/849)) ([8e90027](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8e90027bda41a60adef1905941b0d7fcefdf82e5))
+* **deps-dev:** bump @commitlint/config-conventional ([#850](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/850)) ([9c17804](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9c17804c3d97ccb545839dc959328797a17eaaf1))
+* **deps-dev:** bump eslint from 8.25.0 to 8.26.0 ([#839](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/839)) ([a6f61e0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a6f61e0edee2301f2b4d94640e57aa2453a724d0))
+* **deps-dev:** bump eslint-plugin-jest from 27.1.2 to 27.1.3 ([#846](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/846)) ([f87d820](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f87d82073adae372676e1428a405e588fb8dbd60))
+* **deps-dev:** bump eslint-plugin-jsdoc from 39.3.13 to 39.4.0 ([#837](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/837)) ([4e95d23](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4e95d233fa54942a06b7a21f55e95f5092967bf0))
+* **deps-dev:** bump eslint-plugin-promise from 6.1.0 to 6.1.1 ([#840](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/840)) ([7f526ed](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7f526ed4b2bf5901044b3ff4b26ed825997bf080))
+* **deps-dev:** bump jest from 29.2.0 to 29.2.2 ([#844](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/844)) ([951d86b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/951d86b2ccc7add8c26e366a340555561f674e94))
+* **deps-dev:** bump mock-jwks from 1.0.6 to 1.0.8 ([#838](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/838)) ([42ed526](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/42ed526b255733ac5106cf93250ff4ef98f5a87f))
+* **deps:** bump @fastify/cors from 8.1.0 to 8.1.1 ([#845](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/845)) ([d83e9f5](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d83e9f5d67a13444c457bfa3e7894240ce89053b))
+* **deps:** bump fastify from 4.9.1 to 4.9.2 ([#843](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/843)) ([fef0a39](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/fef0a39785addcc1d39037f453733244784c5c47))
+* **deps:** bump fastify-disablecache from 3.0.3 to 3.0.4 ([#847](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/847)) ([4100943](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4100943457a07a4ad7d170d12f93ef43d83ec969))
+* **deps:** bump fastify-floc-off from 2.0.3 to 2.0.4 ([#841](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/841)) ([b55b37b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b55b37bdb8914cdbdbadc4327b670fc34c6c00c0))
+* **deps:** bump pino from 8.6.1 to 8.7.0 ([#842](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/842)) ([7fd5a1e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7fd5a1e7fea2b082d77f4af268527a9c44b735e3))
+* **deps:** bump transistive dependencies ([0ee5a47](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0ee5a474bcf12d225f7e01fc6f37e05a7c34a07b))
+
 ## [10.1.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v10.1.0...v10.1.1) (2022-10-18)
 
 

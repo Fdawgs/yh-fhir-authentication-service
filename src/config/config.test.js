@@ -321,7 +321,7 @@ describe("Configuration", () => {
 		"Should return values according to environment variables - $testName",
 		async ({ envVariables, expected }) => {
 			const HOST = "0.0.0.0";
-			const PORT = 443;
+			const PORT = 80;
 			const FORWARD_URL = "https://nhs.uk";
 			const { CORS_ORIGIN } = envVariables;
 			const CORS_ALLOWED_HEADERS =

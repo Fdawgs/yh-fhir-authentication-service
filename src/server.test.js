@@ -124,6 +124,209 @@ describe("Server Deployment", () => {
 		await Promise.all([mockJwksServerOne.stop(), mockJwksServerTwo.stop()]);
 	});
 
+	describe("Auth", () => {
+		let config;
+		let server;
+		let currentEnv;
+
+		beforeAll(() => {
+			Object.assign(process.env, {
+				JWT_JWKS_ARRAY: "",
+			});
+			currentEnv = { ...process.env };
+		});
+
+		afterEach(async () => {
+			// Reset the process.env to default after each test
+			Object.assign(process.env, currentEnv);
+
+			await server.close();
+		});
+
+		const authTests = [
+			{
+				testName: "Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY:
+						'[{"service": "test", "value": "testtoken"}]',
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
+				},
+			},
+			{
+				testName:
+					"Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY:
+						'[{"service": "test", "value": "testtoken"}]',
+					JWT_JWKS_ARRAY: "",
+				},
+			},
+			{
+				testName:
+					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
+				},
+			},
+			{
+				testName:
+					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint with different aud",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`,
+				},
+			},
+			{
+				testName:
+					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With Two Jwks Endpoints (With Valid Key for One)",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"},{"issuerDomain": "${invalidIssuerUri}"}]`,
+				},
+			},
+
+			{
+				testName:
+					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With One Jwks Endpoint (With an Invalid Key)",
+				envVariables: {
+					AUTH_BEARER_TOKEN_ARRAY: "",
+					JWT_JWKS_ARRAY: `[{"issuerDomain": "${invalidIssuerUri}"}]`,
+				},
+			},
+		];
+		authTests.forEach((testObject) => {
+			describe(`${testObject.testName}`, () => {
+				beforeAll(async () => {
+					Object.assign(process.env, testObject.envVariables);
+					config = await getConfig();
+					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
+					config.forward.undici = undefined;
+					config.forward.http = true;
+				});
+
+				beforeEach(async () => {
+					server = Fastify();
+					await server.register(startServer, config).ready();
+				});
+
+				describe("/forward Route", () => {
+					if (
+						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
+					) {
+						test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: "Bearer testtoken",
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toHaveProperty(
+								"resourceType",
+								"Patient"
+							);
+							expect(response.headers).toEqual(expResHeaders);
+							expect(response.statusCode).toBe(200);
+						});
+					}
+
+					test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								authorization: "Bearer invalidtoken",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Unauthorized",
+							message: "invalid authorization header",
+							statusCode: 401,
+						});
+						expect(response.headers).toEqual(expResHeadersJson);
+						expect(response.statusCode).toBe(401);
+					});
+
+					test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Flag/126844-10",
+							headers: {
+								accept: "application/fhir+json",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toEqual({
+							error: "Unauthorized",
+							message: "missing authorization header",
+							statusCode: 401,
+						});
+						expect(response.headers).toEqual(expResHeadersJson);
+						expect(response.statusCode).toBe(401);
+					});
+
+					if (
+						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
+						testObject?.envVariables?.JWT_JWKS_ARRAY !==
+							`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
+						testObject?.envVariables?.JWT_JWKS_ARRAY !==
+							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
+					) {
+						test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: `Bearer ${token}`,
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toHaveProperty(
+								"resourceType",
+								"Patient"
+							);
+							expect(response.headers).toEqual(expResHeaders);
+							expect(response.statusCode).toBe(200);
+						});
+					}
+
+					if (
+						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
+						testObject?.envVariables?.JWT_JWKS_ARRAY ===
+							`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
+						testObject?.envVariables?.JWT_JWKS_ARRAY ===
+							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
+					) {
+						test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
+							const response = await server.inject({
+								method: "GET",
+								url: "/STU3/Patient/5484125",
+								headers: {
+									accept: "application/fhir+json",
+									authorization: `Bearer ${token}`,
+								},
+							});
+
+							expect(JSON.parse(response.payload)).toEqual({
+								error: "Unauthorized",
+								message: "invalid authorization header",
+								statusCode: 401,
+							});
+							expect(response.headers).toEqual(expResHeadersJson);
+							expect(response.statusCode).toBe(401);
+						});
+					}
+				});
+			});
+		});
+	});
+
 	describe("CORS", () => {
 		let config;
 		let server;
@@ -459,209 +662,6 @@ describe("Server Deployment", () => {
 						);
 						expect(response.statusCode).toBe(404);
 					});
-				});
-			});
-		});
-	});
-
-	describe("Auth", () => {
-		let config;
-		let server;
-		let currentEnv;
-
-		beforeAll(() => {
-			Object.assign(process.env, {
-				JWT_JWKS_ARRAY: "",
-			});
-			currentEnv = { ...process.env };
-		});
-
-		afterEach(async () => {
-			// Reset the process.env to default after each test
-			Object.assign(process.env, currentEnv);
-
-			await server.close();
-		});
-
-		const authTests = [
-			{
-				testName: "Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
-				envVariables: {
-					AUTH_BEARER_TOKEN_ARRAY:
-						'[{"service": "test", "value": "testtoken"}]',
-					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
-				},
-			},
-			{
-				testName:
-					"Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
-				envVariables: {
-					AUTH_BEARER_TOKEN_ARRAY:
-						'[{"service": "test", "value": "testtoken"}]',
-					JWT_JWKS_ARRAY: "",
-				},
-			},
-			{
-				testName:
-					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint",
-				envVariables: {
-					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
-				},
-			},
-			{
-				testName:
-					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint with different aud",
-				envVariables: {
-					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`,
-				},
-			},
-			{
-				testName:
-					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With Two Jwks Endpoints (With Valid Key for One)",
-				envVariables: {
-					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"},{"issuerDomain": "${invalidIssuerUri}"}]`,
-				},
-			},
-
-			{
-				testName:
-					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With One Jwks Endpoint (With an Invalid Key)",
-				envVariables: {
-					AUTH_BEARER_TOKEN_ARRAY: "",
-					JWT_JWKS_ARRAY: `[{"issuerDomain": "${invalidIssuerUri}"}]`,
-				},
-			},
-		];
-		authTests.forEach((testObject) => {
-			describe(`${testObject.testName}`, () => {
-				beforeAll(async () => {
-					Object.assign(process.env, testObject.envVariables);
-					config = await getConfig();
-					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					config.forward.undici = undefined;
-					config.forward.http = true;
-				});
-
-				beforeEach(async () => {
-					server = Fastify();
-					await server.register(startServer, config).ready();
-				});
-
-				describe("/forward Route", () => {
-					if (
-						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
-					) {
-						test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: "Bearer testtoken",
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toHaveProperty(
-								"resourceType",
-								"Patient"
-							);
-							expect(response.headers).toEqual(expResHeaders);
-							expect(response.statusCode).toBe(200);
-						});
-					}
-
-					test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
-						const response = await server.inject({
-							method: "GET",
-							url: "/STU3/Patient/5484125",
-							headers: {
-								accept: "application/fhir+json",
-								authorization: "Bearer invalidtoken",
-							},
-						});
-
-						expect(JSON.parse(response.payload)).toEqual({
-							error: "Unauthorized",
-							message: "invalid authorization header",
-							statusCode: 401,
-						});
-						expect(response.headers).toEqual(expResHeadersJson);
-						expect(response.statusCode).toBe(401);
-					});
-
-					test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
-						const response = await server.inject({
-							method: "GET",
-							url: "/STU3/Flag/126844-10",
-							headers: {
-								accept: "application/fhir+json",
-							},
-						});
-
-						expect(JSON.parse(response.payload)).toEqual({
-							error: "Unauthorized",
-							message: "missing authorization header",
-							statusCode: 401,
-						});
-						expect(response.headers).toEqual(expResHeadersJson);
-						expect(response.statusCode).toBe(401);
-					});
-
-					if (
-						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
-						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
-						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
-					) {
-						test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: `Bearer ${token}`,
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toHaveProperty(
-								"resourceType",
-								"Patient"
-							);
-							expect(response.headers).toEqual(expResHeaders);
-							expect(response.statusCode).toBe(200);
-						});
-					}
-
-					if (
-						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
-						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
-						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
-					) {
-						test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: `Bearer ${token}`,
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toEqual({
-								error: "Unauthorized",
-								message: "invalid authorization header",
-								statusCode: 401,
-							});
-							expect(response.headers).toEqual(expResHeadersJson);
-							expect(response.statusCode).toBe(401);
-						});
-					}
 				});
 			});
 		});

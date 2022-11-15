@@ -33,7 +33,7 @@ describe("Configuration", () => {
 		const HTTPS_HTTP2_ENABLED = "";
 		const LOG_LEVEL = "";
 		const LOG_ROTATION_DATE_FORMAT = "";
-		const LOG_ROTATION_FILENAME = "./test_resources/test-log-%DATE%.log";
+		const LOG_ROTATION_FILENAME = "";
 		const LOG_ROTATION_FREQUENCY = "";
 		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = "";
 		const PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION = "";
@@ -84,7 +84,6 @@ describe("Configuration", () => {
 				res: expect.any(Function),
 			},
 			timestamp: expect.any(Function),
-			stream: expect.any(Object),
 		});
 		expect(config.fastifyInit.logger.formatters.level()).toEqual({
 			level: undefined,
@@ -141,7 +140,7 @@ describe("Configuration", () => {
 		const LOG_LEVEL = "trace";
 		const LOG_ROTATION_DATE_FORMAT = "YYYY-MM";
 		const LOG_ROTATION_FILENAME = "./test_resources/test-log-%DATE%.log";
-		const LOG_ROTATION_FREQUENCY = "custom";
+		const LOG_ROTATION_FREQUENCY = "date";
 		const LOG_ROTATION_MAX_LOGS = "1";
 		const LOG_ROTATION_MAX_SIZE = "1g";
 		const PROC_LOAD_MAX_EVENT_LOOP_DELAY = 1000;

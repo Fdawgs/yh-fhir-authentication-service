@@ -49,8 +49,10 @@ async function plugin(server, options) {
 							allowedAud: element?.allowedAudiences,
 							allowedIss: element.issuerDomain,
 							allowedSub: element?.allowedSubjects,
+							cacheTTL: 600000, // Cache for 10 mins
 							clockTimestamp: Date.now(),
 							clockTolerance: 0,
+							errorCacheTTL: 600000,
 							ignoreExpiration: false,
 							ignoreNotBefore: false,
 							key: await getJwks.getPublicKey({

@@ -272,9 +272,9 @@ async function getConfig() {
 
 		// Rotation options: https://github.com/rogerc/file-stream-rotator/#options
 		config.fastifyInit.logger.stream = rotatingLogStream.getStream({
+			audit_file: path.joinSafe(path.dirname(logFile), ".audit.json"),
 			date_format: env.LOG_ROTATION_DATE_FORMAT || "YYYY-MM-DD",
 			filename: logFile,
-			audit_file: path.joinSafe(path.dirname(logFile), ".audit.json"),
 			frequency: env.LOG_ROTATION_FREQUENCY || "daily",
 			max_logs: env.LOG_ROTATION_MAX_LOGS,
 			size: env.LOG_ROTATION_MAX_SIZE,

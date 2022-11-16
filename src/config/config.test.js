@@ -129,6 +129,48 @@ describe("Configuration", () => {
 		expect(config.jwt).toBeUndefined();
 	});
 
+	test("Should use defaults logging values if values missing", async () => {
+		const FORWARD_URL = "https://nhs.uk";
+		const LOG_LEVEL = "";
+		const LOG_ROTATION_DATE_FORMAT = "";
+		const LOG_ROTATION_FILENAME = "./test_resources/test-log-%DATE%.log";
+		const LOG_ROTATION_FREQUENCY = "";
+
+		Object.assign(process.env, {
+			FORWARD_URL,
+			LOG_LEVEL,
+			LOG_ROTATION_DATE_FORMAT,
+			LOG_ROTATION_FILENAME,
+			LOG_ROTATION_FREQUENCY,
+		});
+
+		const config = await getConfig();
+
+		expect(config.fastifyInit.logger).toEqual({
+			formatters: { level: expect.any(Function) },
+			level: "info",
+			serializers: {
+				req: expect.any(Function),
+				res: expect.any(Function),
+			},
+			stream: expect.any(Object),
+			timestamp: expect.any(Function),
+		});
+		expect(config.fastifyInit.logger.formatters.level()).toEqual({
+			level: undefined,
+		});
+		expect(config.fastifyInit.logger.stream.config.options).toEqual(
+			expect.objectContaining({
+				filename: LOG_ROTATION_FILENAME,
+				date_format: "YYYY-MM-DD",
+				frequency: "daily",
+			})
+		);
+		expect(config.fastifyInit.logger.timestamp().substring(0, 7)).toBe(
+			',"time"'
+		);
+	});
+
 	test("Should return values according to environment variables - HTTPS (SSL cert) enabled, HTTP2 enabled, bearer token auth enabled, and JWKS JWT auth enabled", async () => {
 		const HOST = "0.0.0.0";
 		const PORT = 443;
@@ -191,12 +233,21 @@ describe("Configuration", () => {
 				req: expect.any(Function),
 				res: expect.any(Function),
 			},
-			timestamp: expect.any(Function),
 			stream: expect.any(Object),
+			timestamp: expect.any(Function),
 		});
 		expect(config.fastifyInit.logger.formatters.level()).toEqual({
 			level: undefined,
 		});
+		expect(config.fastifyInit.logger.stream.config.options).toEqual(
+			expect.objectContaining({
+				date_format: LOG_ROTATION_DATE_FORMAT,
+				filename: LOG_ROTATION_FILENAME,
+				frequency: LOG_ROTATION_FREQUENCY,
+				max_logs: LOG_ROTATION_MAX_LOGS,
+				size: LOG_ROTATION_MAX_SIZE,
+			})
+		);
 		expect(config.fastifyInit.logger.timestamp().substring(0, 7)).toBe(
 			',"time"'
 		);

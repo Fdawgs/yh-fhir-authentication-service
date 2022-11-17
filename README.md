@@ -25,7 +25,7 @@ This service was created to provide that functionality, acting as a proxy and mi
 
 ## Prerequisites
 
--   [Node.js](https://nodejs.org/en/) >=16.0.0 (if running outside of Docker)
+-   [Node.js](https://nodejs.org/en/) >=18.12.1 (if running outside of Docker)
 -   [Mirth Connect](https://github.com/nextgenhealthcare/connect)
 
 ## Setup

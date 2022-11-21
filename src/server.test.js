@@ -649,8 +649,6 @@ describe("Server Deployment", () => {
 							);
 							expect(response.headers).toEqual(expResHeaders);
 							expect(response.statusCode).toBe(200);
-
-							await server.close();
 						});
 					}
 

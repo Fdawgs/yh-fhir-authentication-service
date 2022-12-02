@@ -52,7 +52,7 @@ async function route(server, options) {
 							acaOrigin = reqOrigin;
 						}
 
-						if (origin === "*" && credentials === undefined) {
+						if (origin === "*" && !credentials) {
 							acaOrigin = "*";
 						}
 

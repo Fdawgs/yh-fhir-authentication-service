@@ -40,7 +40,7 @@ describe("Configuration", () => {
 		const PROC_LOAD_MAX_HEAP_USED_BYTES = "";
 		const PROC_LOAD_MAX_RSS_BYTES = "";
 		const RATE_LIMIT_MAX_CONNECTIONS_PER_MIN = "";
-		const RATE_LIMIT_EXCLUDED_ARRAY = '["127.0.0.1"]';
+		const RATE_LIMIT_EXCLUDED_ARRAY = "";
 		const AUTH_BEARER_TOKEN_ARRAY = "";
 		const JWT_JWKS_ARRAY = "";
 
@@ -96,8 +96,12 @@ describe("Configuration", () => {
 		expect(config.fastifyInit.http2).toBeUndefined();
 
 		expect(config.cors).toEqual({
-			origin: false,
+			allowedHeaders: null,
+			credentials: false,
+			exposedHeaders: null,
 			hideOptionsRoute: true,
+			maxAge: null,
+			origin: false,
 		});
 
 		expect(config.processLoad).toEqual({
@@ -108,7 +112,7 @@ describe("Configuration", () => {
 		});
 
 		expect(config.rateLimit).toEqual({
-			allowList: JSON.parse(RATE_LIMIT_EXCLUDED_ARRAY),
+			allowList: null,
 			continueExceeding: true,
 			hook: "onSend",
 			max: 1000,
@@ -404,7 +408,7 @@ describe("Configuration", () => {
 			expect(config.cors).toEqual({
 				origin: expected.origin,
 				allowedHeaders: CORS_ALLOWED_HEADERS,
-				credentials: expected?.credentials,
+				credentials: expected?.credentials || false,
 				exposedHeaders: CORS_EXPOSED_HEADERS,
 				hideOptionsRoute: true,
 				maxAge: CORS_MAX_AGE,

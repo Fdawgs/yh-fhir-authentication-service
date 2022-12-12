@@ -93,7 +93,7 @@
 		"@fastify/helmet": "^10.1.0",
 		"@fastify/rate-limit": "^7.6.0",
 		"@fastify/reply-from": "^8.3.1",
-		"@fastify/sensible": "^5.1.1",
+		"@fastify/sensible": "^5.2.0",
 		"@fastify/under-pressure": "^8.1.0",
 		"ajv-formats": "^2.1.1",
 		"dotenv": "^16.0.3",

@@ -97,7 +97,7 @@
 		"@fastify/under-pressure": "^8.1.0",
 		"ajv-formats": "^2.1.1",
 		"dotenv": "^16.0.3",
-		"env-schema": "^5.1.1",
+		"env-schema": "^5.2.0",
 		"fast-jwt": "^2.0.2",
 		"fastify": "^4.10.2",
 		"fastify-disablecache": "^3.0.4",

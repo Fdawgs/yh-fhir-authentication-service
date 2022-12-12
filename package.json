@@ -108,7 +108,7 @@
 		"get-jwks": "^8.0.1",
 		"js2xmlparser": "^5.0.0",
 		"pino": "^8.7.0",
-		"secure-json-parse": "^2.5.0",
+		"secure-json-parse": "^2.6.0",
 		"upath": "^2.0.1"
 	}
 }

@@ -105,7 +105,7 @@
 		"fastify-plugin": "^4.4.0",
 		"file-stream-rotator": "^1.0.0",
 		"fluent-json-schema": "^4.0.0",
-		"get-jwks": "^8.0.1",
+		"get-jwks": "^8.0.3",
 		"js2xmlparser": "^5.0.0",
 		"pino": "^8.8.0",
 		"secure-json-parse": "^2.6.0",

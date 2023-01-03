@@ -85,12 +85,13 @@ async function route(server, options) {
 		},
 	};
 
-	// Longest STU3 FHIR resource name is 'ImmunizationRecommendation' at 26 chars
-	server.get("/STU3/:resource", {
+	server.route({
+		url: "/STU3/:resource",
 		operationId: "searchFHIRResource",
 		...opts,
 	});
-	server.get("/STU3/:resource/:id", {
+	server.route({
+		url: "/STU3/:resource/:id",
 		operationId: "readFHIRResource",
 		...opts,
 	});

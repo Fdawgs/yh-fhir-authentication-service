@@ -87,13 +87,19 @@ async function route(server, options) {
 
 	server.route({
 		url: "/STU3/:resource",
-		operationId: "searchFHIRResource",
 		...opts,
+		schema: {
+			operationId: "searchFHIRResource",
+			...opts.schema,
+		},
 	});
 	server.route({
 		url: "/STU3/:resource/:id",
-		operationId: "readFHIRResource",
 		...opts,
+		schema: {
+			operationId: "readFHIRResource",
+			...opts.schema,
+		},
 	});
 }
 

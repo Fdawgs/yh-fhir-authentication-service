@@ -42,7 +42,7 @@ async function plugin(server, options) {
 
 						/**
 						 * Verifier config options explicitly defined as functionality not tested;
-						 * will stop changes to defaults in dependency from impacting auth
+						 * will stop changes to defaults in dependency from affecting auth
 						 */
 						return createVerifier({
 							algorithms: element?.allowedAlgorithms,

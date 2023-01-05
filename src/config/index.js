@@ -229,8 +229,8 @@ async function getConfig() {
 					title: name,
 					description,
 					contact: {
-						name: "Solutions Development Team",
-						email: "servicedesk@ydh.nhs.uk",
+						name: "Author",
+						email: "frazer.smith@ydh.nhs.uk",
 					},
 					license: {
 						name: license,

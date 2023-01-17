@@ -77,9 +77,11 @@ async function plugin(server, options) {
 					}
 				});
 
+				// @fastify/auth turns this into a 401 response
 				throw new Error("invalid authorization header");
 			}
 		} else {
+			// @fastify/auth turns this into a 401 response
 			throw new Error("invalid authorization header");
 		}
 	});

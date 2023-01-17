@@ -64,6 +64,9 @@ const forwardGetSchema = {
 		})
 		.additionalProperties(false),
 	response: {
+		400: S.ref("responses#/properties/badRequest").description(
+			"Bad Request"
+		),
 		401: S.ref("responses#/properties/unauthorized").description(
 			"Unauthorized"
 		),

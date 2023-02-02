@@ -136,13 +136,6 @@ describe("Server Deployment", () => {
 			currentEnv = { ...process.env };
 		});
 
-		afterEach(async () => {
-			// Reset the process.env to default after each test
-			Object.assign(process.env, currentEnv);
-
-			await server.close();
-		});
-
 		const authTests = [
 			{
 				testName: "Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
@@ -203,11 +196,16 @@ describe("Server Deployment", () => {
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
 					config.forward.undici = undefined;
 					config.forward.http = true;
-				});
 
-				beforeEach(async () => {
 					server = Fastify();
 					await server.register(startServer, config).ready();
+				});
+
+				afterAll(async () => {
+					// Reset the process.env to default after all tests in describe block
+					Object.assign(process.env, currentEnv);
+
+					await server.close();
 				});
 
 				describe("/forward Route", () => {
@@ -341,13 +339,6 @@ describe("Server Deployment", () => {
 				JWT_JWKS_ARRAY: "",
 			});
 			currentEnv = { ...process.env };
-		});
-
-		afterEach(async () => {
-			// Reset the process.env to default after each test
-			Object.assign(process.env, currentEnv);
-
-			await server.close();
 		});
 
 		const corsTests = [
@@ -508,11 +499,16 @@ describe("Server Deployment", () => {
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
 					config.forward.undici = undefined;
 					config.forward.http = true;
-				});
 
-				beforeEach(async () => {
 					server = Fastify();
 					await server.register(startServer, config).ready();
+				});
+
+				afterAll(async () => {
+					// Reset the process.env to default after all tests in describe block
+					Object.assign(process.env, currentEnv);
+
+					await server.close();
 				});
 
 				describe("/admin/healthcheck Route", () => {

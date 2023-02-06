@@ -12,9 +12,9 @@ const flocOff = require("fastify-floc-off");
 const helmet = require("@fastify/helmet");
 const rateLimit = require("@fastify/rate-limit");
 const sensible = require("@fastify/sensible");
+const serialiseJsonToXml = require("fastify-json-to-xml");
 const underPressure = require("@fastify/under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
-const serialiseJsonToXml = require("./plugins/serialise-json-to-xml");
 const sharedSchemas = require("./plugins/shared-schemas");
 
 /**

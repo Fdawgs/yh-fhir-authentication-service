@@ -238,7 +238,13 @@ async function getConfig() {
 					},
 					version,
 				},
-				components: {},
+				// Components object always needed as shared schemas are added to it
+				components: {
+					securitySchemes:
+						env.AUTH_BEARER_TOKEN_ARRAY || env.JWT_JWKS_ARRAY
+							? {}
+							: undefined,
+				},
 				tags: [
 					{
 						name: "Forwards",
@@ -271,6 +277,14 @@ async function getConfig() {
 
 	if (env.JWT_JWKS_ARRAY) {
 		config.jwt = secJSON.parse(env.JWT_JWKS_ARRAY);
+
+		config.swagger.openapi.components.securitySchemes.jwtBearerToken = {
+			type: "http",
+			description:
+				"Expects the request to contain an `Authorization` header with a JWT.",
+			scheme: "bearer",
+			bearerFormat: "JWT",
+		};
 	}
 
 	if (env.LOG_ROTATION_FILENAME) {
@@ -295,14 +309,12 @@ async function getConfig() {
 		});
 		config.bearerTokenAuthKeys = keys;
 
-		config.swagger.openapi.components.securitySchemes = {
-			bearerToken: {
-				type: "http",
-				description:
-					"Expects the request to contain an `Authorization` header with a bearer token.",
-				scheme: "bearer",
-				bearerFormat: "bearer <token>",
-			},
+		config.swagger.openapi.components.securitySchemes.bearerToken = {
+			type: "http",
+			description:
+				"Expects the request to contain an `Authorization` header with a bearer token.",
+			scheme: "bearer",
+			bearerFormat: "bearer <token>",
 		};
 	}
 

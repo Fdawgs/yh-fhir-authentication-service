@@ -11,10 +11,28 @@ const accepts = forwardGetSchema.produces;
  * @description Sets routing options for server.
  * @param {object} server - Fastify instance.
  * @param {object} options - Route config values.
+ * @param {*=} options.bearerTokenAuthKeys- Apply `bearerToken` security scheme to route if defined.
  * @param {object} options.cors - CORS settings.
  * @param {object} options.forward - @fastify/reply-from plugin options.
+ * @param {*=} options.jwt- Apply `jwtBearerToken` security scheme to route if defined.
  */
 async function route(server, options) {
+	if (options.bearerTokenAuthKeys || options.jwt) {
+		forwardGetSchema.security = [];
+		forwardGetSchema.response[401] = {
+			$ref: "responses#/properties/unauthorized",
+			description: "Unauthorized",
+		};
+
+		if (options.bearerTokenAuthKeys) {
+			forwardGetSchema.security.push({ bearerToken: [] });
+		}
+
+		if (options.jwt) {
+			forwardGetSchema.security.push({ jwtBearerToken: [] });
+		}
+	}
+
 	// Register plugins
 	await server
 		// Enable CORS if options passed

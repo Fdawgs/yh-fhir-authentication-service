@@ -18,10 +18,19 @@ const accepts = forwardGetSchema.produces;
  */
 async function route(server, options) {
 	if (options.bearerTokenAuthKeys || options.jwt) {
+		forwardGetSchema.security = [];
 		forwardGetSchema.response[401] = {
 			$ref: "responses#/properties/unauthorized",
 			description: "Unauthorized",
 		};
+
+		if (options.bearerTokenAuthKeys) {
+			forwardGetSchema.security.push({ bearerToken: [] });
+		}
+
+		if (options.jwt) {
+			forwardGetSchema.security.push({ jwtBearerToken: [] });
+		}
 	}
 
 	// Register plugins

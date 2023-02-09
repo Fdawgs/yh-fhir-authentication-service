@@ -238,7 +238,7 @@ async function getConfig() {
 					},
 					version,
 				},
-				// Components object always needed as shared schemas are added to it
+				// Components object always populated by shared schemas at launch
 				components: {
 					securitySchemes:
 						env.AUTH_BEARER_TOKEN_ARRAY || env.JWT_JWKS_ARRAY

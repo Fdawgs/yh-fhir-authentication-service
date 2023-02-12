@@ -11,7 +11,7 @@
 
 > Yeovil District Hospital NHSFT's FHIR API Authentication Service
 
-## Intro
+## Overview
 
 This is [Yeovil District Hospital NHSFT](https://yeovilhospital.co.uk/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://fastify.io/) web framework.
 
@@ -51,7 +51,7 @@ Perform the following steps before deployment:
 1. Run `npm ci --ignore-scripts --omit=dev` to install dependencies
 2. Run `npm start`
 
-The service should now be up and running on the port set in the config. You should see output similar to the following in stdout or in the log file specified using the `LOG_ROTATION_FILENAME` environment variable:
+The service should now be up and running on the port set in the config. Output similar to the following should appear in stdout or in the log file specified using the `LOG_ROTATION_FILENAME` environment variable:
 
 ```json
 {
@@ -73,7 +73,7 @@ This requires [Docker](https://docker.com) installed.
 
 ### Deploying Using PM2
 
-If you cannot deploy this into production using Docker, use a process manager such as [PM2](https://pm2.keymetrics.io/).
+If this cannot be deployed into production using Docker, use a process manager such as [PM2](https://pm2.keymetrics.io/).
 
 1. Run `npm ci --ignore-scripts --omit=dev` to install dependencies
 2. Run `npm install -g pm2` to install pm2 globally

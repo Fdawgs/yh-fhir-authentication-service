@@ -9,7 +9,7 @@ const pino = require("pino");
 const rotatingLogStream = require("file-stream-rotator");
 const secJSON = require("secure-json-parse");
 
-const { name, description, license, version } = require("../../package.json");
+const { description, license, version } = require("../../package.json");
 
 /**
  * @author Frazer Smith
@@ -19,10 +19,10 @@ const { name, description, license, version } = require("../../package.json");
  * @returns {boolean|Array|string} CORS parameter.
  */
 function parseCorsParameter(param) {
-	if (param.trim() === "true") {
+	if (param.toLowerCase().trim() === "true") {
 		return true;
 	}
-	if (param.trim() === "false") {
+	if (param.toLowerCase().trim() === "false") {
 		return false;
 	}
 	if (param.includes(",")) {
@@ -105,7 +105,7 @@ async function getConfig() {
 			.prop("LOG_ROTATION_MAX_LOGS", S.anyOf([S.string(), S.null()]))
 			.prop("LOG_ROTATION_MAX_SIZE", S.anyOf([S.string(), S.null()]))
 
-			// Process Load Handling
+			// Process load handling
 			.prop(
 				"PROC_LOAD_MAX_EVENT_LOOP_DELAY",
 				S.anyOf([S.number(), S.null()])
@@ -120,17 +120,17 @@ async function getConfig() {
 			)
 			.prop("PROC_LOAD_MAX_RSS_BYTES", S.anyOf([S.number(), S.null()]))
 
-			// Rate Limiting
+			// Rate limiting
 			.prop("RATE_LIMIT_EXCLUDED_ARRAY", S.anyOf([S.string(), S.null()]))
 			.prop(
 				"RATE_LIMIT_MAX_CONNECTIONS_PER_MIN",
 				S.anyOf([S.number(), S.null()])
 			)
 
-			// API Keys
+			// Bearer token auth
 			.prop("AUTH_BEARER_TOKEN_ARRAY", S.anyOf([S.string(), S.null()]))
 
-			// JWT Validation
+			// JWT auth
 			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
 			.required(["FORWARD_URL"]),
 	});
@@ -178,6 +178,22 @@ async function getConfig() {
 			maxAge: env.CORS_MAX_AGE || null,
 			origin: parseCorsParameter(env.CORS_ORIGIN) || false,
 		},
+		processLoad: {
+			maxEventLoopDelay: env.PROC_LOAD_MAX_EVENT_LOOP_DELAY || 0,
+			maxEventLoopUtilization:
+				env.PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION || 0,
+			maxHeapUsedBytes: env.PROC_LOAD_MAX_HEAP_USED_BYTES || 0,
+			maxRssBytes: env.PROC_LOAD_MAX_RSS_BYTES || 0,
+		},
+		rateLimit: {
+			allowList: env.RATE_LIMIT_EXCLUDED_ARRAY
+				? secJSON.parse(env.RATE_LIMIT_EXCLUDED_ARRAY)
+				: null,
+			continueExceeding: true,
+			hook: "onSend",
+			max: env.RATE_LIMIT_MAX_CONNECTIONS_PER_MIN || 1000,
+			timeWindow: 60000,
+		},
 		helmet: {
 			contentSecurityPolicy: {
 				directives: {
@@ -205,28 +221,12 @@ async function getConfig() {
 			// Only supported by Chrome at time of writing
 			originAgentCluster: false,
 		},
-		processLoad: {
-			maxEventLoopDelay: env.PROC_LOAD_MAX_EVENT_LOOP_DELAY || 0,
-			maxEventLoopUtilization:
-				env.PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION || 0,
-			maxHeapUsedBytes: env.PROC_LOAD_MAX_HEAP_USED_BYTES || 0,
-			maxRssBytes: env.PROC_LOAD_MAX_RSS_BYTES || 0,
-		},
-		rateLimit: {
-			allowList: env.RATE_LIMIT_EXCLUDED_ARRAY
-				? secJSON.parse(env.RATE_LIMIT_EXCLUDED_ARRAY)
-				: null,
-			continueExceeding: true,
-			hook: "onSend",
-			max: env.RATE_LIMIT_MAX_CONNECTIONS_PER_MIN || 1000,
-			timeWindow: 60000,
-		},
 		swagger: {
 			routePrefix: "/docs",
 			exposeRoute: true,
 			openapi: {
 				info: {
-					title: name,
+					title: "FHIR API Authentication Service",
 					description,
 					contact: {
 						name: "Author",
@@ -238,7 +238,7 @@ async function getConfig() {
 					},
 					version,
 				},
-				// Components object always populated by shared schemas at launch
+				// Components object populated by shared schemas at launch
 				components: {
 					securitySchemes:
 						env.AUTH_BEARER_TOKEN_ARRAY || env.JWT_JWKS_ARRAY
@@ -252,7 +252,7 @@ async function getConfig() {
 							"Endpoints relating to forwarding to FHIR listener",
 					},
 					{
-						name: "System Administration",
+						name: "System administration",
 						description: "",
 					},
 				],
@@ -273,49 +273,6 @@ async function getConfig() {
 	// Ensure API listens on both IPv4 and IPv6 addresses if not explicitly set
 	if (env.HOST) {
 		config.fastify.host = env.HOST;
-	}
-
-	if (env.JWT_JWKS_ARRAY) {
-		config.jwt = secJSON.parse(env.JWT_JWKS_ARRAY);
-
-		config.swagger.openapi.components.securitySchemes.jwtBearerToken = {
-			type: "http",
-			description:
-				"Expects the request to contain an `Authorization` header with a JWT.",
-			scheme: "bearer",
-			bearerFormat: "JWT",
-		};
-	}
-
-	if (env.LOG_ROTATION_FILENAME) {
-		const logFile = path.normalizeTrim(env.LOG_ROTATION_FILENAME);
-
-		// Rotation options: https://github.com/rogerc/file-stream-rotator/#options
-		config.fastifyInit.logger.stream = rotatingLogStream.getStream({
-			audit_file: path.joinSafe(path.dirname(logFile), ".audit.json"),
-			date_format: env.LOG_ROTATION_DATE_FORMAT || "YYYY-MM-DD",
-			filename: logFile,
-			frequency: env.LOG_ROTATION_FREQUENCY || "daily",
-			max_logs: env.LOG_ROTATION_MAX_LOGS,
-			size: env.LOG_ROTATION_MAX_SIZE,
-			verbose: false,
-		});
-	}
-
-	if (env.AUTH_BEARER_TOKEN_ARRAY) {
-		const keys = new Set();
-		secJSON.parse(env.AUTH_BEARER_TOKEN_ARRAY).forEach((element) => {
-			keys.add(element.value);
-		});
-		config.bearerTokenAuthKeys = keys;
-
-		config.swagger.openapi.components.securitySchemes.bearerToken = {
-			type: "http",
-			description:
-				"Expects the request to contain an `Authorization` header with a bearer token.",
-			scheme: "bearer",
-			bearerFormat: "bearer <token>",
-		};
 	}
 
 	// Enable HTTPS using cert/key or passphrase/pfx combinations
@@ -357,6 +314,52 @@ async function getConfig() {
 	if (config.fastifyInit.https && env.HTTPS_HTTP2_ENABLED === true) {
 		config.fastifyInit.https.allowHTTP1 = true;
 		config.fastifyInit.http2 = true;
+	}
+
+	// Set Pino transport
+	if (env.LOG_ROTATION_FILENAME) {
+		const logFile = path.normalizeTrim(env.LOG_ROTATION_FILENAME);
+
+		// Rotation options: https://github.com/rogerc/file-stream-rotator/#options
+		config.fastifyInit.logger.stream = rotatingLogStream.getStream({
+			audit_file: path.joinSafe(path.dirname(logFile), ".audit.json"),
+			date_format: env.LOG_ROTATION_DATE_FORMAT || "YYYY-MM-DD",
+			filename: logFile,
+			frequency: env.LOG_ROTATION_FREQUENCY || "daily",
+			max_logs: env.LOG_ROTATION_MAX_LOGS,
+			size: env.LOG_ROTATION_MAX_SIZE,
+			verbose: false,
+		});
+	}
+
+	// Bearer token auth
+	if (env.AUTH_BEARER_TOKEN_ARRAY) {
+		const keys = new Set();
+		secJSON.parse(env.AUTH_BEARER_TOKEN_ARRAY).forEach((element) => {
+			keys.add(element.value);
+		});
+		config.bearerTokenAuthKeys = keys;
+
+		config.swagger.openapi.components.securitySchemes.bearerToken = {
+			type: "http",
+			description:
+				"Expects the request to contain an `Authorization` header with a bearer token.",
+			scheme: "bearer",
+			bearerFormat: "bearer <token>",
+		};
+	}
+
+	// JWT auth
+	if (env.JWT_JWKS_ARRAY) {
+		config.jwt = secJSON.parse(env.JWT_JWKS_ARRAY);
+
+		config.swagger.openapi.components.securitySchemes.jwtBearerToken = {
+			type: "http",
+			description:
+				"Expects the request to contain an `Authorization` header with a JWT.",
+			scheme: "bearer",
+			bearerFormat: "JWT",
+		};
 	}
 
 	return config;

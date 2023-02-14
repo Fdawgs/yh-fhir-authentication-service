@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [12.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.2...v12.0.3) (2023-02-01)
 
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/redirect:** missing 400 response in openapi schema ([96a30d3](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/96a30d367ef4642809ce520593436cb0df10283b))
 
@@ -44,14 +44,14 @@ All notable changes to this project will be documented in this file.
 * use esbuild to compile ([#921](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/921)) ([915cfd1](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/915cfd101fe3d37e69e21c3ac8ac851d90244c06))
 
 
-### Continuous Integration
+### Continuous integration
 
 * **cd:** add missing install step ([8ed459f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8ed459f9a4c7997e6f82ec6a6122ef164f2e7ae0))
 
 ## [12.0.2](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.1...v12.0.2) (2023-01-05)
 
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/forward:** `operationId` not appearing in openapi schema ([c3201af](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c3201af4b92d1c12bbc091cd8f20627b0bae7d38))
 
@@ -88,7 +88,7 @@ All notable changes to this project will be documented in this file.
 ## [12.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.0...v12.0.1) (2022-12-12)
 
 
-### Continuous Integration
+### Continuous integration
 
 * **cd:** remove dev values from `package.json` ([#893](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/893)) ([6f01837](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6f01837adf472fe3b8fa26cde3e050e68c27655e))
 
@@ -129,7 +129,7 @@ All notable changes to this project will be documented in this file.
 * **config:** `PORT` env variable no longer uses first available open port if unset
 * **deps:** `LOG_ROTATION_FREQUENCY` env variable accepted values changed from "daily, custom, or test" to "daily, date, [1-12]h, or [1-30]m"
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** use port 3000 if `PORT` env variable unset ([#861](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/861)) ([6043801](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/604380106f73bf47f66aafeb1e96f316a514fff5))
 * **routes:** add `HEAD` to cors allowed methods ([#852](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/852)) ([6b1c085](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6b1c085f01b78f3c5a1f453c47d78985653602fe))
@@ -179,7 +179,7 @@ All notable changes to this project will be documented in this file.
 
 * **routes:** `REDIRECT_URL` env variable renamed to `FORWARD_URL`
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/admin/healthcheck:** accept header handling ([896ccd6](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/896ccd69dff5acc813a88a81a350fa5932438d9a))
 * **routes/admin/healthcheck:** openapi schema content types ([2295b14](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2295b14da6cf9e123896f11146a65e2cebd8d3c9))
@@ -243,7 +243,7 @@ All notable changes to this project will be documented in this file.
 * **deps:** bump fastify-plugin from 4.2.1 to 4.3.0 ([#829](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/829)) ([7fc308d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7fc308d2f0127bef779d329d510e2e0f69833bf2))
 
 
-### Continuous Integration
+### Continuous integration
 
 * **cd:** remove test files from release asset ([#832](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/832)) ([4e544ec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4e544ec8087b003dfbacf198b068f16bd6649111))
 
@@ -255,7 +255,7 @@ All notable changes to this project will be documented in this file.
 * **config:** use first available open port if `PORT` env variable unset ([#809](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/809)) ([95860da](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/95860da8ee66d71ddeebbacd787221c25cb65548))
 
 
-### Continuous Integration
+### Continuous integration
 
 * **cd:** create release asset ([516ee83](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/516ee832a99f272b54e240d3dcf80c074a2763d1))
 
@@ -281,7 +281,7 @@ All notable changes to this project will be documented in this file.
 * add serialization support for xml error responses ([a59549e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a59549ed390ea71a41e970c08c8e6847e82a5947))
 
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** use `HOST` and `PORT` env variables for cloud services ([46d5877](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/46d58779055eca793abb87cc9de0fb5fbe4e450b))
 * **plugins/serialize-json-to-xml:** rep invalid xml chars with U+FFFD ([#788](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/788)) ([b5f9c73](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b5f9c732905a9bdd75b45663054c1c2f71b58559))
@@ -330,7 +330,7 @@ All notable changes to this project will be documented in this file.
 
 ## [9.0.11](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.10...v9.0.11) (2022-09-05)
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** `default` throws exceptions when used in `anyOf` schemas ([0886192](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0886192c570e7e36864719faa41924514b8f92c6))
 
@@ -388,7 +388,7 @@ All notable changes to this project will be documented in this file.
 
 ## [9.0.9](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.8...v9.0.9) (2022-08-09)
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** log rotation max files ([#734](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/734)) ([12a11d4](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/12a11d416a375ca4d2cf70fca7a34b68f5e75245))
 * **plugins/jwt-jwks-auth:** optional alg for public key ([#736](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/736)) ([d629e90](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d629e90baaf2709ce12992812d2f6b00e78c29a3))
@@ -407,7 +407,7 @@ All notable changes to this project will be documented in this file.
 
 ## [9.0.8](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.7...v9.0.8) (2022-08-04)
 
-### Bug Fixes
+### Bug fixes
 
 * **routes:** invalid openapi shared schema definitions ([#730](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/730)) ([c13efbb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c13efbb991c504628a12f61b17085c12b29925a6))
 * **server:** reduce `content-security-policy` for options routes ([#732](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/732)) ([9d42540](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/9d4254001f0808abf23e116e6e1c15c90da2c3c4))
@@ -419,7 +419,7 @@ All notable changes to this project will be documented in this file.
 
 ## [9.0.7](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.6...v9.0.7) (2022-08-01)
 
-### Continuous Integration
+### Continuous integration
 
 * **ci:** audit npm package signatures ([250e76a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/250e76abc06d3bcb71a62f5343d6c0808c5a1f65))
 
@@ -484,7 +484,7 @@ All notable changes to this project will be documented in this file.
 
 ## [9.0.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.3...v9.0.4) (2022-06-15)
 
-### Bug Fixes
+### Bug fixes
 
 * **plugins/jwt-jwks-auth:** respond with 401 error on missing header ([d2c7f97](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d2c7f974c0d41747622107dc259d336484e20b49))
 
@@ -522,11 +522,11 @@ All notable changes to this project will be documented in this file.
 
 ### [9.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v9.0.2...v9.0.3) (2022-06-01)
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/redirect:** update jsdoc tag ([85543fc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/85543fc03d592a90f72284c041266c03f90c9e68))
 
-### Continuous Integration
+### Continuous integration
 
 * **ci:** add node 18 to test matrix ([e208d05](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e208d053ad2859d3c5a40c6fec3478068ed83339))
 
@@ -563,7 +563,7 @@ All notable changes to this project will be documented in this file.
 
 * **script:** update benchmark script to target test record ([0584ef7](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0584ef73068fcd696d342f96833099bbde4461ee))
 
-### Continuous Integration
+### Continuous integration
 
 * remove git credentials after checkout ([#636](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/636)) ([b4a2a65](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b4a2a65f2affe0c57bf8388f739dbfad888931dd))
 
@@ -579,7 +579,7 @@ All notable changes to this project will be documented in this file.
 * **bug_report:** use node 18 as placeholder for `node-version` ([faceadb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/faceadbe165f36ccd6703e571ee4932ce6d4b90a))
 * **routes/redirect:** group removed headers; sort alphabetically ([4cb18e8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4cb18e8c50e3ab910ea4b15071bfa7c8d3a4ec17))
 
-### Continuous Integration
+### Continuous integration
 
 * **automerge:** fix context ([2ce6bd0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2ce6bd0243c1044ff6aff3f9cc68f95811820ed7))
 * check `user.login` is dependabot instead of `actor` ([ae6ee0b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ae6ee0b5e3e08d76f7d628cb3c8b661138d7160b))
@@ -606,7 +606,7 @@ All notable changes to this project will be documented in this file.
 
 * **plugins/jwt-jwks-auth:** `allowedIssuers` key removed from JWT_JWKS_ARRAY env variable. `jwksEndpoint` key renamed to `issuerDomain` in JWT_JWKS_ARRAY env variable. `issuerDomain` key treated as OpenID issuer
 
-### Bug Fixes
+### Bug fixes
 
 * **plugins/jwt-jwks-auth:** log errors from `Promise.any()` ([d29d241](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d29d2419a2bf19d5533f5abc1d929a47afc25ef1))
 * **server:** do not transform 503 http error into 500 http error res ([91c7165](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/91c71654e1021b3acaa2d448f5c6e3a57fc1eb02))
@@ -632,7 +632,7 @@ All notable changes to this project will be documented in this file.
 
 * **routes/redirect:** remove implicit require of `URL` ([53f3a80](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/53f3a805b33feaa9ba57d2e26b78617e703565e7))
 
-### Continuous Integration
+### Continuous integration
 
 * add dependency-review job ([810d6b4](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/810d6b40fc591c9a2569803d67f8fa5b496fdb91))
 * **ci:** require `unit-tests` job to pass for `save-pr-number` job to run ([7b47bbc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7b47bbcb3201237879c1e89f5f9eaa035d083669))
@@ -683,7 +683,7 @@ All notable changes to this project will be documented in this file.
 
 * **server:** call reply object over raw when overwriting header ([#575](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/575)) ([0382a89](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0382a89ea1cbe0b7076f538116bc368062310bd7))
 
-### Continuous Integration
+### Continuous integration
 
 * **automerge:** squash automerge prs ([#578](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/578)) ([b66b611](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b66b611d6a2cb5f24d56d7efdec14226fe653a9f))
 * **cd:** update org name for release-please-action ([2e9da5a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2e9da5a55106eb15cf131f931a9ec7a02be2b9ab))
@@ -745,7 +745,7 @@ All notable changes to this project will be documented in this file.
 * **routes:** add `preValidation` hooks directly into routes ([#540](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/540)) ([f324793](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f32479339eb05e9047351472a3eb3cbd51211acd))
 * **server:** use new hook config option for rate-limit plugin ([#546](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/546)) ([d2b905b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d2b905b0f01529116f98fd00c4a598a995fe287a))
 
-### Continuous Integration
+### Continuous integration
 
 * add job step names, workflow comments, and whitespace ([c1ff470](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c1ff470ccec7aeb6b64826187c373483e3cbba0a))
 * **codeql-analysis:** remove unused autobuild step ([10a3ab2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/10a3ab281ea83a0834c91cde9148a911ff321a7b))
@@ -785,7 +785,7 @@ All notable changes to this project will be documented in this file.
 * **plugins/jwt-jwks-auth:** support more than one jwks endpoint ([a245144](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a245144adea3c739f6de271c58f05f4146c6173a))
 * **plugins/jwt-jwks-auth:** support subject claim validation in jwts ([891c605](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/891c6053c4dae84004f32c8b8d03c88d241101f7))
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** renew rate-limit if user attempts req in limit time window ([#509](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/509)) ([1204b4a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1204b4a094dba34efe206529e6fdbf825b444b2f))
 * **plugins/jwt-jwks-auth:** throw more meaningful message on error ([5b557b8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5b557b8f78d7eda838b06d9a9233190c02bf68d8))
@@ -876,7 +876,7 @@ All notable changes to this project will be documented in this file.
 * **contributing:** add step for `lint:licenses` script ([47a9d66](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/47a9d66439b0ae1ca4f4532d654c410f02c83faf))
 * **contributing:** update husky hook mention ([6cf5d76](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6cf5d760eee8362501ea348f2601b1e90954920f))
 
-### Continuous Integration
+### Continuous integration
 
 * remove spellcheck workflow ([#466](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/466)) ([6b25311](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6b253118a94dfb7c47abb076ec9ada6b3045714f))
 
@@ -940,7 +940,7 @@ All notable changes to this project will be documented in this file.
 
 * **server:** allow for jwks jwt and bearer token auth to be disabled ([f17290b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f17290b2f57c806f633f2569fe94a8b90ca51eb6))
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** `JWT_MAX_AGE` now accepts integers ([06b91ab](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/06b91ab24a2403d083dbee0e15d73c00f8c527ba))
 
@@ -999,7 +999,7 @@ All notable changes to this project will be documented in this file.
 
 * **readme:** add mention of `docker compose up` ([#408](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/408)) ([a9f995f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a9f995f754e0a444f8b522fea2d2386261263ee0))
 
-### Continuous Integration
+### Continuous integration
 
 * **ci:** do not run clean-up on draft prs ([17508bf](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/17508bf9fbf76a072016721f40173fc9bb43f33a))
 * **spell-check:** do not run on draft prs ([e89c4d1](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e89c4d17a1559bcb1bfec1ed40ba896f37a9e68b))
@@ -1037,7 +1037,7 @@ All notable changes to this project will be documented in this file.
 
 ### [6.2.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.2.3...v6.2.4) (2021-10-29)
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** remove additional env variables ([#367](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/367)) ([d1923c4](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d1923c425cb9f5c6aff89ae55852a6263bce0073))
 * **routes/redirect:** only allow alphabetical chars in `resource` params ([dd35aac](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/dd35aac7f0c4efafbbec593086e260747ead5b9c))
@@ -1121,7 +1121,7 @@ All notable changes to this project will be documented in this file.
 * **deps:** bump fastify-reply-from from 6.1.0 to 6.3.0 ([913f434](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/913f4346ed4a63041625657ca4b09989428ff41e))
 * **docker:** remove package versioning ([a4321ab](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a4321ab3970973be508ebb20f9c9e046ecb1e1b8))
 
-### Continuous Integration
+### Continuous integration
 
 * **automerge:** update location of octokit rest methods ([7a9e9e6](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7a9e9e659e9c68f4d6613e4914dfbb15d7a7f3ee))
 * ignore hadolint rule DL3018 ([c5cbe26](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c5cbe2629249c8e613a5436d4838342ae83747a4))
@@ -1165,11 +1165,11 @@ All notable changes to this project will be documented in this file.
 
 * **config:** support HTTP/2 via `HTTPS_HTTP2_ENABLED` env variable ([#298](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/298)) ([109a902](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/109a902af0edf2771937776fa3cd53ee5ce231ac))
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** check `SERVICE_REDIRECT_URL` is in URI format ([3d11dfc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/3d11dfcee5710e46be4d8d2f92e373a003d703ca))
 
-### Continuous Integration
+### Continuous integration
 
 * **ci:** revert to workflow-run-clean-action from github concurrency ([028f4eb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/028f4eb953ab41412c1c1be3944f8f4d8c7977db))
 
@@ -1207,7 +1207,7 @@ All notable changes to this project will be documented in this file.
 
 * **config:** add option to set `Access-Control-Max-Age` CORS header ([#290](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/290)) ([ec4b7f7](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ec4b7f7643b6507aee26a2ed50677c983b68bcca))
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** `SERVICE_REDIRECT_URL` env variable cannot be null ([71e105b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/71e105b93889992ddb31f1d6d1bc7936f6b24b25))
 * **server:** rate limit all 4xx and 5xx responses ([e803082](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e8030823651a4c09ce3f9355d4ce19fe1068be61))
@@ -1219,7 +1219,7 @@ All notable changes to this project will be documented in this file.
 * **.env.template:** remove log level value ([11d4942](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/11d4942b85a48896ad63a7b8daa5cc6412002afd))
 * **.github:** use new YAML configured GitHub issue forms ([#292](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/292)) ([90ab659](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/90ab659a3e44f5602e2f9319239f27c3825338fd))
 
-### Continuous Integration
+### Continuous integration
 
 * **ci:** replace workflow-run-cleanup-action with github concurrency ([#293](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/293)) ([13cfe4e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/13cfe4ee291e901144f5ebcb12b0fb399d91d7df))
 
@@ -1230,7 +1230,7 @@ All notable changes to this project will be documented in this file.
 
 ### [6.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v6.0.0...v6.0.1) (2021-09-01)
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** bearer token security scheme format ([#282](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/282)) ([2369280](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/236928005dfe71219fd2cc2609f97319fd4843e3))
 * **plugins/jwt-jwks-auth:** stop attempting to rend second res ([cffb9c8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/cffb9c879baf268b46c3913b261e2e8e39b60455))
@@ -1272,7 +1272,7 @@ All notable changes to this project will be documented in this file.
 
 * **routes/admin/healthcheck:** add cors header support ([c6ac6a5](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c6ac6a57c8c841dd0789f0bb43e6411294ce0688))
 
-### Bug Fixes
+### Bug fixes
 
 * **app:** logging grammar fixes ([88b2f73](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/88b2f73a780072c544047bf6234d0a3849a6880a))
 * **config:** allow for empty logger env variables ([2698cf7](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2698cf7fee2882a242b542ef54b1ce0348284770))
@@ -1305,7 +1305,7 @@ All notable changes to this project will be documented in this file.
 
 * minimum required version of node increased from 12 to 14 to allow for new ECMAScript syntax to be used
 
-### Bug Fixes
+### Bug fixes
 
 * **docker-compose:** wrap variables in quotes ([#242](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/242)) ([c83f3b9](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c83f3b9ffc09899a1232e02e9194b3d4e29f4b6b))
 
@@ -1313,7 +1313,7 @@ All notable changes to this project will be documented in this file.
 
 * **config:** provide custom ajv instance to `env-schema` ([#240](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/240)) ([c91c8cd](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c91c8cd30cc18a6533ca4677ffcb238fcc4ae95d))
 
-### Continuous Integration
+### Continuous integration
 
 * **ci:** remove redundant env variable ([2e3ec3e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2e3ec3e5a90df2e399c7988d0127f01e1a2d97e3))
 
@@ -1333,7 +1333,7 @@ All notable changes to this project will be documented in this file.
 
 ### [4.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.2...v4.0.3) (2021-07-19)
 
-### Bug Fixes
+### Bug fixes
 
 * **package:** move `pino-pretty` to production dependency list ([#230](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/230)) ([3fb4011](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/3fb4011ab1ae05c4fb1ae4f8a1d3ec0cddb4acde))
 
@@ -1344,7 +1344,7 @@ All notable changes to this project will be documented in this file.
 * **routes:** do not treat routes as plugins ([b883b1f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b883b1fd5e8866e88ad636cf0deafb445d98e14c))
 * **server:** move redirect route and auth plugins into new context ([7e5a07e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7e5a07e123e23bf23637f396846e185264468d87))
 
-### Continuous Integration
+### Continuous integration
 
 * **cd:** move perf optimizations and refactoring into same section ([97fe2ae](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/97fe2ae082816a5b346fb29d59092c7c4b266e45))
 
@@ -1372,7 +1372,7 @@ All notable changes to this project will be documented in this file.
 
 ### [4.0.2](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.1...v4.0.2) (2021-07-12)
 
-### Bug Fixes
+### Bug fixes
 
 * **routes:** `Accept` header handling encapsulation ([#217](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/217)) ([e0234d3](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/e0234d3abf44beab3df4040b08940b53b41dc2bf))
 
@@ -1389,7 +1389,7 @@ All notable changes to this project will be documented in this file.
 
 ### [4.0.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v4.0.0...v4.0.1) (2021-07-09)
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/healthcheck:** add `Accept` request header handling ([abe17d5](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/abe17d5d0c80103a777893179111498909dd3d5a))
 
@@ -1426,7 +1426,7 @@ All notable changes to this project will be documented in this file.
 * **routes/redirect:** Service no longer falls back to "\*" wildcard for `access-control-allow-origin` if `CORS_ORIGIN` env variable is set to true to reflect request "Origin" but the request "Origin" header is missing. Now it will not set the header at all.
 * **routes/redirect:** Service no longer falls back to Mirth Connect's `access-control-allow-origin` if `CORS_ORIGIN` env variable is not set.
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/redirect:** do not use "\*" if req origin header missing ([c16624b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c16624b3fa9d961ad6b24dca3f5700afa05bcc9d))
 * **routes/redirect:** do not use mirth's `access-control-allow-origin` ([49bce7f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/49bce7fb61c23fe2309a17c3d377c892f2e5aeb4))
@@ -1434,7 +1434,7 @@ All notable changes to this project will be documented in this file.
 * **server:** revert `Referrer-Policy` directives to "no-referrer" only ([c20312f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c20312f421a484e4b15ccc07065c36ce32aff418))
 * **server:** use stricter `Content-Security-Policy` values ([93dd790](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/93dd790372889f201928b6985797c18ae27e2ca2))
 
-### Continuous Integration
+### Continuous integration
 
 * **link-check:** reduce frequency from weekly to monthly ([#185](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/185)) ([81959d0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/81959d0d92340f7ea9ad6384c24fb23c73257d08))
 
@@ -1461,11 +1461,11 @@ All notable changes to this project will be documented in this file.
 
 ### [3.0.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.3...v3.0.4) (2021-06-16)
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** `isProduction` and `prettyPrint` conditionals ([#174](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/174)) ([4d33632](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4d3363275ec147c568cc90d09d7be4fa0ef3f7a1))
 
-### Continuous Integration
+### Continuous integration
 
 * fix key usage in `action/setup-node` ([71b56bb](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/71b56bb09e10f87795b5fb4fc5ef1cc66cc0b0ee))
 
@@ -1505,11 +1505,11 @@ All notable changes to this project will be documented in this file.
 
 ### [3.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.2...v3.0.3) (2021-05-12)
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** `LOG_LEVEL` env variable validation ([1d129b5](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1d129b5a6e0ae9a63a8764ac850090b0cb3a29f8))
 
-### Continuous Integration
+### Continuous integration
 
 * **link-check:** run once a week on monday ([30df7bc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/30df7bc0e450e340d3a1ba92de12377ab264767a))
 
@@ -1531,11 +1531,11 @@ All notable changes to this project will be documented in this file.
 
 ### [3.0.2](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v3.0.1...v3.0.2) (2021-05-05)
 
-### Bug Fixes
+### Bug fixes
 
 * **routes/redirect:** schema support for duplicate query string params ([895adec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/895adec4b8c269200e80bbb032bef3b1062d400d))
 
-### Continuous Integration
+### Continuous integration
 
 * add nodejs v16 to test matrix ([6188e28](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6188e284997308d86ed07d8b4b02faac1a13f108))
 
@@ -1570,13 +1570,13 @@ All notable changes to this project will be documented in this file.
 * **server:** add rate limiter ([8561b05](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/8561b05b617a5c9b2207231e0027e26f12bc1b9c))
 * **server:** disable google floc support ([abb06c2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/abb06c26c4b219de61ded1dc8b13554981349b1e))
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** plugin defaults ([0e07cfc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0e07cfc22c8f59be525e800d781edb02e62ccf2e))
 * **config:** re-add removed defaults ([916362d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/916362d7972ee27d6bfca811a9415137f6bb7d7f))
 * **routes:** hide options routes from swagger docs ([373c1e5](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/373c1e56e6402f39f803d9221b646525530acc64))
 
-### Continuous Integration
+### Continuous integration
 
 * do not run coveralls steps/jobs on forks ([f20cb68](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f20cb681d6a387b844cdce51c398f1b0492163f2))
 * **link-check:** fix skip regex ([698b82a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/698b82af028c5f4f88649c6a5aef36f06a19de9e))
@@ -1627,7 +1627,7 @@ All notable changes to this project will be documented in this file.
 * add support for cors preflight requests ([413be7d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/413be7d880dfed91745046cbc1adee69515c36b1))
 * **config:** support `access-control-allow-credentials` cors header ([7ce463c](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7ce463c4d650be20482effacaf12b11f05ba29de))
 
-### Bug Fixes
+### Bug fixes
 
 * **config:** comma-delimited string support for cors origin value ([d65b6e3](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/d65b6e395db6f22eedd2aedafbbf22b91b1765f9))
 
@@ -1641,7 +1641,7 @@ All notable changes to this project will be documented in this file.
 
 * **readme:** grammar fix ([1d2a59e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1d2a59ea8b9708ce8c4f55991eabdb2050241d4b))
 
-### Continuous Integration
+### Continuous integration
 
 * add cleanup-run job ([6f33a77](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6f33a774fdc98709e78e9099758b592f7595caca))
 
@@ -1661,7 +1661,7 @@ All notable changes to this project will be documented in this file.
 
 * **server:** use `strict-origin-when-cross-origin` referrer policy ([87e3a94](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/87e3a94045bc29186b7fa51a69d976b6fee9fd10))
 
-### Continuous Integration
+### Continuous integration
 
 * **automerge:** move automerge job into new workflow ([ebe70c2](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ebe70c29ebf4a2660e8b9144cb1c01a29c0f1736))
 * **ci:** ignore dependabot prs for commit message linting ([79b46ec](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/79b46ec33d0442183447c98cd71216d45e3cb132))

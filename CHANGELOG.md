@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [12.0.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.3...v12.0.4) (2023-02-14)
+
+
+### Improvements
+
+* **plugins:** replace xml plugin with dedicated dependency ([#949](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/949)) ([7fc3258](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7fc325838edecba0abb6fdd40859e43c93632ff0))
+
+
+### Documentation
+
+* **readme:** use more inclusive language ([1fb44be](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/1fb44bea3e5c051560eb7175eeb03a1d73721d29))
+
+
+### Miscellaneous
+
+* **config:** correct inline comment ([7ee271d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/7ee271d40757de7866e6e9443a8bf67ccdc9ab84))
+* **config:** use consistent style across api repos ([f4be039](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f4be0391e1acc6f825e02234c16642a690ce7fcf))
+* use sentence case over ap style for titles and headings ([815732f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/815732f66ba6e9597b4e64c415052b0dde7d17ab))
+
+
+### Bug fixes
+
+* `securitySchemes` and `security` openapi schema values ([c03acb0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/c03acb0ea8a06957db53e637504c2f51032b5c07))
+* **config:** convert cors params to lowercase ([f77b120](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f77b120bf413310cd80eb2094d4e28d4ab522cdf))
+* **config:** openapi title ([958356b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/958356b78911a107ffb7322f36b8757e198c8497))
+* **routes/forward:** only add 401 response to schema when auth enabled ([b01464a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/b01464aca0d91fd0a8298400f7771074f7ba0b7e))
+
+
+### Continuous integration
+
+* **cd:** use sentence case for changelog headings ([5db7011](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5db7011d657efaf286b8611dfed1f565c13fa3c8))
+
 ## [12.0.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.2...v12.0.3) (2023-02-01)
 
 

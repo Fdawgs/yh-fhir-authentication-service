@@ -9,7 +9,7 @@ const pino = require("pino");
 const rotatingLogStream = require("file-stream-rotator");
 const secJSON = require("secure-json-parse");
 
-const { name, description, license, version } = require("../../package.json");
+const { description, license, version } = require("../../package.json");
 
 /**
  * @author Frazer Smith
@@ -226,7 +226,7 @@ async function getConfig() {
 			exposeRoute: true,
 			openapi: {
 				info: {
-					title: name,
+					title: "FHIR API Authentication Service",
 					description,
 					contact: {
 						name: "Author",

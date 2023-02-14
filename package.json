@@ -110,7 +110,7 @@
 		"file-stream-rotator": "^1.0.0",
 		"fluent-json-schema": "^4.0.0",
 		"get-jwks": "^8.0.3",
-		"pino": "^8.8.0",
+		"pino": "^8.10.0",
 		"secure-json-parse": "^2.7.0",
 		"upath": "^2.0.1"
 	}

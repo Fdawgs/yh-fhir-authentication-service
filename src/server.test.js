@@ -45,7 +45,7 @@ const expResHeaders4xxErrors = {
 	vary: undefined,
 };
 
-describe("Server Deployment", () => {
+describe("Server deployment", () => {
 	const invalidIssuerUri = "https://invalid-issuer.ydh.nhs.uk";
 	const validIssuerUri = "https://valid-issuer.ydh.nhs.uk";
 	let mockJwksServerOne;
@@ -138,7 +138,7 @@ describe("Server Deployment", () => {
 
 		const authTests = [
 			{
-				testName: "Bearer Token Auth Enabled and JWKS JWT Auth Enabled",
+				testName: "Bearer token auth enabled and JWKS JWT auth enabled",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
@@ -147,7 +147,7 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
-					"Bearer Token Auth Enabled and JWKS JWT Auth Disabled",
+					"Bearer token auth enabled and JWKS JWT auth disabled",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY:
 						'[{"service": "test", "value": "testtoken"}]',
@@ -156,7 +156,7 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
-					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint",
+					"Bearer token auth disabled and JWKS JWT auth enabled with one JWKS endpoint",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"}]`,
@@ -164,7 +164,7 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
-					"Bearer Token Auth Disabled and JWKS JWT Auth Enabled With One JWKS Endpoint with different aud",
+					"Bearer token auth disabled and JWKS JWT auth enabled with one JWKS endpoint with different aud",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`,
@@ -172,7 +172,7 @@ describe("Server Deployment", () => {
 			},
 			{
 				testName:
-					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With Two Jwks Endpoints (With Valid Key for One)",
+					"Bearer token auth disabled and JWKS JWT auth enabled with two JWKS endpoints (with valid key for one)",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"},{"issuerDomain": "${invalidIssuerUri}"}]`,
@@ -181,7 +181,7 @@ describe("Server Deployment", () => {
 
 			{
 				testName:
-					"Bearer Token Auth Disabled and Jwks Jwt Auth Enabled With One Jwks Endpoint (With an Invalid Key)",
+					"Bearer token auth disabled and JWKS JWT auth enabled with one JWKS endpoint (with an invalid key)",
 				envVariables: {
 					AUTH_BEARER_TOKEN_ARRAY: "",
 					JWT_JWKS_ARRAY: `[{"issuerDomain": "${invalidIssuerUri}"}]`,
@@ -208,7 +208,7 @@ describe("Server Deployment", () => {
 					await server.close();
 				});
 
-				describe("/forward Route", () => {
+				describe("/forward route", () => {
 					if (
 						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
 					) {
@@ -343,7 +343,7 @@ describe("Server Deployment", () => {
 
 		const corsTests = [
 			{
-				testName: "CORS Disabled",
+				testName: "CORS disabled",
 				envVariables: {
 					CORS_ORIGIN: "",
 				},
@@ -363,7 +363,7 @@ describe("Server Deployment", () => {
 				},
 			},
 			{
-				testName: "CORS Enabled",
+				testName: "CORS enabled",
 				envVariables: {
 					CORS_ORIGIN: true,
 				},
@@ -395,7 +395,7 @@ describe("Server Deployment", () => {
 				},
 			},
 			{
-				testName: "Cors Enabled and Set to String",
+				testName: "CORS enabled and set to string",
 				envVariables: {
 					CORS_ORIGIN: "https://notreal.ydh.nhs.uk",
 				},
@@ -427,7 +427,7 @@ describe("Server Deployment", () => {
 				},
 			},
 			{
-				testName: "Cors Enabled and Set to Array of Strings",
+				testName: "CORS enabled and set to array of strings",
 				envVariables: {
 					CORS_ORIGIN: [
 						"https://notreal.ydh.nhs.uk",
@@ -462,7 +462,7 @@ describe("Server Deployment", () => {
 				},
 			},
 			{
-				testName: "Cors Enabled and Set to Wildcard",
+				testName: "CORS enabled and set to wildcard",
 				envVariables: {
 					CORS_ORIGIN: "*",
 				},
@@ -511,7 +511,7 @@ describe("Server Deployment", () => {
 					await server.close();
 				});
 
-				describe("/admin/healthcheck Route", () => {
+				describe("/admin/healthcheck route", () => {
 					test("Should return `ok`", async () => {
 						const response = await server.inject({
 							method: "GET",
@@ -583,7 +583,7 @@ describe("Server Deployment", () => {
 					});
 				});
 
-				describe("/forward Route", () => {
+				describe("/forward route", () => {
 					test("Should forward request to 'FORWARD_URL'", async () => {
 						const response = await server.inject({
 							method: "GET",
@@ -670,7 +670,7 @@ describe("Server Deployment", () => {
 					});
 				});
 
-				describe("Undeclared Route", () => {
+				describe("Undeclared route", () => {
 					test("Should return HTTP status code 404 if route not found", async () => {
 						const response = await server.inject({
 							method: "GET",
@@ -696,7 +696,7 @@ describe("Server Deployment", () => {
 		});
 	});
 
-	describe("Error Handling", () => {
+	describe("Error handling", () => {
 		let config;
 		let server;
 		let currentEnv;
@@ -716,7 +716,7 @@ describe("Server Deployment", () => {
 			await server.close();
 		});
 
-		describe("/forward Route", () => {
+		describe("/forward route", () => {
 			beforeAll(async () => {
 				Object.assign(process.env, {
 					FORWARD_URL: "http://0.0.0.125",

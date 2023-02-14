@@ -1,5 +1,5 @@
 <a href="https://yeovilhospital.co.uk/">
-	<img alttext="Yeovil District Hospital Logo" src="https://github.com/Fdawgs/ydh-logos/raw/HEAD/images/ydh-full-logo-transparent-background.svg" width="480" />
+	<img alttext="Yeovil District Hospital logo" src="https://github.com/Fdawgs/ydh-logos/raw/HEAD/images/ydh-full-logo-transparent-background.svg" width="480" />
 </a>
 
 # Yeovil District Hospital NHS Foundation Trust - FHIR API Authentication Service
@@ -9,7 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Fdawgs/ydh-fhir-authentication-service/badge.svg?branch=master)](https://coveralls.io/github/Fdawgs/ydh-fhir-authentication-service?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
-> Yeovil District Hospital NHSFT's FHIR API Authentication Service
+> Yeovil District Hospital NHSFT's FHIR API authentication service
 
 ## Overview
 
@@ -46,7 +46,7 @@ Perform the following steps before deployment:
 
 ## Deployment
 
-### Standard Deployment
+### Standard deployment
 
 1. Run `npm ci --ignore-scripts --omit=dev` to install dependencies
 2. Run `npm start`
@@ -65,13 +65,13 @@ The service should now be up and running on the port set in the config. Output s
 
 To test it, use a request builder (i.e. [Insomnia](https://insomnia.rest/)) and import the example requests in `./test_resources/insomnia-test-requests.json`.
 
-### Deploying Using Docker
+### Deploying using Docker
 
 This requires [Docker](https://docker.com) installed.
 
 1. Run `docker compose up` (or `docker compose up -d` to run in the background)
 
-### Deploying Using PM2
+### Deploying using PM2
 
 If this cannot be deployed into production using Docker, use a process manager such as [PM2](https://pm2.keymetrics.io/).
 
@@ -80,7 +80,7 @@ If this cannot be deployed into production using Docker, use a process manager s
 3. Launch application with `pm2 start .pm2.config.js`
 4. Check the application has been deployed using `pm2 list` or `pm2 monit`
 
-#### To Install as a Windows Service:
+#### To install as a Windows service:
 
 If using a Microsoft Windows OS utilise [pm2-installer](https://github.com/jessety/pm2-installer) to install PM2 as a Windows service.
 

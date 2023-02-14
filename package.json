@@ -1,7 +1,7 @@
 {
 	"name": "ydh-fhir-authentication-service",
 	"version": "12.0.3",
-	"description": "Yeovil District Hospital NHSFT's FHIR API Authentication Service",
+	"description": "Yeovil District Hospital NHSFT's FHIR API authentication service",
 	"main": "dist/app.js",
 	"repository": "git+https://github.com/Fdawgs/ydh-fhir-authentication-service.git",
 	"homepage": "https://github.com/Fdawgs/ydh-fhir-authentication-service",

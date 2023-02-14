@@ -252,7 +252,7 @@ async function getConfig() {
 							"Endpoints relating to forwarding to FHIR listener",
 					},
 					{
-						name: "System Administration",
+						name: "System administration",
 						description: "",
 					},
 				],

@@ -5,8 +5,8 @@
 # Yeovil District Hospital NHS Foundation Trust - FHIR API Authentication Service
 
 [![GitHub Release](https://img.shields.io/github/release/Fdawgs/ydh-fhir-authentication-service.svg)](https://github.com/Fdawgs/ydh-fhir-authentication-service/releases/latest/)
-![Build Status](https://github.com/Fdawgs/ydh-fhir-authentication-service/workflows/CI/badge.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/Fdawgs/ydh-fhir-authentication-service/badge.svg?branch=master)](https://coveralls.io/github/Fdawgs/ydh-fhir-authentication-service?branch=master)
+![Build Status](https://github.com/Fdawgs/ydh-fhir-authentication-service/workflows/CI/badge.svg?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/Fdawgs/ydh-fhir-authentication-service/badge.svg?branch=main)](https://coveralls.io/github/Fdawgs/ydh-fhir-authentication-service?branch=main)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 > Yeovil District Hospital NHSFT's FHIR API authentication service

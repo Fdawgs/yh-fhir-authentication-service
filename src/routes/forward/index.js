@@ -55,7 +55,7 @@ async function route(server, options) {
 		},
 		handler: (req, res) => {
 			res.from(req.url, {
-				onResponse: (request, reply, targetResponse) => {
+				onResponse: (_request, reply, targetResponse) => {
 					// Remove CORS origin set by Mirth Connect
 					reply.removeHeader("access-control-allow-origin");
 

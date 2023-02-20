@@ -64,7 +64,7 @@ async function plugin(server, config) {
 		 * is of use to other content is "frame-ancestors 'none'" to stop responses
 		 * from being wrapped in iframes and used for clickjacking attacks
 		 */
-		.addHook("onSend", async (req, res, payload) => {
+		.addHook("onSend", async (_req, res, payload) => {
 			/* istanbul ignore else: API does not currently return HTML/XML content */
 			if (
 				!res.getHeader("content-type")?.includes("html") &&
@@ -139,7 +139,7 @@ async function plugin(server, config) {
 		)
 
 		// Errors thrown by routes and plugins are caught here
-		.setErrorHandler(async (err, req, res) => {
+		.setErrorHandler(async (err, _req, res) => {
 			if (
 				(err.statusCode >= 500 &&
 					/* istanbul ignore next: under-pressure plugin throws valid 503s */

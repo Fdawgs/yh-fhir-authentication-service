@@ -15,9 +15,9 @@ const jwtDecoder = createDecoder({ complete: true });
  * @param {object} server - Fastify instance.
  * @param {object[]} options - Plugin config values.
  * @param {string} options[].issuerDomain - URI of accepted principal that issued JWT.
- * @param {string|Array=} options[].allowedAudiences - Accepted recipient(s) that JWT is intended for.
- * @param {Array=} options[].allowedAlgorithms - Accepted signing algorithm(s).
- * @param {string|Array=} options[].allowedSubjects - Accepted subjects(s).
+ * @param {string|Array<string>=} options[].allowedAudiences - Accepted recipient(s) that JWT is intended for.
+ * @param {Array<string>=} options[].allowedAlgorithms - Accepted signing algorithm(s).
+ * @param {string|Array<string>=} options[].allowedSubjects - Accepted subjects(s).
  * @param {string=} options[].maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {

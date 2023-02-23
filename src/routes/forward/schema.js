@@ -10,16 +10,17 @@ const tags = ["Forwards"];
  */
 const forwardGetSchema = {
 	tags,
-	summary: "Forward route",
-	description:
-		"Forwards to the URL set with the `FORWARD_URL` environment variable.",
 	produces: ["application/fhir+json", "application/fhir+xml"],
 	params: S.object()
-		/**
-		 * Longest STU3 FHIR resource name is "ImmunizationRecommendation" at 26 chars:
-		 * https://hl7.org/fhir/STU3/resourcelist.html
-		 */
-		.prop("resource", S.string().pattern(/^[a-zA-Z]{1,26}$/m))
+		.prop(
+			"resource",
+			S.string()
+				.description(
+					"STU3 FHIR resource name, see https://hl7.org/fhir/STU3/resourcelist.html"
+				)
+				// Longest STU3 FHIR resource name is "ImmunizationRecommendation" at 26 chars
+				.pattern(/^[a-zA-Z]{1,26}$/m)
+		)
 		.prop("id", S.string().pattern(/^[\w-]+$/m))
 		.required(["resource"]),
 
@@ -64,6 +65,7 @@ const forwardGetSchema = {
 		})
 		.additionalProperties(false),
 	response: {
+		200: S.object().additionalProperties(true),
 		400: S.ref("responses#/properties/badRequest").description(
 			"Bad Request"
 		),

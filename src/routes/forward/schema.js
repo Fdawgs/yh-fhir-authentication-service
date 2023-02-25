@@ -16,15 +16,15 @@ const forwardGetSchema = {
 			"resource",
 			S.string()
 				.description(
-					"STU3 FHIR resource name, see https://hl7.org/fhir/STU3/resourcelist.html"
+					"FHIR STU3 resource name, see https://hl7.org/fhir/STU3/resourcelist.html"
 				)
-				// Longest STU3 FHIR resource name is "ImmunizationRecommendation" at 26 chars
+				// Longest FHIR STU3 resource name is "ImmunizationRecommendation" at 26 chars
 				.pattern(/^[a-zA-Z]{1,26}$/m)
 		)
 		.prop("id", S.string().pattern(/^[\w-]+$/m))
 		.required(["resource"]),
 
-	// Querystring search parameters from https://hl7.org/fhir/STU3/search.html
+	// FHIR STU3 search parameters, see https://hl7.org/fhir/STU3/search.html
 	query: S.object()
 		.patternProperties({
 			"^[a-zA-Z-._:]+$": S.anyOf([

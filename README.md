@@ -87,6 +87,14 @@ If using a Microsoft Windows OS utilise [pm2-installer](https://github.com/jesse
 > **Note**
 > PM2 will automatically restart the application if `.env` is modified.
 
+## Usage
+
+### Accessing API documentation
+
+API documentation can be found at `/docs`:
+
+<img alttext="Screenshot of FHIR API Authentication Service documentation page" src="https://raw.githubusercontent.com/Fdawgs/ydh-fhir-authentication-service/main/docs/images/api_documentation_screenshot.png" width="720">
+
 ## Contributing
 
 Contributions are welcome, and any help is greatly appreciated!

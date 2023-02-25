@@ -107,10 +107,10 @@ async function route(server, options) {
 		url: "/STU3/:resource",
 		...opts,
 		schema: {
-			summary: "Search FHIR resources",
+			summary: "Search FHIR STU3 resources",
 			description:
-				"Forwards to the URL set with the `FORWARD_URL` environment variable, which should return one or more FHIR resources.",
-			operationId: "searchFhirResource",
+				"Forwards to the URL set with the `FORWARD_URL` environment variable, which should return one or more FHIR STU3 resources.",
+			operationId: "searchFhirStu3Resource",
 			...opts.schema,
 		},
 	});
@@ -118,10 +118,10 @@ async function route(server, options) {
 		url: "/STU3/:resource/:id",
 		...opts,
 		schema: {
-			summary: "Read FHIR resource",
+			summary: "Read FHIR STU3 resource",
 			description:
-				"Forwards to the URL set with the `FORWARD_URL` environment variable, which should return a single FHIR resource.",
-			operationId: "readFhirResource",
+				"Forwards to the URL set with the `FORWARD_URL` environment variable, which should return a single FHIR STU3 resource.",
+			operationId: "readFhirStu3Resource",
 			...opts.schema,
 		},
 	});

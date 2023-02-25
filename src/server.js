@@ -1,6 +1,7 @@
 const autoLoad = require("@fastify/autoload");
 const fp = require("fastify-plugin");
 const path = require("upath");
+const secJSON = require("secure-json-parse");
 
 // Import plugins
 const accepts = require("@fastify/accepts");
@@ -12,6 +13,8 @@ const flocOff = require("fastify-floc-off");
 const helmet = require("@fastify/helmet");
 const rateLimit = require("@fastify/rate-limit");
 const sensible = require("@fastify/sensible");
+const staticPlugin = require("@fastify/static");
+const swagger = require("@fastify/swagger");
 const serialiseJsonToXml = require("fastify-json-to-xml");
 const underPressure = require("@fastify/under-pressure");
 const jwtJwks = require("./plugins/jwt-jwks-auth");
@@ -50,6 +53,9 @@ async function plugin(server, config) {
 		// Reusable schemas
 		.register(sharedSchemas)
 
+		// Enable Swagger/OpenAPI routes
+		.register(swagger, config.swagger)
+
 		// Process load and 503 response handling
 		.register(underPressure, config.processLoad)
 
@@ -65,7 +71,6 @@ async function plugin(server, config) {
 		 * from being wrapped in iframes and used for clickjacking attacks
 		 */
 		.addHook("onSend", async (_req, res, payload) => {
-			/* istanbul ignore else: API does not currently return HTML/XML content */
 			if (
 				!res.getHeader("content-type")?.includes("html") &&
 				!res.getHeader("content-type")?.includes("xml")
@@ -80,10 +85,10 @@ async function plugin(server, config) {
 			return payload;
 		})
 
-		// Import and register admin routes
+		// Import and register healthcheck route
 		.register(autoLoad, {
-			dir: path.joinSafe(__dirname, "routes", "admin"),
-			options: { ...config, prefix: "admin" },
+			dir: path.joinSafe(__dirname, "routes", "admin", "healthcheck"),
+			options: { ...config, prefix: "admin/healthcheck" },
 		})
 
 		/**
@@ -126,6 +131,50 @@ async function plugin(server, config) {
 					dir: path.joinSafe(__dirname, "routes", "forward"),
 					dirNameRoutePrefix: false,
 					options: config,
+				});
+		})
+
+		/**
+		 * Encapsulate the docs routes into a child context, so that the
+		 * CSP can be relaxed, and cache enabled, without affecting
+		 * security of other routes
+		 */
+		.register(async (publicContext) => {
+			const relaxedHelmetConfig = secJSON.parse(
+				JSON.stringify(config.helmet)
+			);
+			Object.assign(
+				relaxedHelmetConfig.contentSecurityPolicy.directives,
+				{
+					"script-src": ["'self'", "'unsafe-inline'"],
+					"style-src": ["'self'", "'unsafe-inline'"],
+					"child-src": ["'self'"],
+				}
+			);
+
+			await publicContext
+				// Set relaxed response headers
+				.register(helmet, relaxedHelmetConfig)
+
+				// Stop fastify-disablecache overwriting @fastify/static's cache headers
+				.addHook("onRequest", async (_req, res) => {
+					res.removeHeader("cache-control")
+						.removeHeader("expires")
+						.removeHeader("pragma")
+						.removeHeader("surrogate-control");
+				})
+
+				// Register static files in public
+				.register(staticPlugin, {
+					root: path.joinSafe(__dirname, "public"),
+					immutable: true,
+					maxAge: "365 days",
+					prefix: "/public/",
+					wildcard: false,
+				})
+				.register(autoLoad, {
+					dir: path.joinSafe(__dirname, "routes", "docs"),
+					options: { ...config, prefix: "docs" },
 				});
 		})
 

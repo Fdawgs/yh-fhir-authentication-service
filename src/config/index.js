@@ -9,7 +9,7 @@ const pino = require("pino");
 const rotatingLogStream = require("file-stream-rotator");
 const secJSON = require("secure-json-parse");
 
-const { description, license, version } = require("../../package.json");
+const { license, version } = require("../../package.json");
 
 /**
  * @author Frazer Smith
@@ -222,12 +222,11 @@ async function getConfig() {
 			originAgentCluster: false,
 		},
 		swagger: {
-			routePrefix: "/docs",
-			exposeRoute: true,
 			openapi: {
 				info: {
 					title: "FHIR API Authentication Service",
-					description,
+					description:
+						'<a href="https://yeovilhospital.co.uk/">Yeovil District Hospital NHSFT</a>\'s FHIR API authentication service, a Node.js application using the <a href="https://fastify.io/">Fastify web framework</a>.',
 					contact: {
 						name: "Author",
 						email: "frazer.smith@ydh.nhs.uk",
@@ -237,6 +236,13 @@ async function getConfig() {
 						url: "https://raw.githubusercontent.com/Fdawgs/ydh-fhir-authentication-service/main/LICENSE",
 					},
 					version,
+					// Redoc specific extension to support loading image in docs
+					"x-logo": {
+						url: "/public/images/ydh-y-logo-transparent-background-wide-canvas.png",
+						backgroundColor: "#6D3176",
+						altText:
+							"Yeovil District Hospital NHS Foundation Trust logo",
+					},
 				},
 				// Components object populated by shared schemas at launch
 				components: {

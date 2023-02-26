@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [12.1.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.5...v12.1.0) (2023-02-26)
+
+
+### Features
+
+* **docs:** add `/docs` route for openapi redoc ui ([#984](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/984)) ([a0b16dc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/a0b16dc9442d35d0de0df3a18b4aa12de851b02d))
+
+
+### Bug fixes
+
+* **routes/forward:** schema descriptions, summaries, and 200 response ([#982](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/982)) ([5d3c493](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/5d3c493efe259dbcd7a5a56d1fccf87f3409da73))
+
+
+### Dependencies
+
+* **deps-dev:** bump eslint from 8.34.0 to 8.35.0 ([#988](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/988)) ([f419edc](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/f419edc532ff772067ea6aac1c3774f3418ab1a2))
+* **deps-dev:** bump pino-pretty from 9.3.0 to 9.4.0 ([#985](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/985)) ([6a8a4db](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6a8a4dbbec91e972d7a033efe03b3d504a5fd379))
+* **deps:** bump coverallsapp/github-action from 1.1.3 to 1.2.0 ([#986](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/986)) ([bf8681f](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/bf8681f5bca1627e57e15dce6278701943dbc898))
+* **deps:** bump pino from 8.10.0 to 8.11.0 ([#987](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/987)) ([4159a3a](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/4159a3aa23eaa24095f8beba213e33a215afa7f9))
+
 ## [12.0.5](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.4...v12.0.5) (2023-02-22)
 
 

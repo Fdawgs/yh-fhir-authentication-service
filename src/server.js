@@ -53,7 +53,7 @@ async function plugin(server, config) {
 		// Reusable schemas
 		.register(sharedSchemas)
 
-		// Enable Swagger/OpenAPI routes
+		// Generate OpenAPI/Swagger definitions
 		.register(swagger, config.swagger)
 
 		// Process load and 503 response handling

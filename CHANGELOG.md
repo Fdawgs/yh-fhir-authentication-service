@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [12.1.1](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.1.0...v12.1.1) (2023-03-01)
+
+
+### Improvements
+
+* **routes/docs:** defer non-critical css ([#990](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/990)) ([2f1434b](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/2f1434b4162ed07b79d0df3cf7418adefeb3bc98))
+
+
+### Miscellaneous
+
+* **routes/docs:** use correct terminology for openapi definitions ([#993](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/993)) ([14dea8d](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/14dea8df906c0d7f6398f239d8160daf09651720))
+
+
+### Dependencies
+
+* **deps-dev:** bump esbuild from 0.17.5 to 0.17.10 ([#996](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/996)) ([94b177c](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/94b177cc2365f8334dfafc0ea9bf3f428b3a457b))
+* **deps-dev:** bump glob from 8.1.0 to 9.1.0 ([eba0588](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/eba05888462fbf3210a3e9809d20ed7edc60c6e9))
+* **deps:** bump coverallsapp/github-action from 1.2.0 to 1.2.3 ([#994](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/994)) ([985a4de](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/985a4de17f284dd051db7b453cf6d5d7c0447671))
+* **deps:** bump transistive dependencies ([#997](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/997)) ([cecef4e](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/cecef4e81889213a8e3f85f756ae6feb6fd0fe71))
+
 ## [12.1.0](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.0.5...v12.1.0) (2023-02-26)
 
 

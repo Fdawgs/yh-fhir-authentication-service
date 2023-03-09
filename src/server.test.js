@@ -695,56 +695,123 @@ describe("Server deployment", () => {
 				},
 			},
 		];
-		authTests.forEach((testObject) => {
-			describe(`${testObject.testName}`, () => {
-				beforeAll(async () => {
-					Object.assign(process.env, testObject.envVariables);
-					config = await getConfig();
-					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					config.forward.undici = undefined;
-					config.forward.http = true;
+		describe.each(authTests)("$testName", ({ envVariables }) => {
+			beforeAll(async () => {
+				Object.assign(process.env, envVariables);
+				config = await getConfig();
+				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
+				config.forward.undici = undefined;
+				config.forward.http = true;
 
-					server = Fastify();
-					await server.register(startServer, config).ready();
-				});
+				server = Fastify();
+				await server.register(startServer, config).ready();
+			});
 
-				afterAll(async () => {
-					// Reset the process.env to default after all tests in describe block
-					Object.assign(process.env, currentEnv);
+			afterAll(async () => {
+				// Reset the process.env to default after all tests in describe block
+				Object.assign(process.env, currentEnv);
 
-					await server.close();
-				});
+				await server.close();
+			});
 
-				describe("/forward route", () => {
-					if (
-						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
-					) {
-						test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: "Bearer testtoken",
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toHaveProperty(
-								"resourceType",
-								"Patient"
-							);
-							expect(response.headers).toEqual(expResHeaders);
-							expect(response.statusCode).toBe(200);
-						});
-					}
-
-					test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
+			describe("/forward route", () => {
+				if (envVariables?.AUTH_BEARER_TOKEN_ARRAY !== "") {
+					test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
 							headers: {
 								accept: "application/fhir+json",
-								authorization: "Bearer invalidtoken",
+								authorization: "Bearer testtoken",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(expResHeaders);
+						expect(response.statusCode).toBe(200);
+					});
+				}
+
+				test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: "Bearer invalidtoken",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Unauthorized",
+						message: "invalid authorization header",
+						statusCode: 401,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(401);
+				});
+
+				test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Flag/126844-10",
+						headers: {
+							accept: "application/fhir+json",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Unauthorized",
+						message: "missing authorization header",
+						statusCode: 401,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(401);
+				});
+
+				if (
+					envVariables?.JWT_JWKS_ARRAY !== "" &&
+					envVariables?.JWT_JWKS_ARRAY !==
+						`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
+					envVariables?.JWT_JWKS_ARRAY !==
+						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
+				) {
+					test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								authorization: `Bearer ${token}`,
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(expResHeaders);
+						expect(response.statusCode).toBe(200);
+					});
+				}
+
+				if (
+					envVariables?.JWT_JWKS_ARRAY === "" ||
+					envVariables?.JWT_JWKS_ARRAY ===
+						`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
+					envVariables?.JWT_JWKS_ARRAY ===
+						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
+				) {
+					test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								authorization: `Bearer ${token}`,
 							},
 						});
 
@@ -756,78 +823,7 @@ describe("Server deployment", () => {
 						expect(response.headers).toEqual(expResHeadersJson);
 						expect(response.statusCode).toBe(401);
 					});
-
-					test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
-						const response = await server.inject({
-							method: "GET",
-							url: "/STU3/Flag/126844-10",
-							headers: {
-								accept: "application/fhir+json",
-							},
-						});
-
-						expect(JSON.parse(response.payload)).toEqual({
-							error: "Unauthorized",
-							message: "missing authorization header",
-							statusCode: 401,
-						});
-						expect(response.headers).toEqual(expResHeadersJson);
-						expect(response.statusCode).toBe(401);
-					});
-
-					if (
-						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
-						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
-						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
-					) {
-						test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: `Bearer ${token}`,
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toHaveProperty(
-								"resourceType",
-								"Patient"
-							);
-							expect(response.headers).toEqual(expResHeaders);
-							expect(response.statusCode).toBe(200);
-						});
-					}
-
-					if (
-						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
-						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
-						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
-					) {
-						test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: `Bearer ${token}`,
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toEqual({
-								error: "Unauthorized",
-								message: "invalid authorization header",
-								statusCode: 401,
-							});
-							expect(response.headers).toEqual(expResHeadersJson);
-							expect(response.statusCode).toBe(401);
-						});
-					}
-				});
+				}
 			});
 		});
 	});

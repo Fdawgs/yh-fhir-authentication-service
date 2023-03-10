@@ -329,10 +329,11 @@ describe("Server deployment", () => {
 				},
 			},
 		];
-		corsTests.forEach((testObject) => {
-			describe(`${testObject.testName}`, () => {
+		describe.each(corsTests)(
+			"$testName",
+			({ envVariables, expected, request }) => {
 				beforeAll(async () => {
-					Object.assign(process.env, testObject.envVariables);
+					Object.assign(process.env, envVariables);
 					config = await getConfig();
 					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
 					config.forward.undici = undefined;
@@ -356,26 +357,26 @@ describe("Server deployment", () => {
 							url: "/admin/healthcheck",
 							headers: {
 								accept: "text/plain",
-								origin: testObject.request.headers.origin,
+								origin: request.headers.origin,
 							},
 						});
 
 						expect(response.payload).toBe("ok");
 						expect(response.headers).toEqual(
-							testObject.expected.response.headers.text
+							expected.response.headers.text
 						);
 						expect(response.statusCode).toBe(200);
 					});
 
 					// Only applicable if CORS enabled
-					if (testObject.envVariables.CORS_ORIGIN) {
+					if (envVariables.CORS_ORIGIN) {
 						test("Should return response to CORS preflight request", async () => {
 							const response = await server.inject({
 								method: "OPTIONS",
 								url: "/admin/healthcheck",
 								headers: {
 									"access-control-request-method": "GET",
-									origin: testObject.request.headers.origin,
+									origin: request.headers.origin,
 								},
 							});
 
@@ -386,9 +387,9 @@ describe("Server deployment", () => {
 									process.env.CORS_ALLOWED_HEADERS,
 								"access-control-allow-methods": "GET, HEAD",
 								"access-control-allow-origin":
-									testObject.envVariables.CORS_ORIGIN === "*"
+									envVariables.CORS_ORIGIN === "*"
 										? "*"
-										: testObject.request.headers.origin,
+										: request.headers.origin,
 								"access-control-max-age": String(
 									process.env.CORS_MAX_AGE
 								),
@@ -405,7 +406,7 @@ describe("Server deployment", () => {
 							url: "/admin/healthcheck",
 							headers: {
 								accept: "application/javascript",
-								origin: testObject.request.headers.origin,
+								origin: request.headers.origin,
 							},
 						});
 
@@ -415,7 +416,7 @@ describe("Server deployment", () => {
 							statusCode: 406,
 						});
 						expect(response.headers).toEqual(
-							testObject.expected.response.headers.json
+							expected.response.headers.json
 						);
 						expect(response.statusCode).toBe(406);
 					});
@@ -428,7 +429,7 @@ describe("Server deployment", () => {
 							url: "/STU3/Patient/5484125",
 							headers: {
 								accept: "application/fhir+json",
-								origin: testObject.request.headers.origin,
+								origin: request.headers.origin,
 							},
 						});
 
@@ -437,7 +438,7 @@ describe("Server deployment", () => {
 							"Patient"
 						);
 						expect(response.headers).toEqual(
-							testObject.expected.response.headers.basic
+							expected.response.headers.basic
 						);
 						expect(response.statusCode).toBe(200);
 					});
@@ -448,7 +449,7 @@ describe("Server deployment", () => {
 							url: "/STU3/Patient",
 							headers: {
 								accept: "application/fhir+json",
-								origin: testObject.request.headers.origin,
+								origin: request.headers.origin,
 							},
 							query: {
 								identifier: "5484126",
@@ -461,13 +462,13 @@ describe("Server deployment", () => {
 							"Bundle"
 						);
 						expect(response.headers).toEqual(
-							testObject.expected.response.headers.basic
+							expected.response.headers.basic
 						);
 						expect(response.statusCode).toBe(200);
 					});
 
 					// Only applicable to "CORS Enabled" test
-					if (testObject.envVariables.CORS_ORIGIN === true) {
+					if (envVariables.CORS_ORIGIN === true) {
 						test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
 							const response = await server.inject({
 								method: "GET",
@@ -492,7 +493,7 @@ describe("Server deployment", () => {
 							url: "/STU3/Patient/5484125",
 							headers: {
 								accept: "application/javascript",
-								origin: testObject.request.headers.origin,
+								origin: request.headers.origin,
 							},
 						});
 
@@ -502,7 +503,7 @@ describe("Server deployment", () => {
 							statusCode: 406,
 						});
 						expect(response.headers).toEqual(
-							testObject.expected.response.headers.json
+							expected.response.headers.json
 						);
 						expect(response.statusCode).toBe(406);
 					});
@@ -515,7 +516,7 @@ describe("Server deployment", () => {
 							url: "/invalid",
 							headers: {
 								accept: "application/fhir+json",
-								origin: testObject.request.headers.origin,
+								origin: request.headers.origin,
 							},
 						});
 
@@ -530,16 +531,13 @@ describe("Server deployment", () => {
 						expect(response.statusCode).toBe(404);
 					});
 				});
-			});
-		});
+			}
+		);
 	});
 
 	describe("API documentation", () => {
 		let config;
 		let server;
-
-		let browser;
-		let page;
 
 		beforeAll(async () => {
 			Object.assign(process.env, {
@@ -599,17 +597,16 @@ describe("Server deployment", () => {
 		});
 
 		describe("Frontend", () => {
-			afterEach(async () => {
-				await page.close();
-				await browser.close();
-			});
-
 			// Webkit not tested as it is flakey in context of Playwright
-			const browsers = [chromium, firefox];
-			browsers.forEach((browserType) => {
-				test(`Should render docs page without error components - ${browserType.name()}`, async () => {
-					browser = await browserType.launch();
-					page = await browser.newPage();
+			// TODO: use `test.concurrent.each()` once it is no longer experimental
+			test.each([
+				{ browser: chromium, name: "Chromium" },
+				{ browser: firefox, name: "Firefox" },
+			])(
+				"Should render docs page without error components - $name",
+				async ({ browser }) => {
+					const browserType = await browser.launch();
+					const page = await browserType.newPage();
 
 					await page.goto("http://localhost:3000/docs");
 					expect(await page.title()).toBe(
@@ -625,8 +622,11 @@ describe("Server deployment", () => {
 					expect(await heading.textContent()).not.toEqual(
 						expect.stringMatching(/something\s*went\s*wrong/i)
 					);
-				});
-			});
+
+					await page.close();
+					await browserType.close();
+				}
+			);
 		});
 	});
 
@@ -695,56 +695,123 @@ describe("Server deployment", () => {
 				},
 			},
 		];
-		authTests.forEach((testObject) => {
-			describe(`${testObject.testName}`, () => {
-				beforeAll(async () => {
-					Object.assign(process.env, testObject.envVariables);
-					config = await getConfig();
-					// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-					config.forward.undici = undefined;
-					config.forward.http = true;
+		describe.each(authTests)("$testName", ({ envVariables }) => {
+			beforeAll(async () => {
+				Object.assign(process.env, envVariables);
+				config = await getConfig();
+				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
+				config.forward.undici = undefined;
+				config.forward.http = true;
 
-					server = Fastify();
-					await server.register(startServer, config).ready();
-				});
+				server = Fastify();
+				await server.register(startServer, config).ready();
+			});
 
-				afterAll(async () => {
-					// Reset the process.env to default after all tests in describe block
-					Object.assign(process.env, currentEnv);
+			afterAll(async () => {
+				// Reset the process.env to default after all tests in describe block
+				Object.assign(process.env, currentEnv);
 
-					await server.close();
-				});
+				await server.close();
+			});
 
-				describe("/forward route", () => {
-					if (
-						testObject?.envVariables?.AUTH_BEARER_TOKEN_ARRAY !== ""
-					) {
-						test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: "Bearer testtoken",
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toHaveProperty(
-								"resourceType",
-								"Patient"
-							);
-							expect(response.headers).toEqual(expResHeaders);
-							expect(response.statusCode).toBe(200);
-						});
-					}
-
-					test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
+			describe("/forward route", () => {
+				if (envVariables?.AUTH_BEARER_TOKEN_ARRAY !== "") {
+					test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
 							headers: {
 								accept: "application/fhir+json",
-								authorization: "Bearer invalidtoken",
+								authorization: "Bearer testtoken",
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(expResHeaders);
+						expect(response.statusCode).toBe(200);
+					});
+				}
+
+				test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Patient/5484125",
+						headers: {
+							accept: "application/fhir+json",
+							authorization: "Bearer invalidtoken",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Unauthorized",
+						message: "invalid authorization header",
+						statusCode: 401,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(401);
+				});
+
+				test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
+					const response = await server.inject({
+						method: "GET",
+						url: "/STU3/Flag/126844-10",
+						headers: {
+							accept: "application/fhir+json",
+						},
+					});
+
+					expect(JSON.parse(response.payload)).toEqual({
+						error: "Unauthorized",
+						message: "missing authorization header",
+						statusCode: 401,
+					});
+					expect(response.headers).toEqual(expResHeadersJson);
+					expect(response.statusCode).toBe(401);
+				});
+
+				if (
+					envVariables?.JWT_JWKS_ARRAY !== "" &&
+					envVariables?.JWT_JWKS_ARRAY !==
+						`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
+					envVariables?.JWT_JWKS_ARRAY !==
+						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
+				) {
+					test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								authorization: `Bearer ${token}`,
+							},
+						});
+
+						expect(JSON.parse(response.payload)).toHaveProperty(
+							"resourceType",
+							"Patient"
+						);
+						expect(response.headers).toEqual(expResHeaders);
+						expect(response.statusCode).toBe(200);
+					});
+				}
+
+				if (
+					envVariables?.JWT_JWKS_ARRAY === "" ||
+					envVariables?.JWT_JWKS_ARRAY ===
+						`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
+					envVariables?.JWT_JWKS_ARRAY ===
+						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
+				) {
+					test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/STU3/Patient/5484125",
+							headers: {
+								accept: "application/fhir+json",
+								authorization: `Bearer ${token}`,
 							},
 						});
 
@@ -756,78 +823,7 @@ describe("Server deployment", () => {
 						expect(response.headers).toEqual(expResHeadersJson);
 						expect(response.statusCode).toBe(401);
 					});
-
-					test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
-						const response = await server.inject({
-							method: "GET",
-							url: "/STU3/Flag/126844-10",
-							headers: {
-								accept: "application/fhir+json",
-							},
-						});
-
-						expect(JSON.parse(response.payload)).toEqual({
-							error: "Unauthorized",
-							message: "missing authorization header",
-							statusCode: 401,
-						});
-						expect(response.headers).toEqual(expResHeadersJson);
-						expect(response.statusCode).toBe(401);
-					});
-
-					if (
-						testObject?.envVariables?.JWT_JWKS_ARRAY !== "" &&
-						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
-						testObject?.envVariables?.JWT_JWKS_ARRAY !==
-							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
-					) {
-						test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: `Bearer ${token}`,
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toHaveProperty(
-								"resourceType",
-								"Patient"
-							);
-							expect(response.headers).toEqual(expResHeaders);
-							expect(response.statusCode).toBe(200);
-						});
-					}
-
-					if (
-						testObject?.envVariables?.JWT_JWKS_ARRAY === "" ||
-						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
-						testObject?.envVariables?.JWT_JWKS_ARRAY ===
-							`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
-					) {
-						test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
-							const response = await server.inject({
-								method: "GET",
-								url: "/STU3/Patient/5484125",
-								headers: {
-									accept: "application/fhir+json",
-									authorization: `Bearer ${token}`,
-								},
-							});
-
-							expect(JSON.parse(response.payload)).toEqual({
-								error: "Unauthorized",
-								message: "invalid authorization header",
-								statusCode: 401,
-							});
-							expect(response.headers).toEqual(expResHeadersJson);
-							expect(response.statusCode).toBe(401);
-						});
-					}
-				});
+				}
 			});
 		});
 	});

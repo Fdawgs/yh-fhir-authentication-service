@@ -16,7 +16,7 @@
 	},
 	"scripts": {
 		"benchmark": "autocannon -a 1000 -H \"Authorization:Bearer testtoken\" \"http://0.0.0.0:3000/STU3/Flag/126844-10\"",
-		"build": "node .esbuild.js",
+		"build": "node scripts/esbuild.js",
 		"jest": "jest",
 		"jest:coverage": "jest --coverage",
 		"lint": "eslint . --cache --ext js,jsx,ts,tsx --ignore-path .gitignore",

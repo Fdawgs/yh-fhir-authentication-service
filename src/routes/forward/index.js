@@ -70,6 +70,10 @@ async function route(server, options) {
 							acaOrigin = reqOrigin;
 						}
 
+						/**
+						 * Cannot use wildcard with credentials for security reasons.
+						 * See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+						 */
 						if (origin === "*" && !credentials) {
 							acaOrigin = "*";
 						}
@@ -89,15 +93,15 @@ async function route(server, options) {
 					 * Remove headers set by Mirth Connect that are either inaccurate
 					 * or pose security risks
 					 */
-					reply.removeHeader("access-control-allow-headers");
-					reply.removeHeader("access-control-allow-methods");
-					reply.removeHeader("access-control-expose-headers");
-					reply.removeHeader("etag");
-					reply.removeHeader("last-modified");
-					reply.removeHeader("location");
-					reply.removeHeader("server");
-
-					reply.send(targetResponse);
+					reply
+						.removeHeader("access-control-allow-headers")
+						.removeHeader("access-control-allow-methods")
+						.removeHeader("access-control-expose-headers")
+						.removeHeader("etag")
+						.removeHeader("last-modified")
+						.removeHeader("location")
+						.removeHeader("server")
+						.send(targetResponse);
 				},
 			});
 		},

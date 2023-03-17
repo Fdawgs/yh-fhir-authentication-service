@@ -70,6 +70,10 @@ async function route(server, options) {
 							acaOrigin = reqOrigin;
 						}
 
+						/**
+						 * Cannot use wildcard with credentials for security reasons.
+						 * See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+						 */
 						if (origin === "*" && !credentials) {
 							acaOrigin = "*";
 						}

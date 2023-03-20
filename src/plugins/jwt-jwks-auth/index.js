@@ -45,10 +45,10 @@ async function plugin(server, options) {
 						 * will stop changes to defaults in dependency from affecting auth
 						 */
 						return createVerifier({
-							algorithms: element?.allowedAlgorithms,
-							allowedAud: element?.allowedAudiences,
+							algorithms: element.allowedAlgorithms,
+							allowedAud: element.allowedAudiences,
 							allowedIss: element.issuerDomain,
-							allowedSub: element?.allowedSubjects,
+							allowedSub: element.allowedSubjects,
 							cacheTTL: 600000, // Cache for 10 mins
 							clockTimestamp: Date.now(),
 							clockTolerance: 0,
@@ -57,10 +57,10 @@ async function plugin(server, options) {
 							ignoreNotBefore: false,
 							key: await getJwks.getPublicKey({
 								domain: element.issuerDomain,
-								alg: jwtHeader?.alg,
+								alg: jwtHeader.alg,
 								kid: jwtHeader.kid,
 							}),
-							maxAge: element?.maxAge,
+							maxAge: element.maxAge,
 						})(token);
 					})
 				);
@@ -73,7 +73,7 @@ async function plugin(server, options) {
 					if (
 						element.message !== "No matching JWK found in the set."
 					) {
-						req.log.error({ req, err: element }, element?.message);
+						req.log.error({ req, err: element }, element.message);
 					}
 				});
 

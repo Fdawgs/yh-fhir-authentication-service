@@ -61,7 +61,7 @@ async function route(server, options) {
 
 					// Set CORS origin
 					const { origin, credentials } = options.cors;
-					const reqOrigin = req?.headers?.origin;
+					const reqOrigin = req.headers?.origin;
 					if (origin && reqOrigin !== undefined) {
 						let acaOrigin;
 

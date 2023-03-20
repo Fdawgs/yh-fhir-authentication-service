@@ -715,7 +715,7 @@ describe("Server deployment", () => {
 			});
 
 			describe("/forward route", () => {
-				if (envVariables?.AUTH_BEARER_TOKEN_ARRAY !== "") {
+				if (envVariables.AUTH_BEARER_TOKEN_ARRAY !== "") {
 					test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
 						const response = await server.inject({
 							method: "GET",
@@ -773,10 +773,10 @@ describe("Server deployment", () => {
 				});
 
 				if (
-					envVariables?.JWT_JWKS_ARRAY !== "" &&
-					envVariables?.JWT_JWKS_ARRAY !==
+					envVariables.JWT_JWKS_ARRAY !== "" &&
+					envVariables.JWT_JWKS_ARRAY !==
 						`[{"issuerDomain": "${invalidIssuerUri}"}]` &&
-					envVariables?.JWT_JWKS_ARRAY !==
+					envVariables.JWT_JWKS_ARRAY !==
 						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 				) {
 					test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
@@ -799,10 +799,10 @@ describe("Server deployment", () => {
 				}
 
 				if (
-					envVariables?.JWT_JWKS_ARRAY === "" ||
-					envVariables?.JWT_JWKS_ARRAY ===
+					envVariables.JWT_JWKS_ARRAY === "" ||
+					envVariables.JWT_JWKS_ARRAY ===
 						`[{"issuerDomain": "${invalidIssuerUri}"}]` ||
-					envVariables?.JWT_JWKS_ARRAY ===
+					envVariables.JWT_JWKS_ARRAY ===
 						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 				) {
 					test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {

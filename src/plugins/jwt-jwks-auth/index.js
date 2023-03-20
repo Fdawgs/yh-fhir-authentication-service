@@ -38,7 +38,7 @@ async function plugin(server, options) {
 				// Allow through aslong as the JWT is verified by atleast one JWKS public key
 				await Promise.any(
 					options.map(async (element) => {
-						const jwtHeader = jwtDecoder(token).header;
+						const { alg, kid } = jwtDecoder(token).header || {};
 
 						/**
 						 * Verifier config options explicitly defined as functionality not tested;
@@ -57,8 +57,8 @@ async function plugin(server, options) {
 							ignoreNotBefore: false,
 							key: await getJwks.getPublicKey({
 								domain: element.issuerDomain,
-								alg: jwtHeader.alg,
-								kid: jwtHeader.kid,
+								alg,
+								kid,
 							}),
 							maxAge: element.maxAge,
 						})(token);

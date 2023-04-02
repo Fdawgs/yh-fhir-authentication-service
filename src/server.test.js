@@ -36,7 +36,7 @@ const expResHeadersHtml = {
 	...expResHeaders,
 	"content-security-policy":
 		"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
-	"content-type": expect.stringContaining("text/html"),
+	"content-type": expect.stringMatching(/^text\/html; charset=utf-8$/i),
 	"x-xss-protection": "0",
 };
 
@@ -60,7 +60,7 @@ const expeResHeadersPublicImage = {
 	"accept-ranges": "bytes",
 	"cache-control": "public, max-age=31536000, immutable",
 	"content-length": expect.any(Number), // @fastify/static plugin returns content-length as number
-	"content-type": expect.stringContaining("image/"),
+	"content-type": expect.stringMatching(/^image\//i),
 	etag: expect.any(String),
 	expires: undefined,
 	"last-modified": expect.any(String),
@@ -71,12 +71,14 @@ const expeResHeadersPublicImage = {
 
 const expResHeadersJson = {
 	...expResHeaders,
-	"content-type": expect.stringContaining("application/json"),
+	"content-type": expect.stringMatching(
+		/^application\/json; charset=utf-8$/i
+	),
 };
 
 const expResHeadersText = {
 	...expResHeaders,
-	"content-type": expect.stringContaining("text/plain"),
+	"content-type": expect.stringMatching(/^text\/plain; charset=utf-8$/i),
 };
 
 const expResHeaders4xxErrors = {

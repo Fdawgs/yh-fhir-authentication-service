@@ -353,7 +353,7 @@ describe("Server deployment", () => {
 				});
 
 				describe("/admin/healthcheck route", () => {
-					test("Should return `ok`", async () => {
+					it("Returns `ok`", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/admin/healthcheck",
@@ -372,7 +372,7 @@ describe("Server deployment", () => {
 
 					// Only applicable if CORS enabled
 					if (envVariables.CORS_ORIGIN) {
-						test("Should return response to CORS preflight request", async () => {
+						it("Returns response to CORS preflight request", async () => {
 							const response = await server.inject({
 								method: "OPTIONS",
 								url: "/admin/healthcheck",
@@ -402,7 +402,7 @@ describe("Server deployment", () => {
 						});
 					}
 
-					test("Should return HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
+					it("Returns HTTP status code 406 if media type in `Accept` request header is unsupported", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/admin/healthcheck",
@@ -425,7 +425,7 @@ describe("Server deployment", () => {
 				});
 
 				describe("/forward route", () => {
-					test("Should forward request to 'FORWARD_URL'", async () => {
+					it("Forwards request to 'FORWARD_URL'", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -445,7 +445,7 @@ describe("Server deployment", () => {
 						expect(response.statusCode).toBe(200);
 					});
 
-					test("Should forward request to 'FORWARD_URL' using search route and query string params", async () => {
+					it("Forwards request to 'FORWARD_URL' using search route and query string params", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient",
@@ -471,7 +471,7 @@ describe("Server deployment", () => {
 
 					// Only applicable to "CORS Enabled" test
 					if (envVariables.CORS_ORIGIN === true) {
-						test("Should not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
+						it("Does not set 'access-control-allow-origin' if configured to reflect 'origin' in request header, but 'origin' missing", async () => {
 							const response = await server.inject({
 								method: "GET",
 								url: "/STU3/Patient/5484125",
@@ -489,7 +489,7 @@ describe("Server deployment", () => {
 						});
 					}
 
-					test("Should return HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
+					it("Returns HTTP status code 406 if content-type in `Accept` request header unsupported", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -512,7 +512,7 @@ describe("Server deployment", () => {
 				});
 
 				describe("Undeclared route", () => {
-					test("Should return HTTP status code 404 if route not found", async () => {
+					it("Returns HTTP status code 404 if route not found", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/invalid",
@@ -567,7 +567,7 @@ describe("Server deployment", () => {
 
 		describe("Content", () => {
 			describe("/docs route", () => {
-				test("Should return HTML", async () => {
+				it("Returns HTML", async () => {
 					const response = await server.inject({
 						method: "GET",
 						url: "/docs",
@@ -583,7 +583,7 @@ describe("Server deployment", () => {
 			});
 
 			describe("/public route", () => {
-				test("Should return image", async () => {
+				it("Returns image", async () => {
 					const response = await server.inject({
 						method: "GET",
 						url: "/public/images/icons/favicon.ico",
@@ -601,11 +601,11 @@ describe("Server deployment", () => {
 		describe("Frontend", () => {
 			// Webkit not tested as it is flakey in context of Playwright
 			// TODO: use `test.concurrent.each()` once it is no longer experimental
-			test.each([
+			it.each([
 				{ browser: chromium, name: "Chromium" },
 				{ browser: firefox, name: "Firefox" },
 			])(
-				"Should render docs page without error components - $name",
+				"Renders docs page without error components - $name",
 				async ({ browser }) => {
 					const browserType = await browser.launch();
 					const page = await browserType.newPage();
@@ -718,7 +718,7 @@ describe("Server deployment", () => {
 
 			describe("/forward route", () => {
 				if (envVariables.AUTH_BEARER_TOKEN_ARRAY !== "") {
-					test("Should forward request to 'FORWARD_URL' using bearer token auth", async () => {
+					it("Forwards request to 'FORWARD_URL' using bearer token auth", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -737,7 +737,7 @@ describe("Server deployment", () => {
 					});
 				}
 
-				test("Should fail to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
+				it("Fails to forward request to 'FORWARD_URL' using an invalid bearer token/JWT", async () => {
 					const response = await server.inject({
 						method: "GET",
 						url: "/STU3/Patient/5484125",
@@ -756,7 +756,7 @@ describe("Server deployment", () => {
 					expect(response.statusCode).toBe(401);
 				});
 
-				test("Should fail to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
+				it("Fails to forward request to 'FORWARD_URL' Resource if bearer token/JWT is missing", async () => {
 					const response = await server.inject({
 						method: "GET",
 						url: "/STU3/Flag/126844-10",
@@ -781,7 +781,7 @@ describe("Server deployment", () => {
 					envVariables.JWT_JWKS_ARRAY !==
 						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 				) {
-					test("Should forward request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
+					it("Forwards request to 'FORWARD_URL' using valid JWT against a valid Issuer", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -807,7 +807,7 @@ describe("Server deployment", () => {
 					envVariables.JWT_JWKS_ARRAY ===
 						`[{"issuerDomain": "${validIssuerUri}", "allowedAudiences": "ydh"}]`
 				) {
-					test("Should fail to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
+					it("Fails to forward request to 'FORWARD_URL' using valid JWT against a invalid Issuer", async () => {
 						const response = await server.inject({
 							method: "GET",
 							url: "/STU3/Patient/5484125",
@@ -866,7 +866,7 @@ describe("Server deployment", () => {
 				await server.register(startServer, config).ready();
 			});
 
-			test("Should return HTTP status code 500 if 'FORWARD_URL' is invalid", async () => {
+			it("Returns HTTP status code 500 if 'FORWARD_URL' is invalid", async () => {
 				const response = await server.inject({
 					method: "GET",
 					url: "/STU3/Patient/5484125",

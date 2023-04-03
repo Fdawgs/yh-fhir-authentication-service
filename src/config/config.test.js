@@ -19,7 +19,7 @@ describe("Configuration", () => {
 		Object.assign(process.env, currentEnv);
 	});
 
-	test("Should use defaults if values missing and return values according to environment variables", async () => {
+	it("Uses defaults if values missing and return values according to environment variables", async () => {
 		const HOST = "";
 		const PORT = "";
 		const FORWARD_URL = "https://nhs.uk";
@@ -131,7 +131,7 @@ describe("Configuration", () => {
 		expect(config.jwt).toBeUndefined();
 	});
 
-	test("Should use defaults logging values if values missing", async () => {
+	it("Uses defaults logging values if values missing", async () => {
 		const FORWARD_URL = "https://nhs.uk";
 		const LOG_LEVEL = "";
 		const LOG_ROTATION_DATE_FORMAT = "";
@@ -169,7 +169,7 @@ describe("Configuration", () => {
 		expect(config.fastifyInit.logger.timestamp()).toMatch(/^,"time"/);
 	});
 
-	test("Should return values according to environment variables - HTTPS (SSL cert) enabled, HTTP2 enabled, bearer token auth enabled, and JWKS JWT auth enabled", async () => {
+	it("Returns values according to environment variables - HTTPS (SSL cert) enabled, HTTP2 enabled, bearer token auth enabled, and JWKS JWT auth enabled", async () => {
 		const HOST = "0.0.0.0";
 		const PORT = 443;
 		const FORWARD_URL = "https://nhs.uk";
@@ -282,7 +282,7 @@ describe("Configuration", () => {
 		expect(config.jwt).toEqual(JSON.parse(JWT_JWKS_ARRAY));
 	});
 
-	test("Should return values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {
+	it("Returns values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {
 		const HOST = "0.0.0.0";
 		const PORT = 443;
 		const FORWARD_URL = "https://nhs.uk";
@@ -318,7 +318,7 @@ describe("Configuration", () => {
 	});
 
 	// CORS env variables
-	test.each([
+	it.each([
 		{
 			testName: "CORS origin set to true and credentials enabled",
 			envVariables: {
@@ -362,7 +362,7 @@ describe("Configuration", () => {
 			},
 		},
 	])(
-		"Should return values according to environment variables - $testName",
+		"Returns values according to environment variables - $testName",
 		async ({ envVariables, expected }) => {
 			const HOST = "0.0.0.0";
 			const PORT = 80;
@@ -407,7 +407,7 @@ describe("Configuration", () => {
 	);
 
 	// HTTPS cert path env variables
-	test.each([
+	it.each([
 		{
 			testName: "invalid PFX file path",
 			envVariables: {
@@ -423,7 +423,7 @@ describe("Configuration", () => {
 				HTTPS_SSL_KEY_PATH: "./test_resources/test_ssl_cert/error.key",
 			},
 		},
-	])("Should throw error if $testName", async ({ envVariables }) => {
+	])("Throws error if $testName", async ({ envVariables }) => {
 		const HOST = "0.0.0.0";
 		const PORT = 443;
 		const FORWARD_URL = "https://nhs.uk";

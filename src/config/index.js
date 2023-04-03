@@ -121,17 +121,26 @@ async function getConfig() {
 			.prop("PROC_LOAD_MAX_RSS_BYTES", S.anyOf([S.number(), S.null()]))
 
 			// Rate limiting
-			.prop("RATE_LIMIT_EXCLUDED_ARRAY", S.anyOf([S.string(), S.null()]))
+			.prop(
+				"RATE_LIMIT_EXCLUDED_ARRAY",
+				S.anyOf([S.string().pattern(/^\[.*\]$/), S.null()])
+			)
 			.prop(
 				"RATE_LIMIT_MAX_CONNECTIONS_PER_MIN",
 				S.anyOf([S.number(), S.null()])
 			)
 
 			// Bearer token auth
-			.prop("AUTH_BEARER_TOKEN_ARRAY", S.anyOf([S.string(), S.null()]))
+			.prop(
+				"AUTH_BEARER_TOKEN_ARRAY",
+				S.anyOf([S.string().pattern(/^\[\{.*\}\]$/), S.null()])
+			)
 
 			// JWT auth
-			.prop("JWT_JWKS_ARRAY", S.anyOf([S.string(), S.null()]))
+			.prop(
+				"JWT_JWKS_ARRAY",
+				S.anyOf([S.string().pattern(/^\[\{.*\}\]$/), S.null()])
+			)
 			.required(["FORWARD_URL"]),
 	});
 

@@ -87,15 +87,15 @@ const expResHeaders4xxErrors = {
 };
 
 describe("Server deployment", () => {
-	const invalidIssuerUri = "https://invalid-issuer.ydh.nhs.uk";
-	const validIssuerUri = "https://valid-issuer.ydh.nhs.uk";
+	const invalidIssuerUri = "https://invalid-issuer.somersetft.nhs.uk";
+	const validIssuerUri = "https://valid-issuer.somersetft.nhs.uk";
 	let mockJwksServerOne;
 	let mockJwksServerTwo;
 	let token;
 
 	beforeAll(() => {
 		Object.assign(process.env, {
-			FORWARD_URL: "http://unsecured-server.ydh.nhs.uk",
+			FORWARD_URL: "http://unsecured-server.somersetft.nhs.uk",
 		});
 
 		nock.disableNetConnect();
@@ -104,11 +104,11 @@ describe("Server deployment", () => {
 		nock(validIssuerUri)
 			.get("/.well-known/openid-configuration")
 			.reply(200, {
-				jwks_uri: "https://valid-issuer.sft.nhs.uk/jwks",
+				jwks_uri: "https://valid-issuer.somersetft.nhs.uk/jwks",
 			})
 			.persist();
 		mockJwksServerOne = createJWKSMock(
-			"https://valid-issuer.sft.nhs.uk",
+			"https://valid-issuer.somersetft.nhs.uk",
 			"/jwks"
 		);
 		mockJwksServerOne.start();
@@ -122,17 +122,17 @@ describe("Server deployment", () => {
 		nock(invalidIssuerUri)
 			.get("/.well-known/openid-configuration")
 			.reply(200, {
-				jwks_uri: "https://invalid-issuer.sft.nhs.uk/jwks",
+				jwks_uri: "https://invalid-issuer.somersetft.nhs.uk/jwks",
 			})
 			.persist();
 		mockJwksServerTwo = createJWKSMock(
-			"https://invalid-issuer.sft.nhs.uk",
+			"https://invalid-issuer.somersetft.nhs.uk",
 			"/jwks"
 		);
 		mockJwksServerTwo.start();
 
 		// Create FHIR endpoints
-		nock("http://unsecured-server.ydh.nhs.uk")
+		nock("http://unsecured-server.somersetft.nhs.uk")
 			.defaultReplyHeaders({
 				"Access-Control-Allow-Methods":
 					"GET, POST, PUT, DELETE, OPTIONS",
@@ -209,7 +209,7 @@ describe("Server deployment", () => {
 				},
 				request: {
 					headers: {
-						origin: "https://notreal.ydh.nhs.uk",
+						origin: "https://notreal.somersetft.nhs.uk",
 					},
 				},
 				expected: {
@@ -218,17 +218,17 @@ describe("Server deployment", () => {
 							basic: {
 								...expResHeaders,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 							json: {
 								...expResHeadersJson,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 							text: {
 								...expResHeadersText,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 						},
 					},
@@ -237,11 +237,11 @@ describe("Server deployment", () => {
 			{
 				testName: "CORS enabled and set to string",
 				envVariables: {
-					CORS_ORIGIN: "https://notreal.ydh.nhs.uk",
+					CORS_ORIGIN: "https://notreal.somersetft.nhs.uk",
 				},
 				request: {
 					headers: {
-						origin: "https://notreal.ydh.nhs.uk",
+						origin: "https://notreal.somersetft.nhs.uk",
 					},
 				},
 				expected: {
@@ -250,17 +250,17 @@ describe("Server deployment", () => {
 							basic: {
 								...expResHeaders,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 							json: {
 								...expResHeadersJson,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 							text: {
 								...expResHeadersText,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 						},
 					},
@@ -270,13 +270,13 @@ describe("Server deployment", () => {
 				testName: "CORS enabled and set to array of strings",
 				envVariables: {
 					CORS_ORIGIN: [
-						"https://notreal.ydh.nhs.uk",
+						"https://notreal.somersetft.nhs.uk",
 						"https://notreal.sft.nhs.uk",
 					],
 				},
 				request: {
 					headers: {
-						origin: "https://notreal.ydh.nhs.uk",
+						origin: "https://notreal.somersetft.nhs.uk",
 					},
 				},
 				expected: {
@@ -285,17 +285,17 @@ describe("Server deployment", () => {
 							basic: {
 								...expResHeaders,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 							json: {
 								...expResHeadersJson,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 							text: {
 								...expResHeadersText,
 								"access-control-allow-origin":
-									"https://notreal.ydh.nhs.uk",
+									"https://notreal.somersetft.nhs.uk",
 							},
 						},
 					},
@@ -308,7 +308,7 @@ describe("Server deployment", () => {
 				},
 				request: {
 					headers: {
-						origin: "https://notreal.ydh.nhs.uk",
+						origin: "https://notreal.somersetft.nhs.uk",
 					},
 				},
 				expected: {

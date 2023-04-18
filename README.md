@@ -1,21 +1,21 @@
-<a href="https://yeovilhospital.co.uk/">
-	<img alttext="Yeovil District Hospital logo" src="https://github.com/Fdawgs/ydh-logos/raw/HEAD/images/ydh-full-logo-transparent-background.svg" width="480" />
+<a href="https://somersetft.nhs.uk/yeovilhospital/">
+	<img alttext="Somerset NHSFT logo" src="https://github.com/TauntonandSomersetNHSTrust/sft-logos/raw/HEAD/images/sft-nhsft-logo-left-aligned-transparent-background.png" width="480" />
 </a>
 
-# Yeovil District Hospital NHS Foundation Trust - FHIR API Authentication Service
+# Yeovil Hospital - FHIR API Authentication Service
 
 [![GitHub Release](https://img.shields.io/github/release/Fdawgs/ydh-fhir-authentication-service.svg)](https://github.com/Fdawgs/ydh-fhir-authentication-service/releases/latest/)
 ![Build Status](https://github.com/Fdawgs/ydh-fhir-authentication-service/workflows/CI/badge.svg?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/Fdawgs/ydh-fhir-authentication-service/badge.svg?branch=main)](https://coveralls.io/github/Fdawgs/ydh-fhir-authentication-service?branch=main)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
-> Yeovil District Hospital NHSFT's FHIR API authentication service
+> Yeovil Hospital's FHIR API authentication service
 
 ## Overview
 
-This is [Yeovil District Hospital NHSFT](https://yeovilhospital.co.uk/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://fastify.io/) web framework.
+This is [Yeovil Hospital](https://somersetft.nhs.uk/yeovilhospital/)'s FHIR API authentication service, a Node.js application using the [Fastify](https://fastify.io/) web framework.
 
-Yeovil District Hospital NHSFT uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines that, whilst a versatile system, does not provide the following:
+Yeovil Hospital uses [Mirth Connect](https://github.com/nextgenhealthcare/connect) for its integration engines that, whilst a versatile system, does not provide the following:
 
 -   SSL/TLS support out of the box
 -   Easily configurable authentication on HTTP/FHIR listeners

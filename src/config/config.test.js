@@ -192,7 +192,7 @@ describe("Configuration", () => {
 		const AUTH_BEARER_TOKEN_ARRAY =
 			'[{"service": "test", "value": "testtoken"}]';
 		const JWT_JWKS_ARRAY =
-			'[{"issuerDomain": "https://not-real-issuer.ydh.nhs.uk/auth/realms/SIDER", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "maxAge": 90000}]';
+			'[{"issuerDomain": "https://not-real-issuer.somersetft.nhs.uk/auth/realms/SIDER", "allowedAudiences": "ydh", "allowedAlgorithms": ["RS256"], "maxAge": 90000}]';
 
 		Object.assign(process.env, {
 			HOST,
@@ -343,22 +343,22 @@ describe("Configuration", () => {
 			testName: "CORS origin set to comma-delimited string value",
 			envVariables: {
 				CORS_ORIGIN:
-					"https://test1.ydh.nhs.uk, https://test2.ydh.nhs.uk",
+					"https://test1.somersetft.nhs.uk, https://test2.somersetft.nhs.uk",
 			},
 			expected: {
 				origin: expect.arrayContaining([
-					"https://test1.ydh.nhs.uk",
-					"https://test2.ydh.nhs.uk",
+					"https://test1.somersetft.nhs.uk",
+					"https://test2.somersetft.nhs.uk",
 				]),
 			},
 		},
 		{
 			testName: "CORS origin set to string value",
 			envVariables: {
-				CORS_ORIGIN: "https://ydh.nhs.uk",
+				CORS_ORIGIN: "https://somersetft.nhs.uk",
 			},
 			expected: {
-				origin: "https://ydh.nhs.uk",
+				origin: "https://somersetft.nhs.uk",
 			},
 		},
 	])(

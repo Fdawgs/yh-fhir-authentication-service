@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [12.1.4](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.1.3...v12.1.4) (2023-04-18)
+
+
+### Improvements
+
+* **server:** replace json parse stringify with `structuredClone()` ([#1061](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/1061)) ([0c220d0](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/0c220d01e8d0d0790b18b21d3ffab08a6c705dfe))
+
+
+### Miscellaneous
+
+* **license:** add somerset nhsft ([6ec9063](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/6ec90632f5341650fd97dab4e2b31cdadfaa382f))
+* replace ydh nhsft branding and links with somerset nhsft ([#1062](https://github.com/Fdawgs/ydh-fhir-authentication-service/issues/1062)) ([850f991](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/850f99122cd9271423f957e71c8b2b6c2891effa))
+* update ydh email domain ([ac3a7d8](https://github.com/Fdawgs/ydh-fhir-authentication-service/commit/ac3a7d8fff677eb384c3262396774e908dc84d63))
+
 ## [12.1.3](https://github.com/Fdawgs/ydh-fhir-authentication-service/compare/v12.1.2...v12.1.3) (2023-04-04)
 
 

@@ -86,6 +86,14 @@ const expResHeaders4xxErrors = {
 	vary: undefined,
 };
 
+const expResHeaders4xxErrorsXml = {
+	...expResHeaders4xxErrors,
+	"content-security-policy":
+		"default-src 'self';base-uri 'self';img-src 'self' data:;object-src 'none';child-src 'self';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;block-all-mixed-content",
+	"content-type": expect.stringMatching(/^application\/xml; charset=utf-8$/i),
+	"x-xss-protection": "0",
+};
+
 describe("Server deployment", () => {
 	const invalidIssuerUri = "https://invalid-issuer.somersetft.nhs.uk";
 	const validIssuerUri = "https://valid-issuer.somersetft.nhs.uk";
@@ -529,6 +537,24 @@ describe("Server deployment", () => {
 						});
 						expect(response.headers).toEqual(
 							expResHeaders4xxErrors
+						);
+						expect(response.statusCode).toBe(404);
+					});
+
+					it("Returns an XML response if media type in `Accept` request header is `application/xml`", async () => {
+						const response = await server.inject({
+							method: "GET",
+							url: "/invalid",
+							headers: {
+								accept: "application/xml",
+							},
+						});
+
+						expect(response.payload).toBe(
+							'<?xml version="1.0" encoding="UTF-8"?><response><statusCode>404</statusCode><error>Not Found</error><message>Route GET:/invalid not found</message></response>'
+						);
+						expect(response.headers).toEqual(
+							expResHeaders4xxErrorsXml
 						);
 						expect(response.statusCode).toBe(404);
 					});

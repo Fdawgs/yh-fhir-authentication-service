@@ -71,8 +71,8 @@ async function plugin(server, config) {
 		 */
 		.addHook("onSend", async (_req, res, payload) => {
 			if (
-				!res.getHeader("content-type")?.includes("html") &&
-				!res.getHeader("content-type")?.includes("xml")
+				!res.getHeader("content-type")?.toString()?.includes("html") &&
+				!res.getHeader("content-type")?.toString()?.includes("xml")
 			) {
 				res.header(
 					"content-security-policy",

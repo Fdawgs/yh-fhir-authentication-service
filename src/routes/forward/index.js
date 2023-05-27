@@ -13,6 +13,8 @@ const accepts = forwardGetSchema.produces;
  * @param {object} options - Route config values.
  * @param {*=} options.bearerTokenAuthKeys- Apply `bearerToken` security scheme to route if defined.
  * @param {object} options.cors - CORS settings.
+ * @param {boolean|Array<string>|string} options.cors.origin - Access-Control-Allow-Origin header value.
+ * @param {boolean} options.cors.credentials - Whether to send Access-Control-Allow-Credentials header.
  * @param {object} options.forward - @fastify/reply-from plugin options.
  * @param {*=} options.jwt- Apply `jwtBearerToken` security scheme to route if defined.
  */

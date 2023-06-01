@@ -115,7 +115,7 @@
 		"fastify-plugin": "^4.5.0",
 		"file-stream-rotator": "^1.0.0",
 		"fluent-json-schema": "^4.1.0",
-		"get-jwks": "^8.0.6",
+		"get-jwks": "^8.1.0",
 		"pino": "^8.14.1",
 		"redoc": "^2.0.0",
 		"secure-json-parse": "^2.7.0",

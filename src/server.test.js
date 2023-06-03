@@ -713,7 +713,6 @@ describe("Server deployment", () => {
 					JWT_JWKS_ARRAY: `[{"issuerDomain": "${validIssuerUri}"},{"issuerDomain": "${invalidIssuerUri}"}]`,
 				},
 			},
-
 			{
 				testName:
 					"Bearer token auth disabled and JWKS JWT auth enabled with one JWKS endpoint (with an invalid key)",

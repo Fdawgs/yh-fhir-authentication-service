@@ -24,7 +24,6 @@ const forwardGetSchema = {
 		)
 		.prop("id", S.string().pattern(/^[\w-]+$/))
 		.required(["resource"]),
-
 	// FHIR STU3 search parameters, see https://hl7.org/fhir/STU3/search.html
 	query: S.object()
 		.patternProperties({

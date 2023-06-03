@@ -12,7 +12,7 @@ const jwtDecoder = createDecoder({ complete: true });
  * @author Frazer Smith
  * @description Decorator plugin that adds `verifyJWT` function
  * to authenticate JWTs using JWKS endpoint.
- * @param {object} server - Fastify instance.
+ * @param {import("fastify").FastifyInstance} server - Fastify instance instance.
  * @param {object[]} options - Plugin config values.
  * @param {string} options[].issuerDomain - URI of accepted principal that issued JWT.
  * @param {string|Array<string>=} options[].allowedAudiences - Accepted recipient(s) that JWT is intended for.

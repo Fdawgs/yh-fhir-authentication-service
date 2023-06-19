@@ -420,7 +420,7 @@ describe("Server deployment", () => {
 							},
 						});
 
-						expect(JSON.parse(response.body)).toEqual({
+						expect(JSON.parse(response.body)).toStrictEqual({
 							error: "Not Acceptable",
 							message: "Not Acceptable",
 							statusCode: 406,
@@ -507,7 +507,7 @@ describe("Server deployment", () => {
 							},
 						});
 
-						expect(JSON.parse(response.body)).toEqual({
+						expect(JSON.parse(response.body)).toStrictEqual({
 							error: "Not Acceptable",
 							message: "Not Acceptable",
 							statusCode: 406,
@@ -530,7 +530,7 @@ describe("Server deployment", () => {
 							},
 						});
 
-						expect(JSON.parse(response.body)).toEqual({
+						expect(JSON.parse(response.body)).toStrictEqual({
 							error: "Not Found",
 							message: "Route GET:/invalid not found",
 							statusCode: 404,
@@ -772,7 +772,7 @@ describe("Server deployment", () => {
 						},
 					});
 
-					expect(JSON.parse(response.body)).toEqual({
+					expect(JSON.parse(response.body)).toStrictEqual({
 						error: "Unauthorized",
 						message: "invalid authorization header",
 						statusCode: 401,
@@ -790,7 +790,7 @@ describe("Server deployment", () => {
 						},
 					});
 
-					expect(JSON.parse(response.body)).toEqual({
+					expect(JSON.parse(response.body)).toStrictEqual({
 						error: "Unauthorized",
 						message: "missing authorization header",
 						statusCode: 401,
@@ -842,7 +842,7 @@ describe("Server deployment", () => {
 							},
 						});
 
-						expect(JSON.parse(response.body)).toEqual({
+						expect(JSON.parse(response.body)).toStrictEqual({
 							error: "Unauthorized",
 							message: "invalid authorization header",
 							statusCode: 401,
@@ -900,7 +900,7 @@ describe("Server deployment", () => {
 					},
 				});
 
-				expect(JSON.parse(response.body)).toEqual({
+				expect(JSON.parse(response.body)).toStrictEqual({
 					error: "Internal Server Error",
 					message: "Internal Server Error",
 					statusCode: 500,

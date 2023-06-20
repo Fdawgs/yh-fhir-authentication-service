@@ -5,6 +5,11 @@ const getConfig = require(".");
 describe("Configuration", () => {
 	const currentEnv = { ...process.env, NODE_ENV: "development" };
 
+	afterEach(() => {
+		// Reset the process.env to default after each test
+		Object.assign(process.env, currentEnv);
+	});
+
 	afterAll(async () => {
 		const files = await glob("./test_resources/+(test-log*|.audit.json)", {
 			dot: true,
@@ -12,11 +17,6 @@ describe("Configuration", () => {
 
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		await Promise.all(files.map((file) => fs.unlink(file)));
-	});
-
-	afterEach(() => {
-		// Reset the process.env to default after each test
-		Object.assign(process.env, currentEnv);
 	});
 
 	it("Uses defaults if values missing and return values according to environment variables", async () => {
@@ -72,11 +72,11 @@ describe("Configuration", () => {
 
 		const config = await getConfig();
 
-		expect(config.fastify).toEqual({
+		expect(config.fastify).toStrictEqual({
 			port: 3000,
 		});
 
-		expect(config.fastifyInit.logger).toEqual({
+		expect(config.fastifyInit.logger).toStrictEqual({
 			formatters: { level: expect.any(Function) },
 			level: "info",
 			serializers: {
@@ -85,7 +85,7 @@ describe("Configuration", () => {
 			},
 			timestamp: expect.any(Function),
 		});
-		expect(config.fastifyInit.logger.formatters.level()).toEqual({
+		expect(config.fastifyInit.logger.formatters.level()).toStrictEqual({
 			level: undefined,
 		});
 		expect(config.fastifyInit.logger.timestamp()).toMatch(/^,"time"/);
@@ -93,7 +93,7 @@ describe("Configuration", () => {
 		expect(config.fastifyInit.https).toBeUndefined();
 		expect(config.fastifyInit.http2).toBeUndefined();
 
-		expect(config.cors).toEqual({
+		expect(config.cors).toStrictEqual({
 			allowedHeaders: null,
 			credentials: false,
 			exposedHeaders: null,
@@ -102,14 +102,14 @@ describe("Configuration", () => {
 			origin: false,
 		});
 
-		expect(config.processLoad).toEqual({
+		expect(config.processLoad).toStrictEqual({
 			maxEventLoopDelay: 0,
 			maxEventLoopUtilization: 0,
 			maxHeapUsedBytes: 0,
 			maxRssBytes: 0,
 		});
 
-		expect(config.rateLimit).toEqual({
+		expect(config.rateLimit).toStrictEqual({
 			allowList: null,
 			continueExceeding: true,
 			hook: "onSend",
@@ -117,7 +117,7 @@ describe("Configuration", () => {
 			timeWindow: 60000,
 		});
 
-		expect(config.forward).toEqual({
+		expect(config.forward).toStrictEqual({
 			base: `${FORWARD_URL}/`,
 			disableRequestLogging: true,
 			undici: {
@@ -148,7 +148,7 @@ describe("Configuration", () => {
 
 		const config = await getConfig();
 
-		expect(config.fastifyInit.logger).toEqual({
+		expect(config.fastifyInit.logger).toStrictEqual({
 			formatters: { level: expect.any(Function) },
 			level: "info",
 			serializers: {
@@ -158,7 +158,7 @@ describe("Configuration", () => {
 			stream: expect.any(Object),
 			timestamp: expect.any(Function),
 		});
-		expect(config.fastifyInit.logger.formatters.level()).toEqual({
+		expect(config.fastifyInit.logger.formatters.level()).toStrictEqual({
 			level: undefined,
 		});
 		expect(config.fastifyInit.logger.stream.config.options).toMatchObject({
@@ -219,12 +219,12 @@ describe("Configuration", () => {
 
 		const config = await getConfig();
 
-		expect(config.fastify).toEqual({
+		expect(config.fastify).toStrictEqual({
 			host: HOST,
 			port: PORT,
 		});
 
-		expect(config.fastifyInit.logger).toEqual({
+		expect(config.fastifyInit.logger).toStrictEqual({
 			formatters: { level: expect.any(Function) },
 			level: LOG_LEVEL,
 			serializers: {
@@ -234,7 +234,7 @@ describe("Configuration", () => {
 			stream: expect.any(Object),
 			timestamp: expect.any(Function),
 		});
-		expect(config.fastifyInit.logger.formatters.level()).toEqual({
+		expect(config.fastifyInit.logger.formatters.level()).toStrictEqual({
 			level: undefined,
 		});
 		expect(config.fastifyInit.logger.stream.config.options).toMatchObject({
@@ -246,21 +246,21 @@ describe("Configuration", () => {
 		});
 		expect(config.fastifyInit.logger.timestamp()).toMatch(/^,"time"/);
 
-		expect(config.fastifyInit.https).toEqual({
+		expect(config.fastifyInit.https).toStrictEqual({
 			allowHTTP1: true,
 			cert: expect.any(Buffer),
 			key: expect.any(Buffer),
 		});
 		expect(config.fastifyInit.http2).toBe(true);
 
-		expect(config.processLoad).toEqual({
+		expect(config.processLoad).toStrictEqual({
 			maxEventLoopDelay: PROC_LOAD_MAX_EVENT_LOOP_DELAY,
 			maxEventLoopUtilization: PROC_LOAD_MAX_EVENT_LOOP_UTILIZATION,
 			maxHeapUsedBytes: PROC_LOAD_MAX_HEAP_USED_BYTES,
 			maxRssBytes: PROC_LOAD_MAX_RSS_BYTES,
 		});
 
-		expect(config.rateLimit).toEqual({
+		expect(config.rateLimit).toStrictEqual({
 			allowList: JSON.parse(RATE_LIMIT_EXCLUDED_ARRAY),
 			continueExceeding: true,
 			hook: "onSend",
@@ -268,7 +268,7 @@ describe("Configuration", () => {
 			timeWindow: 60000,
 		});
 
-		expect(config.forward).toEqual({
+		expect(config.forward).toStrictEqual({
 			base: `${FORWARD_URL}/`,
 			disableRequestLogging: true,
 			undici: {
@@ -279,7 +279,7 @@ describe("Configuration", () => {
 
 		expect(config.bearerTokenAuthKeys).toContain("testtoken");
 
-		expect(config.jwt).toEqual(JSON.parse(JWT_JWKS_ARRAY));
+		expect(config.jwt).toStrictEqual(JSON.parse(JWT_JWKS_ARRAY));
 	});
 
 	it("Returns values according to environment variables - HTTPS (PFX cert) enabled and HTTP2 enabled", async () => {
@@ -304,12 +304,12 @@ describe("Configuration", () => {
 
 		const config = await getConfig();
 
-		expect(config.fastify).toEqual({
+		expect(config.fastify).toStrictEqual({
 			host: HOST,
 			port: PORT,
 		});
 
-		expect(config.fastifyInit.https).toEqual({
+		expect(config.fastifyInit.https).toStrictEqual({
 			allowHTTP1: true,
 			passphrase: HTTPS_PFX_PASSPHRASE,
 			pfx: expect.any(Buffer),
@@ -390,12 +390,12 @@ describe("Configuration", () => {
 
 			const config = await getConfig();
 
-			expect(config.fastify).toEqual({
+			expect(config.fastify).toStrictEqual({
 				host: HOST,
 				port: PORT,
 			});
 
-			expect(config.cors).toEqual({
+			expect(config.cors).toStrictEqual({
 				origin: expected.origin,
 				allowedHeaders: CORS_ALLOWED_HEADERS,
 				credentials: expected.credentials || false,

@@ -11,8 +11,8 @@ const accepts = forwardGetSchema.produces;
  * @description Sets routing options for server.
  * @param {import("fastify").FastifyInstance} server - Fastify instance.
  * @param {object} options - Route config values.
- * @param {*=} options.bearerTokenAuthKeys- Apply `bearerToken` security scheme to route if defined.
- * @param {*=} options.jwt- Apply `jwtBearerToken` security scheme to route if defined.
+ * @param {*=} options.bearerTokenAuthKeys - Apply `bearerToken` security scheme to route if defined.
+ * @param {*=} options.jwt - Apply `jwtBearerToken` security scheme to route if defined.
  * @param {object} options.cors - CORS settings.
  * @param {boolean|Array<string>|string} options.cors.origin - Access-Control-Allow-Origin header value.
  * @param {boolean} options.cors.credentials - Whether to send Access-Control-Allow-Credentials header.

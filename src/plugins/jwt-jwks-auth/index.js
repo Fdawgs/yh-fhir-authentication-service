@@ -30,7 +30,7 @@ async function plugin(server, options) {
 		}
 
 		// Remove 'Bearer' from beginning of token
-		const token = header.replace(/^Bearer/, "").trim();
+		const token = header.replace(/^Bearer/u, "").trim();
 
 		// JWT header always starts with "ey", which is "{" base64 encoded
 		if (token.substring(0, 2) === "ey") {

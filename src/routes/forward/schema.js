@@ -20,9 +20,9 @@ const forwardGetSchema = {
 					"FHIR STU3 resource name, see https://hl7.org/fhir/STU3/resourcelist.html"
 				)
 				// Longest FHIR STU3 resource name is "ImmunizationRecommendation" at 26 chars
-				.pattern(/^[a-zA-Z]{1,26}$/)
+				.pattern(/^[a-zA-Z]{1,26}$/u)
 		)
-		.prop("id", S.string().pattern(/^[\w-]+$/))
+		.prop("id", S.string().pattern(/^[\w-]+$/u))
 		.required(["resource"]),
 	// FHIR STU3 search parameters, see https://hl7.org/fhir/STU3/search.html
 	query: S.object()
@@ -30,15 +30,15 @@ const forwardGetSchema = {
 			"^[a-zA-Z-._:]+$": S.anyOf([
 				S.string()
 					.description("number")
-					.pattern(/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)[\d.]+$/),
+					.pattern(/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)[\d.]+$/u),
 				S.string()
 					.description("date")
 					.pattern(
-						/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}|)$/
+						/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}|)$/u
 					),
 				S.string()
 					.description("string")
-					.pattern(/^[^<>"']+$/),
+					.pattern(/^[^<>"']+$/u),
 				S.string().description("uri").format("uri"),
 				S.array()
 					.items(
@@ -46,16 +46,16 @@ const forwardGetSchema = {
 							(S.string()
 								.description("number")
 								.pattern(
-									/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)[\d.]+$/
+									/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)[\d.]+$/u
 								),
 							S.string()
 								.description("date")
 								.pattern(
-									/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}|)$/
+									/^(?:eq|ne|ge|le|gt|lt|sa|eb|ap|)\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}|)$/u
 								)),
 							S.string()
 								.description("string")
-								.pattern(/^[^<>"']+$/),
+								.pattern(/^[^<>"']+$/u),
 						])
 					)
 					.minItems(2)

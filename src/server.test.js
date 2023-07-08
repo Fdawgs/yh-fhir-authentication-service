@@ -1,3 +1,5 @@
+"use strict";
+
 const { chromium, firefox } = require("playwright");
 const Fastify = require("fastify");
 const isHtml = require("is-html");

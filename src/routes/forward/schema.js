@@ -30,11 +30,12 @@ const forwardGetSchema = {
 			"^[a-zA-Z-._:]+$": S.anyOf([
 				S.string()
 					.description("number")
-					.pattern(/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa|)[\d.]+$/u),
+					.pattern(/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?[\d.]+$/u),
 				S.string()
 					.description("date")
 					.pattern(
-						/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa|)\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}|)$/u
+						// eslint-disable-next-line security/detect-unsafe-regex
+						/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2})?$/u
 					),
 				S.string()
 					.description("string")
@@ -46,12 +47,13 @@ const forwardGetSchema = {
 							(S.string()
 								.description("number")
 								.pattern(
-									/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa|)[\d.]+$/u
+									/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?[\d.]+$/u
 								),
 							S.string()
 								.description("date")
 								.pattern(
-									/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa|)\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}|)$/u
+									// eslint-disable-next-line security/detect-unsafe-regex
+									/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2})?$/u
 								)),
 							S.string()
 								.description("string")

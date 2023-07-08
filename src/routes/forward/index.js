@@ -1,3 +1,5 @@
+"use strict";
+
 // Import plugins
 const replyFrom = require("@fastify/reply-from");
 const cors = require("@fastify/cors");

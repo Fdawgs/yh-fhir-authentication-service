@@ -1,3 +1,5 @@
+"use strict";
+
 const readPatient = {
 	resourceType: "Patient",
 	id: "5484125",

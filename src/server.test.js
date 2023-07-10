@@ -353,7 +353,7 @@ describe("Server deployment", () => {
 					config.forward.undici = undefined;
 					config.forward.http = true;
 
-					server = Fastify();
+					server = Fastify({ pluginTimeout: 0 });
 					await server.register(startServer, config).ready();
 				});
 
@@ -587,7 +587,7 @@ describe("Server deployment", () => {
 
 			// Turn off logging for test runs
 			config.fastifyInit.logger = undefined;
-			server = Fastify(config.fastifyInit);
+			server = Fastify({ ...config.fastifyInit, pluginTimeout: 0 });
 			await server.register(startServer, config).listen(config.fastify);
 		});
 
@@ -734,7 +734,7 @@ describe("Server deployment", () => {
 				config.forward.undici = undefined;
 				config.forward.http = true;
 
-				server = Fastify();
+				server = Fastify({ pluginTimeout: 0 });
 				await server.register(startServer, config).ready();
 			});
 
@@ -891,7 +891,7 @@ describe("Server deployment", () => {
 			});
 
 			beforeEach(async () => {
-				server = Fastify();
+				server = Fastify({ pluginTimeout: 0 });
 				await server.register(startServer, config).ready();
 			});
 

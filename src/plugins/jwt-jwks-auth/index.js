@@ -23,7 +23,12 @@ const jwtDecoder = createDecoder({ complete: true });
  * @param {number=} options[].maxAge - The maximum allowed age for tokens to still be valid.
  */
 async function plugin(server, options) {
-	server.decorate("verifyJWT", async (req) => {
+	/**
+	 * @author Frazer Smith
+	 * @description Verifies JWT using JWKS endpoint.
+	 * @param {import("fastify").FastifyRequest} req - Fastify request instance.
+	 */
+	async function verifyJwt(req) {
 		const header = req.headers.authorization;
 		if (!header) {
 			throw server.httpErrors.unauthorized(
@@ -86,7 +91,9 @@ async function plugin(server, options) {
 			// @fastify/auth turns this into a 401 response
 			throw new Error("invalid authorization header");
 		}
-	});
+	}
+
+	server.decorate("verifyJWT", verifyJwt);
 }
 
 module.exports = fp(plugin, {

@@ -2,7 +2,6 @@
 
 const { chromium, firefox } = require("playwright");
 const Fastify = require("fastify");
-const isHtml = require("is-html");
 const createJWKSMock = require("mock-jwks").default;
 const nock = require("nock");
 const { readPatient, searchPatient } = require("../test_resources/constants");
@@ -612,7 +611,7 @@ describe("Server deployment", () => {
 						},
 					});
 
-					expect(isHtml(response.body)).toBe(true);
+					expect(response.body).toMatchSnapshot();
 					expect(response.headers).toStrictEqual(
 						expResHeadersHtmlStatic
 					);

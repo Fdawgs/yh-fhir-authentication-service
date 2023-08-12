@@ -76,13 +76,21 @@ async function plugin(server, options) {
 				 * Retrieve and log errors from Promise.any()'s AggregateError,
 				 * assists in diagnosing connection issues to JWKS endpoints
 				 */
-				err.errors.forEach((element) => {
-					if (
-						element.message !== "No matching JWK found in the set."
-					) {
-						req.log.error({ req, err: element }, element.message);
-					}
-				});
+				if (err instanceof AggregateError) {
+					err.errors.forEach((element) => {
+						if (
+							element.message !==
+							"No matching JWK found in the set."
+						) {
+							req.log.error(
+								{ req, err: element },
+								element.message
+							);
+						}
+					});
+				} else {
+					req.log.error({ req, err }, "Error verifying JWT");
+				}
 
 				// @fastify/auth turns this into a 401 response
 				throw new Error("invalid authorization header");

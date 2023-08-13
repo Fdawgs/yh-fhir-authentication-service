@@ -178,8 +178,14 @@ describe("Server deployment", () => {
 
 	describe("CORS", () => {
 		let config;
-		let server;
+		/**
+		 * @type {{ [x: string]: any }}
+		 */
 		let currentEnv;
+		/**
+		 * @type {Fastify.FastifyInstance}
+		 */
+		let server;
 
 		beforeAll(() => {
 			Object.assign(process.env, {
@@ -200,7 +206,7 @@ describe("Server deployment", () => {
 				},
 				request: {
 					headers: {
-						origin: null,
+						origin: "",
 					},
 				},
 				expected: {
@@ -574,6 +580,9 @@ describe("Server deployment", () => {
 
 	describe("API documentation", () => {
 		let config;
+		/**
+		 * @type {Fastify.FastifyInstance}
+		 */
 		let server;
 
 		beforeAll(async () => {
@@ -592,6 +601,7 @@ describe("Server deployment", () => {
 
 			// Turn off logging for test runs
 			config.fastifyInit.logger = undefined;
+			// @ts-ignore
 			server = Fastify({ ...config.fastifyInit, pluginTimeout: 0 });
 			await server.register(startServer, config).listen(config.fastify);
 		});
@@ -674,8 +684,14 @@ describe("Server deployment", () => {
 	// TODO: fix this impacting the API documentation `describe` block, and move it back to running before it
 	describe("Auth", () => {
 		let config;
-		let server;
+		/**
+		 * @type {{ [x: string]: any }}
+		 */
 		let currentEnv;
+		/**
+		 * @type {Fastify.FastifyInstance}
+		 */
+		let server;
 
 		beforeAll(() => {
 			Object.assign(process.env, {
@@ -872,8 +888,14 @@ describe("Server deployment", () => {
 
 	describe("Error handling", () => {
 		let config;
-		let server;
+		/**
+		 * @type {{ [x: string]: any }}
+		 */
 		let currentEnv;
+		/**
+		 * @type {Fastify.FastifyInstance}
+		 */
+		let server;
 
 		beforeAll(() => {
 			Object.assign(process.env, {

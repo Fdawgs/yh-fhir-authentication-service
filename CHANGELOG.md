@@ -2,6 +2,109 @@
 
 All notable changes to this project will be documented in this file.
 
+## [12.1.7](https://github.com/Fdawgs/yh-fhir-authentication-service/compare/v12.1.6...v12.1.7) (2023-08-16)
+
+
+### Bug fixes
+
+* add missing strict mode directives ([#1166](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1166)) ([3a70575](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/3a70575cd0823b1ae3b12262f3fd2b7befd10e1a))
+* **config:** stop crash when logs written async ([#1216](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1216)) ([f7adf02](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/f7adf02c2cca7ba41c0c8232ac3ae932cda70546))
+
+
+### Dependencies
+
+* **deps-dev:** add eslint-plugin-regexp ([0ef661d](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/0ef661d9bd8043c197315674d0bce27c3cdba098))
+* **deps-dev:** bump @commitlint/cli from 17.6.5 to 17.6.6 ([#1158](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1158)) ([dc5cad4](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/dc5cad4551e105be09f683a7ad3643c108d32d62))
+* **deps-dev:** bump @commitlint/cli from 17.6.6 to 17.6.7 ([#1185](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1185)) ([acf8933](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/acf89330f3e4d8deb15d302e8f0a3baf06b30ee6))
+* **deps-dev:** bump @commitlint/cli from 17.6.7 to 17.7.1 ([#1209](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1209)) ([c68451f](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/c68451ff234984dcd206a3095875582ac3ce7a4d))
+* **deps-dev:** bump @commitlint/config-conventional ([#1153](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1153)) ([e19e33f](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/e19e33f61cb608271584b51a52444a36600df788))
+* **deps-dev:** bump @commitlint/config-conventional ([#1184](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1184)) ([1601f2a](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/1601f2a05504ebcd642639a7ca118d67c488817d))
+* **deps-dev:** bump @commitlint/config-conventional ([#1210](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1210)) ([3e33b11](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/3e33b11c2e503c2fde10e59061ba42727839e03b))
+* **deps-dev:** bump autocannon from 7.11.0 to 7.12.0 ([#1202](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1202)) ([05a63dc](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/05a63dc10fb681670db665f0518ca60f93100541))
+* **deps-dev:** bump esbuild from 0.17.19 to 0.18.14 ([5b477c8](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/5b477c86133a3f3c94ddbf429661627b6e2e762c))
+* **deps-dev:** bump esbuild from 0.18.14 to 0.19.2 ([5dd2013](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/5dd2013a6085f206646c4b9522b1ba4c1f870949))
+* **deps-dev:** bump eslint from 8.43.0 to 8.44.0 ([#1157](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1157)) ([9500989](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/9500989b64dbdb78254f1ce7b5fe43791283791c))
+* **deps-dev:** bump eslint from 8.44.0 to 8.45.0 ([#1171](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1171)) ([524d869](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/524d869f0b1fa5a5486ac47e26b24f36e004703f))
+* **deps-dev:** bump eslint from 8.45.0 to 8.46.0 ([#1197](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1197)) ([1156836](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/115683624be1f08baf0bfd5012c7b21049320dac))
+* **deps-dev:** bump eslint from 8.46.0 to 8.47.0 ([#1212](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1212)) ([feecfd1](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/feecfd12a81f60775cdfddebb4755c6ee66160bd))
+* **deps-dev:** bump eslint-config-prettier from 8.10.0 to 9.0.0 ([#1208](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1208)) ([777f8e6](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/777f8e64788b4e786ba12f205587579b693cfd77))
+* **deps-dev:** bump eslint-config-prettier from 8.8.0 to 8.10.0 ([#1200](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1200)) ([fb8b86b](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/fb8b86bb19cefb738cb031d6bf653b0f25dfc119))
+* **deps-dev:** bump eslint-plugin-import from 2.27.5 to 2.28.0 ([#1188](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1188)) ([c66db0c](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/c66db0c04a28cd13bb574a1dc4f1c4d0b7ac2e11))
+* **deps-dev:** bump eslint-plugin-jest from 27.2.2 to 27.2.3 ([#1183](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1183)) ([18e59b0](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/18e59b0dae6c07c4f924213f31a52a4411ef125b))
+* **deps-dev:** bump eslint-plugin-jsdoc from 46.2.6 to 46.4.3 ([#1152](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1152)) ([5d602a7](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/5d602a760a1123d10879a30fe9c91b91b2aefc66))
+* **deps-dev:** bump eslint-plugin-jsdoc from 46.4.3 to 46.4.4 ([#1178](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1178)) ([c3c6810](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/c3c6810adba3529308c86b02cd7f39702cc66012))
+* **deps-dev:** bump eslint-plugin-jsdoc from 46.4.4 to 46.4.5 ([#1190](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1190)) ([6f80554](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/6f805546ac54534b56c2c3be776fd6290f0a9c6a))
+* **deps-dev:** bump eslint-plugin-jsdoc from 46.4.5 to 46.4.6 ([#1211](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1211)) ([ef91153](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/ef91153aa441c4dbe66eeed1874de89c994b8c6a))
+* **deps-dev:** bump glob from 10.3.0 to 10.3.1 ([#1155](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1155)) ([d8ba0c5](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/d8ba0c5a76630c2135836cdbb9d5a2825ef9fdc4))
+* **deps-dev:** bump glob from 10.3.1 to 10.3.3 ([#1176](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1176)) ([7ed1182](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/7ed1182a32270f425ea7667499c8faa49fa51db9))
+* **deps-dev:** bump jest from 29.5.0 to 29.6.1 ([#1162](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1162)) ([3203132](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/32031327a2c6f48850f258841275a8d2aa0985f0))
+* **deps-dev:** bump jest from 29.6.1 to 29.6.2 ([#1191](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1191)) ([d7b1fc0](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/d7b1fc01bbb3dfee0a09300795a33cf89ad372b4))
+* **deps-dev:** bump nock from 13.3.1 to 13.3.2 ([#1174](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1174)) ([adedef0](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/adedef00b1e78fb114bdb4f6db441bf00643d8b2))
+* **deps-dev:** bump nodemon from 2.0.22 to 3.0.1 ([#1177](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1177)) ([65d8811](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/65d88117530e87f7213a083013b79f75f642f60e))
+* **deps-dev:** bump pino-pretty from 10.0.0 to 10.0.1 ([#1160](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1160)) ([0aa3820](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/0aa382010fa80eb87e8bd690ed9badcb403b4028))
+* **deps-dev:** bump pino-pretty from 10.0.1 to 10.2.0 ([#1189](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1189)) ([a2427a2](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/a2427a2e1b07070f89591d6daf766312b8048a3a))
+* **deps-dev:** bump playwright from 1.35.1 to 1.36.1 ([#1170](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1170)) ([06432f8](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/06432f86412ed2d62d91159ab045fa19525191da))
+* **deps-dev:** bump playwright from 1.36.1 to 1.36.2 ([#1195](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1195)) ([b9cfaa3](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/b9cfaa3ea2967e16eab9170039ebca83a235ea85))
+* **deps-dev:** bump playwright from 1.36.2 to 1.37.0 ([#1207](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1207)) ([9f38496](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/9f384969f3ad867a6e1f63bb0880c5ee5d081da9))
+* **deps-dev:** bump prettier from 2.8.8 to 3.0.0 ([2d68b86](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/2d68b863b5ecff0e803b62aaa31713ea589b4693))
+* **deps-dev:** bump prettier from 3.0.0 to 3.0.1 ([#1203](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1203)) ([32991b5](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/32991b5c4e0aa0b21d9cdf82ab5a3d01f78e1633))
+* **deps-dev:** bump prettier from 3.0.1 to 3.0.2 ([#1220](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1220)) ([db28037](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/db280374d5e547c8c21f1d8d41e1a4963dc751bc))
+* **deps-dev:** install lockfile-lint locally ([#1201](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1201)) ([23f9cf8](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/23f9cf87aeba675519bb94fff821498aa02d5cb2))
+* **deps:** bump @fastify/helmet from 10.1.1 to 11.0.0 ([#1156](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1156)) ([d526088](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/d5260885617c3d2b294d562da022c538071ae402))
+* **deps:** bump @fastify/rate-limit from 8.0.1 to 8.0.3 ([#1179](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1179)) ([349ffe7](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/349ffe768deb448a1611e5ec763a708f4f9b16cf))
+* **deps:** bump @fastify/swagger from 8.6.0 to 8.8.0 ([#1163](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1163)) ([fe37571](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/fe37571a9a1f1b342584a2e75faa44aa28a5016b))
+* **deps:** bump @fastify/under-pressure from 8.2.0 to 8.3.0 ([#1182](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1182)) ([8311505](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/8311505c67a06456fc09635cad988a0e9bdec4fd))
+* **deps:** bump fastify from 4.18.0 to 4.19.0 ([#1154](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1154)) ([8126da0](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/8126da0524d8eb1d66a57853505790dc63cbdb47))
+* **deps:** bump fastify from 4.19.0 to 4.19.2 ([#1161](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1161)) ([8557ab6](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/8557ab647eaa2394930ef9762487e380fc402627))
+* **deps:** bump fastify from 4.19.2 to 4.20.0 ([#1172](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1172)) ([75111a9](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/75111a94f7313e3b7f2f391b3eb4a7b08b0ee607))
+* **deps:** bump fastify from 4.20.0 to 4.21.0 ([#1193](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1193)) ([a3f5a64](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/a3f5a6452089754e9860dde318a2187bf0ed5de9))
+* **deps:** bump fastify-disablecache from 3.1.3 to 3.1.4 ([#1173](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1173)) ([5afb2d4](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/5afb2d4db841fba9d666baf334b61b5c8ac30c06))
+* **deps:** bump fastify-disablecache from 3.1.4 to 3.1.5 ([#1218](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1218)) ([cfebeb1](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/cfebeb1299e52a4857f82acd53fadb59b8b8ed2b))
+* **deps:** bump fastify-floc-off from 2.1.3 to 2.1.4 ([#1181](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1181)) ([eabf5c3](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/eabf5c3b1f9733d102eec97d0e64526ef7aef6d8))
+* **deps:** bump fastify-floc-off from 2.1.4 to 2.1.5 ([#1219](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1219)) ([965dd92](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/965dd92ab3e2ee77a1af8a4aede1642c278754d0))
+* **deps:** bump fastify-json-to-xml from 1.1.4 to 1.1.5 ([#1175](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1175)) ([247f2f3](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/247f2f396b0d471a72534870e2e7097cb0a60b8f))
+* **deps:** bump fastify-json-to-xml from 1.1.5 to 1.1.6 ([#1217](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1217)) ([0a2fc8b](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/0a2fc8b0e8274a3a78761d5e53533aaa3a661c33))
+* **deps:** bump fastify-plugin from 4.5.0 to 4.5.1 ([#1180](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1180)) ([2ae869c](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/2ae869c41451e78737344523272d06fdc7f901a7))
+* **deps:** bump fluent-json-schema from 4.1.0 to 4.1.1 ([#1198](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1198)) ([f48410a](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/f48410a1861db2b99df8d673185dfe3c2c13b74c))
+* **deps:** bump get-jwks from 8.1.1 to 8.2.0 ([#1194](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1194)) ([11299b7](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/11299b7d6e192482c7363d9bf75ca5771512060d))
+* **deps:** bump pino from 8.14.1 to 8.14.2 ([#1196](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1196)) ([e8abd35](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/e8abd35d548a727101187649497b40e31d69d1e3))
+* **deps:** bump pino from 8.14.2 to 8.15.0 ([#1204](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1204)) ([dc0c618](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/dc0c618da2d09b2248eb40b54861e7a8bd2f54cf))
+* **deps:** bump transistive dependencies ([cc2855f](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/cc2855f0a0aa9f74300e0017ff6d058a9139500f))
+* **deps:** bump transistive dependencies ([c4f5921](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/c4f59218c214f912baca2545fccd2b502b587e53))
+
+
+### Miscellaneous
+
+* **.eslintrc:** error on google closure jsdoc syntax ([eeefc7c](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/eeefc7cb0e93cf95ca8d5f79af5c2101bd3f7101))
+* **.eslintrc:** sort `extends` array ([787a48c](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/787a48cb0328c09192d86da8406daede7c94625e))
+* add jsconfig; type check js ([#1214](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1214)) ([4c8fd65](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/4c8fd6567f25029b14c50e9f4a56cadf295adb37))
+* **jsconfig:** add target ([f1fe599](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/f1fe59979667c974041a3da7d7afccd198a8aee3))
+* rename `lint:prettier` scripts to reflect their function ([f5bf2c4](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/f5bf2c470877165b7956fd2327b5ae4296cd93a0))
+* **routes/forward:** sort regex character class elements ([739a8d6](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/739a8d63ad4956e26405d6e54d43495df978e773))
+* **scripts/license-checker:** use `console.error()` to log failures ([ddc237e](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/ddc237e9c5d0530135e902557171ccdbfac09f15))
+* **server:** update inline comment re plugin function ([35525a4](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/35525a4faa386bedee5ffb661880515f9e36720c))
+* sort param types alphabetically ([c3abadd](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/c3abadd4b95c12601c6f32d42648b35bed70c403))
+* use jsdoc syntax for arrays over interfaces ([f14c1c6](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/f14c1c644b1d56a77a78a9356cf46194ee9fbc16))
+* use jsdoc syntax for opt params over google closure syntax ([c045db1](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/c045db1242d049d8a57382efeebd6d41d3a1b4e8))
+
+
+### Continuous integration
+
+* **ci:** error on new jest snapshot ([#1215](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1215)) ([06134f6](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/06134f6115ba8cd57b6a10c182708dbe6836e7bb))
+* **deps:** bump coverallsapp/github-action from 2.2.0 to 2.2.1 ([#1169](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1169)) ([692bc21](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/692bc21c641c912de145ced2f4ff151814e63b0b))
+
+
+### Improvements
+
+* add strict `u` flag to all regex patterns ([10d9e14](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/10d9e14f865470987aed17979b8d7fca669d84fc))
+* **app:** use traditional function syntax ([79956a3](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/79956a3d90cbf85374b80a10d8f6b22752e9381a))
+* **config:** remove useless range in regex ([13ed5e4](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/13ed5e4126a249f7c6576fda6989ea47f497842f))
+* **config:** use `\d` over `[0-9]` in regex patterns ([a5e3306](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/a5e33061e9dafbb1ae9eda6cefad7219bff6070f))
+* deconstruct imports ([7f97e4a](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/7f97e4adad00495db7598c7fbf03cd31632637af))
+* **plugins/jwt-jwks-auth:** add type guard for aggregaterror ([#1213](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1213)) ([9b29ee5](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/9b29ee520d3b0479710fd1ad6b1c98f41d9117bc))
+* **plugins/jwt-jwks-auth:** unnest function ([7e1ec6b](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/7e1ec6b5a5da7ee011af979f906dcff70c4243d1))
+* **routes:** use `?` quantifier over empty alternative ([1b2162e](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/1b2162e5c9ef148953e30c66c929fa2931292d14))
+
 ## [12.1.6](https://github.com/Fdawgs/yh-fhir-authentication-service/compare/v12.1.5...v12.1.6) (2023-06-24)
 
 

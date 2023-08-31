@@ -3,6 +3,7 @@
 	"version": "12.1.7",
 	"description": "Yeovil Hospital's FHIR API authentication service",
 	"main": "dist/app.js",
+	"type": "commonjs",
 	"repository": "git+https://github.com/Fdawgs/yh-fhir-authentication-service.git",
 	"homepage": "https://github.com/Fdawgs/yh-fhir-authentication-service",
 	"bugs": {

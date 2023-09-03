@@ -153,8 +153,8 @@ async function getConfig() {
 		},
 		fastifyInit: {
 			/**
-			 * See https://fastify.io/docs/latest/Reference/Logging/
-			 * and https://getpino.io/#/docs/api for logger options
+			 * @see {@link https://fastify.io/docs/latest/Reference/Logging | Fastify logging}
+			 * @see {@link https://getpino.io/#/docs/api | Pino API}
 			 */
 			logger: {
 				formatters: {
@@ -285,7 +285,9 @@ async function getConfig() {
 			base: new URL(env.FORWARD_URL).href,
 			// Disable logging of "fetching from remote server" and "response received" from remote server
 			disableRequestLogging: true,
-			// See undici options https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions
+			/**
+			 * @see {@link https://github.com/nodejs/undici/blob/main/docs/api/Agent.md#parameter-agentoptions | Undici Agent options}
+			 */
 			undici: {
 				connections: 128,
 				pipelining: 1,
@@ -341,7 +343,9 @@ async function getConfig() {
 	if (env.LOG_ROTATION_FILENAME) {
 		const logFile = path.normalizeTrim(env.LOG_ROTATION_FILENAME);
 
-		// Rotation options: https://github.com/rogerc/file-stream-rotator/#options
+		/**
+		 * @see {@link https://github.com/rogerc/file-stream-rotator/#options | File stream rotator options}
+		 */
 		config.fastifyInit.logger.stream = getStream({
 			audit_file: path.joinSafe(path.dirname(logFile), ".audit.json"),
 			date_format: env.LOG_ROTATION_DATE_FORMAT || "YYYY-MM-DD",

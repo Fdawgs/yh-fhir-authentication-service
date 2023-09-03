@@ -76,7 +76,7 @@ async function route(server, options) {
 
 						/**
 						 * Cannot use wildcard with credentials for security reasons.
-						 * See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+						 * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin | MDN Web Docs}
 						 */
 						if (origin === "*" && !credentials) {
 							acaOrigin = "*";

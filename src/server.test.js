@@ -97,6 +97,11 @@ const expResHeaders4xxErrorsXml = {
 	"x-xss-protection": "0",
 };
 
+const expResHeaders5xxErrors = {
+	...expResHeadersJson,
+	vary: "accept-encoding",
+};
+
 describe("Server deployment", () => {
 	const invalidIssuerUri = "https://invalid-issuer.somersetft.nhs.uk";
 	const validIssuerUri = "https://valid-issuer.somersetft.nhs.uk";
@@ -870,48 +875,39 @@ describe("Server deployment", () => {
 
 	describe("Error handling", () => {
 		let config;
-		/** @type {{ [key: string]: any }} */
-		let currentEnv;
 		/** @type {Fastify.FastifyInstance} */
 		let server;
 
-		beforeAll(() => {
-			Object.assign(process.env, {
-				JWT_JWKS_ARRAY: "",
-				AUTH_BEARER_TOKEN_ARRAY: "",
-			});
-			currentEnv = { ...process.env };
+		beforeAll(async () => {
+			config = await getConfig();
+
+			server = Fastify({ pluginTimeout: 0 });
+			await server.register(startServer, config);
+
+			server
+				.get("/error", async () => {
+					throw new Error("test");
+				})
+				.get("/error/503", async () => {
+					const error = new Error("test");
+					error.statusCode = 503;
+					throw error;
+				});
+
+			await server.ready();
 		});
 
-		afterEach(async () => {
-			// Reset the process.env to default after each test
-			Object.assign(process.env, currentEnv);
-
+		afterAll(async () => {
 			await server.close();
 		});
 
-		describe("/forward route", () => {
-			beforeAll(async () => {
-				Object.assign(process.env, {
-					FORWARD_URL: "http://0.0.0.125",
-				});
-				config = await getConfig();
-				// Use Node's core HTTP client as Undici HTTP client throws when used with mocks
-				config.forward.undici = undefined;
-				config.forward.http = true;
-			});
-
-			beforeEach(async () => {
-				server = Fastify({ pluginTimeout: 0 });
-				await server.register(startServer, config).ready();
-			});
-
-			it("Returns HTTP status code 500 if 'FORWARD_URL' is invalid", async () => {
+		describe("/error route", () => {
+			it("Returns HTTP status code 500", async () => {
 				const response = await server.inject({
 					method: "GET",
-					url: "/STU3/Patient/5484125",
+					url: "/error",
 					headers: {
-						accept: "application/fhir+json",
+						accept: "*/*",
 					},
 				});
 
@@ -920,8 +916,26 @@ describe("Server deployment", () => {
 					message: "Internal Server Error",
 					statusCode: 500,
 				});
-				expect(response.headers).toStrictEqual(expResHeadersJson);
+				expect(response.headers).toStrictEqual(expResHeaders5xxErrors);
 				expect(response.statusCode).toBe(500);
+			});
+
+			it("Returns HTTP status code 503 and does not override error message", async () => {
+				const response = await server.inject({
+					method: "GET",
+					url: "/error/503",
+					headers: {
+						accept: "*/*",
+					},
+				});
+
+				expect(JSON.parse(response.body)).toStrictEqual({
+					error: "Service Unavailable",
+					message: "test",
+					statusCode: 503,
+				});
+				expect(response.headers).toStrictEqual(expResHeaders5xxErrors);
+				expect(response.statusCode).toBe(503);
 			});
 		});
 	});

@@ -110,7 +110,7 @@
 		"@fastify/reply-from": "^9.4.0",
 		"@fastify/sensible": "^5.2.0",
 		"@fastify/static": "^6.10.2",
-		"@fastify/swagger": "^8.9.0",
+		"@fastify/swagger": "^8.10.1",
 		"@fastify/under-pressure": "^8.3.0",
 		"ajv-formats": "^2.1.1",
 		"dotenv": "^16.3.1",

@@ -94,7 +94,7 @@
 		"nock": "^13.3.3",
 		"nodemon": "^3.0.1",
 		"pino-pretty": "^10.2.0",
-		"playwright": "^1.38.0",
+		"playwright": "^1.38.1",
 		"prettier": "^3.0.3",
 		"spdx-copyleft": "^1.0.0"
 	},

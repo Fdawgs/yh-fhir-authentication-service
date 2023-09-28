@@ -183,7 +183,7 @@ describe("Server deployment", () => {
 
 	describe("CORS", () => {
 		let config;
-		/** @type {{ [key: string]: any }} */
+		/** @type {{[key: string]: any}} */
 		let currentEnv;
 		/** @type {Fastify.FastifyInstance} */
 		let server;
@@ -672,7 +672,7 @@ describe("Server deployment", () => {
 		});
 	});
 
-	// TODO: fix this impacting the API documentation `describe` block, and move it back to running before it
+	/** @todo fix this impacting the API documentation `describe` block, and move it back to running before it */
 	describe("Auth", () => {
 		let config;
 		/** @type {{ [key: string]: any }} */

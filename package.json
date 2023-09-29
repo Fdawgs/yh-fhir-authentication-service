@@ -1,6 +1,6 @@
 {
 	"name": "yh-fhir-authentication-service",
-	"version": "12.1.7",
+	"version": "12.1.8",
 	"description": "Yeovil Hospital's FHIR API authentication service",
 	"main": "dist/app.js",
 	"type": "commonjs",

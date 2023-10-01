@@ -40,7 +40,7 @@ async function plugin(server, options) {
 		const token = header.replace(/^Bearer/u, "").trim();
 
 		// JWT header always starts with "ey", which is "{" base64 encoded
-		if (token.substring(0, 2) === "ey") {
+		if (token.slice(0, 2) === "ey") {
 			try {
 				// Allow through aslong as the JWT is verified by atleast one JWKS public key
 				await Promise.any(

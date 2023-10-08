@@ -6,7 +6,7 @@ const tags = ["Forwards"];
 
 const numberSearchpattern = /^(?:ap|e[bq]|g[et]|l[et]|ne|sa)?[\d.]+$/u;
 const dateSearchPattern =
-	// eslint-disable-next-line security/detect-unsafe-regex
+	// eslint-disable-next-line security/detect-unsafe-regex -- False positive
 	/^(?:ap|e[bq]|g[et]|l[et]|ne|sa)?\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2})?$/u;
 
 /**

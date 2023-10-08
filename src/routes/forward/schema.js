@@ -4,6 +4,11 @@ const S = require("fluent-json-schema").default;
 
 const tags = ["Forwards"];
 
+const numberSearchpattern = /^(?:ap|e[bq]|g[et]|l[et]|ne|sa)?[\d.]+$/u;
+const dateSearchPattern =
+	// eslint-disable-next-line security/detect-unsafe-regex -- False positive
+	/^(?:ap|e[bq]|g[et]|l[et]|ne|sa)?\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2})?$/u;
+
 /**
  * Fastify uses AJV for JSON Schema Validation.
  * Input validation protects against XSS, HPP, prototype pollution,
@@ -29,15 +34,8 @@ const forwardGetSchema = {
 	query: S.object()
 		.patternProperties({
 			"^[a-zA-Z-._:]+$": S.anyOf([
-				S.string()
-					.description("number")
-					.pattern(/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?[\d.]+$/u),
-				S.string()
-					.description("date")
-					.pattern(
-						// eslint-disable-next-line security/detect-unsafe-regex
-						/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2})?$/u
-					),
+				S.string().description("number").pattern(numberSearchpattern),
+				S.string().description("date").pattern(dateSearchPattern),
 				S.string()
 					.description("string")
 					.pattern(/^[^"'<>]+$/u),
@@ -45,17 +43,12 @@ const forwardGetSchema = {
 				S.array()
 					.items(
 						S.anyOf([
-							(S.string()
+							S.string()
 								.description("number")
-								.pattern(
-									/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?[\d.]+$/u
-								),
+								.pattern(numberSearchpattern),
 							S.string()
 								.description("date")
-								.pattern(
-									// eslint-disable-next-line security/detect-unsafe-regex
-									/^(?:ap|eb|eq|ge|gt|le|lt|ne|sa)?\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2})?$/u
-								)),
+								.pattern(dateSearchPattern),
 							S.string()
 								.description("string")
 								.pattern(/^[^"'<>]+$/u),

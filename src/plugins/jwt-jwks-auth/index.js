@@ -10,6 +10,9 @@ const getJwks = buildGetJwks({
 });
 const jwtDecoder = createDecoder({ complete: true });
 
+// Cache immutable regex as they are expensive to create and garbage collect
+const bearerRegex = /^bearer /iu;
+
 /**
  * @author Frazer Smith
  * @description Decorator plugin that adds `verifyJWT` function
@@ -37,7 +40,7 @@ async function plugin(server, options) {
 		}
 
 		// Remove 'Bearer' from beginning of token
-		const token = header.replace(/^Bearer/u, "").trim();
+		const token = header.replace(bearerRegex, "").trim();
 
 		// JWT header always starts with "ey", which is "{" base64 encoded
 		if (token.slice(0, 2) === "ey") {

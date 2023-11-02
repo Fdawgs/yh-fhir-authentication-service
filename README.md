@@ -9,10 +9,10 @@
 
 # Yeovil Hospital - FHIR API Authentication Service
 
-[![GitHub Release](https://img.shields.io/github/release/Fdawgs/yh-fhir-authentication-service.svg)](https://github.com/Fdawgs/yh-fhir-authentication-service/releases/latest/)
-![Build Status](https://github.com/Fdawgs/yh-fhir-authentication-service/workflows/CI/badge.svg?branch=main)
-[![Coverage Status](https://coveralls.io/repos/github/Fdawgs/yh-fhir-authentication-service/badge.svg?branch=main)](https://coveralls.io/github/Fdawgs/yh-fhir-authentication-service?branch=main)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
+[![GitHub release](https://img.shields.io/github/release/Fdawgs/yh-fhir-authentication-service.svg)](https://github.com/Fdawgs/yh-fhir-authentication-service/releases/latest/)
+[![Build status](https://github.com/Fdawgs/yh-fhir-authentication-service/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Fdawgs/yh-fhir-authentication-service/actions/workflows/ci.yml)
+[![Coverage status](https://coveralls.io/repos/github/Fdawgs/yh-fhir-authentication-service/badge.svg?branch=main)](https://coveralls.io/github/Fdawgs/yh-fhir-authentication-service?branch=main)
+[![code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 > Yeovil Hospital's FHIR API authentication service
 

@@ -30,9 +30,7 @@ describe("OpenAPI route", () => {
 				.ready();
 		});
 
-		afterAll(async () => {
-			await server.close();
-		});
+		afterAll(async () => server.close());
 
 		it("Returns OpenAPI definitions", async () => {
 			const response = await server.inject({

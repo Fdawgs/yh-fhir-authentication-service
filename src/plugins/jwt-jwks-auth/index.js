@@ -43,62 +43,58 @@ async function plugin(server, options) {
 		const token = header.replace(bearerRegex, "").trim();
 
 		// JWT header always starts with "ey", which is "{" base64 encoded
-		if (token.slice(0, 2) === "ey") {
-			try {
-				// Allow through aslong as the JWT is verified by atleast one JWKS public key
-				await Promise.any(
-					options.map(async (element) => {
-						const { alg, kid } = jwtDecoder(token).header || {};
+		if (token.slice(0, 2) !== "ey") {
+			// @fastify/auth turns this into a 401 response
+			throw new Error("invalid authorization header");
+		}
 
-						/**
-						 * Verifier config options explicitly defined as functionality not tested;
-						 * will stop changes to defaults in dependency from affecting auth
-						 */
-						return createVerifier({
-							algorithms: element.allowedAlgorithms,
-							allowedAud: element.allowedAudiences,
-							allowedIss: element.issuerDomain,
-							allowedSub: element.allowedSubjects,
-							cacheTTL: 600000, // Cache for 10 mins
-							clockTimestamp: Date.now(),
-							clockTolerance: 0,
-							errorCacheTTL: 600000,
-							ignoreExpiration: false,
-							ignoreNotBefore: false,
-							key: await getJwks.getPublicKey({
-								domain: element.issuerDomain,
-								alg,
-								kid,
-							}),
-							maxAge: element.maxAge,
-						})(token);
-					})
-				);
-			} catch (err) {
-				/**
-				 * Retrieve and log errors from Promise.any()'s AggregateError,
-				 * assists in diagnosing connection issues to JWKS endpoints
-				 */
-				if (err instanceof AggregateError) {
-					err.errors.forEach((element) => {
-						if (
-							element.message !==
-							"No matching JWK found in the set."
-						) {
-							req.log.error(
-								{ req, err: element },
-								element.message
-							);
-						}
-					});
-				} else {
-					req.log.error({ req, err }, "Error verifying JWT");
-				}
+		try {
+			// Allow through aslong as the JWT is verified by atleast one JWKS public key
+			await Promise.any(
+				options.map(async (element) => {
+					const { alg, kid } = jwtDecoder(token).header || {};
 
-				// @fastify/auth turns this into a 401 response
-				throw new Error("invalid authorization header");
+					/**
+					 * Verifier config options explicitly defined as functionality not tested;
+					 * will stop changes to defaults in dependency from affecting auth
+					 */
+					return createVerifier({
+						algorithms: element.allowedAlgorithms,
+						allowedAud: element.allowedAudiences,
+						allowedIss: element.issuerDomain,
+						allowedSub: element.allowedSubjects,
+						cacheTTL: 600000, // Cache for 10 mins
+						clockTimestamp: Date.now(),
+						clockTolerance: 0,
+						errorCacheTTL: 600000,
+						ignoreExpiration: false,
+						ignoreNotBefore: false,
+						key: await getJwks.getPublicKey({
+							domain: element.issuerDomain,
+							alg,
+							kid,
+						}),
+						maxAge: element.maxAge,
+					})(token);
+				})
+			);
+		} catch (err) {
+			/**
+			 * Retrieve and log errors from Promise.any()'s AggregateError,
+			 * assists in diagnosing connection issues to JWKS endpoints
+			 */
+			if (err instanceof AggregateError) {
+				err.errors.forEach((element) => {
+					if (
+						element.message !== "No matching JWK found in the set."
+					) {
+						req.log.error({ req, err: element }, element.message);
+					}
+				});
+			} else {
+				req.log.error({ req, err }, "Error verifying JWT");
 			}
-		} else {
+
 			// @fastify/auth turns this into a 401 response
 			throw new Error("invalid authorization header");
 		}

@@ -48,17 +48,17 @@ async function plugin(server, options) {
 			throw new Error("invalid authorization header");
 		}
 
+		const { alg, kid } = jwtDecoder(token).header || {};
+
 		try {
 			// Allow through aslong as the JWT is verified by atleast one JWKS public key
 			await Promise.any(
-				options.map(async (element) => {
-					const { alg, kid } = jwtDecoder(token).header || {};
-
+				options.map(async (element) =>
 					/**
 					 * Verifier config options explicitly defined as functionality not tested;
 					 * will stop changes to defaults in dependency from affecting auth
 					 */
-					return createVerifier({
+					createVerifier({
 						algorithms: element.allowedAlgorithms,
 						allowedAud: element.allowedAudiences,
 						allowedIss: element.issuerDomain,
@@ -75,8 +75,8 @@ async function plugin(server, options) {
 							kid,
 						}),
 						maxAge: element.maxAge,
-					})(token);
-				})
+					})(token)
+				)
 			);
 		} catch (err) {
 			/**

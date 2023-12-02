@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [12.1.11](https://github.com/Fdawgs/yh-fhir-authentication-service/compare/v12.1.10...v12.1.11) (2023-12-02)
+
+
+### Dependencies
+
+* **deps-dev:** bump nodemon from 3.0.1 to 3.0.2 ([#1319](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1319)) ([e7ffb5e](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/e7ffb5e9a1f621e29f7eff7beb3f2ce81587125e))
+* **deps-dev:** bump the eslint group with 1 update ([#1318](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1318)) ([93b7a4c](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/93b7a4ccdb2a255d5bba340cf5b4e5a974a99b6d))
+* **deps-dev:** bump the eslint group with 1 update ([#1321](https://github.com/Fdawgs/yh-fhir-authentication-service/issues/1321)) ([784654a](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/784654ad9f135f0aa135f8dd5de862d39a47633f))
+
+
+### Miscellaneous
+
+* **.eslintrc:** update no-param-reassign rule to ignore obj refs ([19e821d](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/19e821d9cbd415b4ff57beba19aeef9e09b44bcf))
+
+
+### Continuous integration
+
+* **dependabot:** ignore release-please-action major updates ([03b581f](https://github.com/Fdawgs/yh-fhir-authentication-service/commit/03b581f2cd88e8ce740a2cc49cb1fd9a29975138))
+
 ## [12.1.10](https://github.com/Fdawgs/yh-fhir-authentication-service/compare/v12.1.9...v12.1.10) (2023-12-01)
 
 

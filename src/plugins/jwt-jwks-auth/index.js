@@ -56,7 +56,7 @@ async function plugin(server, options) {
 				options.map(async (element) =>
 					/**
 					 * Verifier config options explicitly defined as functionality not tested;
-					 * will stop changes to defaults in dependency from affecting auth
+					 * will stop changes to defaults in dependency from affecting auth.
 					 */
 					createVerifier({
 						algorithms: element.allowedAlgorithms,
@@ -81,7 +81,7 @@ async function plugin(server, options) {
 		} catch (err) {
 			/**
 			 * Retrieve and log errors from Promise.any()'s AggregateError,
-			 * assists in diagnosing connection issues to JWKS endpoints
+			 * assists in diagnosing connection issues to JWKS endpoints.
 			 */
 			if (err instanceof AggregateError) {
 				err.errors.forEach((element) => {

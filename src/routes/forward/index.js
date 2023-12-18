@@ -95,7 +95,7 @@ async function route(server, options) {
 
 					/**
 					 * Remove headers set by Mirth Connect that are either inaccurate
-					 * or pose security risks
+					 * or pose security risks.
 					 */
 					reply
 						.removeHeader("access-control-allow-headers")

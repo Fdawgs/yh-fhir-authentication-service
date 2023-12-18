@@ -72,7 +72,7 @@ async function plugin(server, config) {
 		 * Helmet sets `x-xss-protection` and `content-security-policy` by default.
 		 * These are only useful for HTML/XML content; the only CSP directive that
 		 * is of use to other content is "frame-ancestors 'none'" to stop responses
-		 * from being wrapped in iframes and used for clickjacking attacks
+		 * from being wrapped in iframes and used for clickjacking attacks.
 		 */
 		.addHook("onSend", async (_req, res, payload) => {
 			if (
@@ -141,7 +141,7 @@ async function plugin(server, config) {
 		/**
 		 * Encapsulate the docs routes into a child context, so that the
 		 * CSP can be relaxed, and cache enabled, without affecting
-		 * security of other routes
+		 * security of other routes.
 		 */
 		.register(async (publicContext) => {
 			const relaxedHelmetConfig = structuredClone(config.helmet);
@@ -195,13 +195,13 @@ async function plugin(server, config) {
 			/**
 			 * Catch 5xx errors, log them, and return a generic 500
 			 * response. This avoids leaking internal server error details
-			 * to the client
+			 * to the client.
 			 */
 			if (
 				(err.statusCode >= 500 && err.statusCode !== 503) ||
 				/**
 				 * Uncaught errors will have a res.statusCode but not
-				 * an err.statusCode as @fastify/sensible sets that
+				 * an err.statusCode as @fastify/sensible sets that.
 				 */
 				(res.statusCode === 200 && !err.statusCode)
 			) {
